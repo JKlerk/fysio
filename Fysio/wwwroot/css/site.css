@@ -1,3 +1,21 @@
 ﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.fade-enter-active {
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease; /* WebKit */
+    -moz-transition: all .3s ease;; /* Mozilla */
+    -o-transition: all .3s ease;; /* Opera */
+    -ms-transition: all .3s ease;; /* Internet Explorer */
+}
+.fade-leave-active {
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease; /* WebKit */
+    -moz-transition: all .3s ease;; /* Mozilla */
+    -o-transition: all .3s ease;; /* Opera */
+    -ms-transition: all .3s ease;; /* Internet Explorer */
+}
+.fade-enter, .fade-leave-to {
+    opacity: 0;
+}
