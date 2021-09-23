@@ -15624,6 +15624,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/jklerk/projects/Fysio/Fysio/Views/Patients/Create.cshtml",
+      "TargetPath": "Views\\Patients\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/jklerk/projects/Fysio/Fysio/Views/Shared/_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "FileKind": "mvc"
@@ -15644,8 +15649,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/jklerk/projects/Fysio/Fysio/Views/Patients/Details.cshtml",
+      "TargetPath": "Views\\Patients\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/jklerk/projects/Fysio/Fysio/Areas/Identity/Pages/_ViewStart.cshtml",
       "TargetPath": "Areas\\Identity\\Pages\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/jklerk/projects/Fysio/Fysio/Views/Patients/Edit.cshtml",
+      "TargetPath": "Views\\Patients\\Edit.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -15659,8 +15674,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/jklerk/projects/Fysio/Fysio/Views/Patients/Index.cshtml",
+      "TargetPath": "Views\\Patients\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/jklerk/projects/Fysio/Fysio/Views/Home/Privacy.cshtml",
       "TargetPath": "Views\\Home\\Privacy.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/jklerk/projects/Fysio/Fysio/Views/Patients/Delete.cshtml",
+      "TargetPath": "Views\\Patients\\Delete.cshtml",
       "FileKind": "mvc"
     }
   ],
