@@ -8,7 +8,9 @@
     "build": "npx tailwind build ./wwwroot/css/site.css -o ./wwwroot/css/output.css",
     "wbp": "webpack wwwroot/source/app.js wwwroot/dist/bundle.js",
     "migration:run": "dotnet ef database update",
-    "watch": "dotnet watch run"
+    "dev": "dotnet watch run",
+    "migration:create": "dotnet ef migrations add InitialCreate",
+    "migration:remove": "dotnet ef migrations remove"
   },
   "keywords": [],
   "author": "",

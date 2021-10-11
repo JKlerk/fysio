@@ -12,9 +12,15 @@ namespace Fysio.Models
 
         public string Gender { get; set; }
 
-
         [DataType(DataType.Date)]
         public DateTime Birthdate { get; set; }
-
+        
+        public string Phonenumber { get; set; }
+        
+        public string City { get; set; }
+        
+        public string Street { get; set; }
+        
+        public string Postalcode { get; set; }
     }
 }
