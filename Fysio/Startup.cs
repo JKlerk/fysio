@@ -72,7 +72,7 @@ namespace Fysio
 
                 endpoints.MapControllerRoute(name: "patients",
                     pattern: "patients/",
-                    defaults: new { controller = "Home", action = "Index" }
+                    defaults: new { controller = "Patients", action = "Index" }
                 );
 
                 endpoints.MapRazorPages();
