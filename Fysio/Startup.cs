@@ -38,7 +38,7 @@ namespace Fysio
             services.AddHealthChecks();
             services.AddRazorPages();
             services.AddDbContext<MvcPatientContext>(options =>
-                    options.UseSqlite(Configuration.GetConnectionString("MvcPatientContext")));
+                    options.UseSqlServer(Configuration.GetConnectionString("MvcPatientContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
