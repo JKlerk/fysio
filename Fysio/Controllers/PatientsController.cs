@@ -44,9 +44,9 @@ namespace Fysio.Controllers
         }
 
         // GET: Patients/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            return View(await _context.Therapists.ToListAsync());
         }
 
         // POST: Patients/Create
@@ -63,7 +63,7 @@ namespace Fysio.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(patient);
+            return View();
         }
         // public async Task<IActionResult> Create([Bind("Id,Name,Email,Gender,Birthdate")] Patient patient)
         // {
