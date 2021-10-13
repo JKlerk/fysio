@@ -1,39 +1,15 @@
-<h1>Create</h1>
-
-<h4>Patient</h4>
-<hr />
-<div v-if="visible" class="fixed transition-transform p-0 left-0 top-0 font-inter w-full z-10">
-    <div class="mt-20 flex justify-center" autocomplete="off">
-        <form
-            action="/Patients/Create"
-            method="POST"
-            v-if="visible"
-            class="bg-white shadow overflow-hidden sm:rounded-lg w-2/3"
-        >
-            <div class="px-4 py-5 sm:px-6 flex">
+<div class="p-0 font-inter w-full z-10">
+    <div class="" autocomplete="off">
+        <form action="/Patients/Create" method="POST" v-if="visible" class="w-full">
+            @Html.AntiForgeryToken()
+            <div class="py-5 flex">
                 <div>
                     <h3 class="text-lg leading-6 font-medium text-gray-900">Patient Information</h3>
                     <p class="mt-1 max-w-2xl text-sm text-gray-500">Patients details and information.</p>
                 </div>
-                <div class="flex flex-1 justify-end my-auto" v-on:click="visible = false">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-6 w-6 cursor-pointer hover:w-12 hover:h-12"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12"
-                        />
-                    </svg>
-                </div>
             </div>
-
-            <div class="grid grid-cols-6 gap-6 px-6">
+            <hr />
+            <div class="grid grid-cols-6 gap-6 mt-5">
                 <div class="col-span-6 sm:col-span-3">
                     <label for="first-name" class="block text-sm font-medium text-gray-700">Full name</label>
                     <input
@@ -42,18 +18,7 @@
                         name="name"
                         id="first-name"
                         autocomplete="off"
-                        class="
-                            mt-1
-                            focus:ring-indigo-500 focus:border-indigo-500
-                            block
-                            w-full
-                            p-2
-                            border
-                            shadow-sm
-                            sm:text-sm
-                            border-gray-300
-                            rounded-md
-                        "
+                        class="ipt focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                 </div>
 
@@ -64,18 +29,7 @@
                         type="text"
                         name="email"
                         id="email-address"
-                        class="
-                            mt-1
-                            focus:ring-indigo-500 focus:border-indigo-500
-                            block
-                            w-full
-                            p-2
-                            border
-                            shadow-sm
-                            sm:text-sm
-                            border-gray-300
-                            rounded-md
-                        "
+                        class="ipt focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         autocomplete="off"
                     />
                 </div>
@@ -96,7 +50,9 @@
                             bg-white
                             rounded-md
                             shadow-sm
-                            focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
+                            focus:outline-none focus:ring-indigo-500
+                            outline-none
+                            focus:border-indigo-500
                             sm:text-sm
                         "
                     >
@@ -108,134 +64,247 @@
 
                 <div class="col-span-6 sm:col-span-3">
                     <label for="birthdate" class="block text-sm font-medium text-gray-700">Birthdate</label>
-                    <input
-                        name="birthdate"
-                        class="
-                            mt-1
-                            focus:ring-indigo-500 focus:border-indigo-500
-                            block
-                            w-full
-                            p-2
-                            border
-                            shadow-sm
-                            sm:text-sm
-                            border-gray-300
-                            rounded-md
-                        "
-                        type="datetime-local"
-                    />
+                    <input name="birthdate" class="ipt focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" type="datetime-local" />
                 </div>
                 <div class="col-span-6 sm:col-span-2">
                     <label for="phone" class="block text-sm font-medium text-gray-700">Phone number </label>
                     <input
-                        placeholder="eg. 06 12 12 12 12"
+                        placeholder="eg. 0612121212"
                         type="text"
                         name="phonenumber"
                         id="phone"
                         autocomplete="off"
-                        class="
-                            mt-1
-                            focus:ring-indigo-500 focus:border-indigo-500
-                            block
-                            w-full
-                            p-2
-                            border
-                            shadow-sm
-                            sm:text-sm
-                            border-gray-300
-                            rounded-md
-                        "
+                        class="ipt focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                 </div>
 
                 <div class="col-span-6 sm:col-span-6 lg:col-span-2">
-                    <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+                    <label for="studentnumber" class="block text-sm font-medium text-gray-700">Studentnumber</label>
                     <input
-                        placeholder="eg. Rotterdam"
+                        placeholder="eg. 2168734"
                         type="text"
-                        name="city"
-                        id="city"
+                        name="studentnumber"
+                        id="studentnumber"
                         autocomplete="off"
-                        class="
-                            mt-1
-                            focus:ring-indigo-500 focus:border-indigo-500
-                            block
-                            w-full
-                            p-2
-                            border
-                            shadow-sm
-                            sm:text-sm
-                            border-gray-300
-                            rounded-md
-                        "
+                        class="ipt focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                 </div>
 
                 <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                    <label for="street" class="block text-sm font-medium text-gray-700"
-                        >Street name / house number</label
-                    >
+                    <label for="altmail" class="block text-sm font-medium text-gray-700">Alternative Email</label>
                     <input
-                        placeholder="eg. Streetname 24"
+                        placeholder="eg. test2@test.com"
                         type="text"
-                        name="street"
-                        id="street"
+                        name="altmail"
+                        id="altmail"
                         autocomplete="off"
-                        class="
-                            mt-1
-                            focus:ring-indigo-500 focus:border-indigo-500
-                            block
-                            w-full
-                            p-2
-                            border
-                            shadow-sm
-                            sm:text-sm
-                            border-gray-300
-                            rounded-md
-                        "
-                    />
-                </div>
-
-                <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                    <label for="postalcode" class="block text-sm font-medium text-gray-700">ZIP / Postal</label>
-                    <input
-                        placeholder="eg. 1232 AB"
-                        type="text"
-                        name="postalcode"
-                        id="postalcode"
-                        autocomplete="off"
-                        class="
-                            mt-1
-                            focus:ring-indigo-500 focus:border-indigo-500
-                            block
-                            w-full
-                            p-2
-                            border
-                            shadow-sm
-                            sm:text-sm
-                            border-gray-300
-                            rounded-md
-                        "
+                        class="ipt focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                 </div>
             </div>
+            <hr class="mt-5" />
 
-            <div class="flex flex-1 justify-end mt-5 pb-6 px-6">
-                <button
-                    value="Create"
-                    type="submit"
-                    v-on:click="addPatient()"
-                    class="bg-blue-500 hover:bg-blue-600 rounded-lg text-white p-2 text-center text-sm font-bold"
-                >
-                    Add patient
-                </button>
+            <!-- DOSSIER STUFF -->
+            <div class="">
+                <div class="py-5">
+                    <div>
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">Patient File</h3>
+                        <p class="mt-1 max-w-2xl text-sm text-gray-500">Patients details and information.</p>
+                    </div>
+                </div>
+                <hr />
+
+                <div class="py-5">
+                    <div class="grid grid-cols-4 gap-6">
+                        <div class="col-span-1">
+                            <label for="altmail" class="block text-sm font-medium text-gray-700">Alternative Email</label>
+                            <input
+                                placeholder="eg. test2@test.com"
+                                type="text"
+                                name="altmail"
+                                id="altmail"
+                                autocomplete="off"
+                                class="ipt focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
+                            />
+                        </div>
+                        <div class="col-span-1">
+                            <label for="altmail" class="block text-sm font-medium text-gray-700">Age</label>
+                            <input
+                                disabled
+                                placeholder="18"
+                                type="text"
+                                name="altmail"
+                                id="altmail"
+                                autocomplete="off"
+                                class="ipt focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
+                            />
+                        </div>
+                        <div class="col-span-1">
+                            <label for="diagcode" class="block text-sm font-medium text-gray-700">Diagnose Code</label>
+                            <input
+                                placeholder="eg. BECHS431"
+                                type="text"
+                                name="diagcode"
+                                id="diagcode"
+                                autocomplete="off"
+                                class="ipt focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
+                            />
+                        </div>
+                        <div class="col-span-1">
+                            <label for="studentteacher" class="block text-sm font-medium text-gray-700">Student / Teacher</label>
+                            <select
+                                id="studentteacher"
+                                name="studentteacher"
+                                autocomplete="off"
+                                class="
+                                    mt-1
+                                    block
+                                    w-full
+                                    py-2
+                                    px-3
+                                    border border-gray-300
+                                    bg-white
+                                    rounded-md
+                                    shadow-sm
+                                    focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
+                                    sm:text-sm
+                                "
+                            >
+                                <option>Student</option>
+                                <option>Teacher</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <label for="altmail" class="block text-sm font-medium text-gray-700">Issue description</label>
+                        <textarea
+                            placeholder="A lot of text"
+                            type="text"
+                            name="altmail"
+                            id="altmail"
+                            autocomplete="off"
+                            class="ipt focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
+                        ></textarea>
+                    </div>
+                    <div class="grid grid-cols-4 gap-6 mt-6">
+                        <div class="col-span-1">
+                            <label for="studentteacher" class="block text-sm font-medium text-gray-700">Interviewer</label>
+                            <select
+                                id="studentteacher"
+                                name="studentteacher"
+                                autocomplete="off"
+                                class="
+                                    mt-1
+                                    block
+                                    w-full
+                                    py-2
+                                    px-3
+                                    border border-gray-300
+                                    bg-white
+                                    rounded-md
+                                    shadow-sm
+                                    focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
+                                    sm:text-sm
+                                "
+                            >
+                                <option>Student</option>
+                                <option>asd Teacher</option>
+                            </select>
+                        </div>
+                        <div class="col-span-1">
+                            <label for="studentteacher" class="block text-sm font-medium text-gray-700">Under supervision from:</label>
+                            <select
+                                id="studentteacher"
+                                name="studentteacher"
+                                autocomplete="off"
+                                class="
+                                    ipt
+                                    w-full
+                                    py-2
+                                    px-3
+                                    bg-white
+                                    focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
+                                    sm:text-sm
+                                "
+                            >
+                                <option>Mr Kaas</option>
+                                <option>Mr Lekker</option>
+                            </select>
+                        </div>
+                        <div class="col-span-1">
+                            <label for="practitioner" class="block text-sm font-medium text-gray-700">Practitioner:</label>
+                            <select
+                                id="practitioner"
+                                name="practitioner"
+                                autocomplete="off"
+                                class="
+                                    ipt
+                                    w-full
+                                    py-2
+                                    px-3
+                                    bg-white
+                                    focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
+                                    sm:text-sm
+                                "
+                            >
+                                <option>Jan</option>
+                                <option>Kees</option>
+                            </select>
+                        </div>
+                        <div class="col-span-1">
+                            <label for="registerdate" class="block text-sm font-medium text-gray-700">Register Date</label>
+                            <input
+                                name="registerdate"
+                                class="ipt focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                type="datetime-local"
+                            />
+                        </div>
+                        <div class="col-span-1">
+                            <label for="discharge" class="block text-sm font-medium text-gray-700">Discharge Date</label>
+                            <input
+                                name="discharge"
+                                class="ipt focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                type="datetime-local"
+                            />
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <label for="notes" class="block text-sm font-medium text-gray-700">Notes: </label>
+                        <textarea
+                            placeholder="A lot of text"
+                            type="text"
+                            name="notes"
+                            id="notes"
+                            autocomplete="off"
+                            class="ipt focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
+                        ></textarea>
+                    </div>
+                    <div class="mt-6">
+                        <label for="notes" class="block text-sm font-medium text-gray-700">Treament plan: </label>
+                        <textarea
+                            placeholder="A lot of text"
+                            type="text"
+                            name="notes"
+                            id="notes"
+                            autocomplete="off"
+                            class="ipt focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
+                        ></textarea>
+                    </div>
+                </div>
+                <!-- END DOSSIER STUFF -->
+                <div class="flex flex-1 justify-end mt-5 pb-6 px-6">
+                    <button
+                        value="Create"
+                        type="submit"
+                        v-on:click="addPatient()"
+                        class="bg-blue-500 hover:bg-blue-600 rounded-lg text-white p-2 text-center text-sm font-bold"
+                    >
+                        Add patient
+                    </button>
+                </div>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts { @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} }

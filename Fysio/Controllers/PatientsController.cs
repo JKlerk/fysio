@@ -22,7 +22,7 @@ namespace Fysio.Controllers
         // GET: Patients
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Patients.ToListAsync());
+            return View(await _context.Patients.Include(e => e.PatientFiles).ToListAsync());
         }
 
         // GET: Patients/Details/5

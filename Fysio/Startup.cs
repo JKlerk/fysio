@@ -27,6 +27,11 @@ namespace Fysio
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<FysioContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("MvcPatientContext")));
+            
+            services.AddDatabaseDeveloperPageExceptionFilter();
+            
             //services.AddDbContext<ApplicationDbContext>(options =>
             //    options.UseSqlite(
             //        Configuration.GetConnectionString("DefaultConnection")));
@@ -38,8 +43,7 @@ namespace Fysio
             services.AddControllersWithViews();
             services.AddHealthChecks();
             services.AddRazorPages();
-            services.AddDbContext<FysioContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("MvcPatientContext")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

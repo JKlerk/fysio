@@ -11,7 +11,7 @@ namespace Fysio.Models
 
         public string Description { get; set; }
 
-        public IPhysioTherapist Practitioner { get; set; }
+        // public IPhysioTherapist Practitioner { get; set; }
         
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
