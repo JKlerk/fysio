@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fysio.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -37,7 +38,7 @@ namespace Fysio
             services.AddControllersWithViews();
             services.AddHealthChecks();
             services.AddRazorPages();
-            services.AddDbContext<MvcPatientContext>(options =>
+            services.AddDbContext<FysioContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("MvcPatientContext")));
         }
 

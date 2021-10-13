@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fysio.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,9 +12,9 @@ namespace Fysio.Controllers
 {
     public class PatientsController : Controller
     {
-        private readonly MvcPatientContext _context;
+        private readonly FysioContext _context;
 
-        public PatientsController(MvcPatientContext context)
+        public PatientsController(FysioContext context)
         {
             _context = context;
         }
@@ -21,7 +22,7 @@ namespace Fysio.Controllers
         // GET: Patients
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Patient.ToListAsync());
+            return View(await _context.Patients.ToListAsync());
         }
 
         // GET: Patients/Details/5
@@ -32,7 +33,7 @@ namespace Fysio.Controllers
                 return NotFound();
             }
 
-            var patient = await _context.Patient
+            var patient = await _context.Patients
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (patient == null)
             {
@@ -83,7 +84,7 @@ namespace Fysio.Controllers
                 return NotFound();
             }
 
-            var patient = await _context.Patient.FindAsync(id);
+            var patient = await _context.Patients.FindAsync(id);
             if (patient == null)
             {
                 return NotFound();
@@ -134,7 +135,7 @@ namespace Fysio.Controllers
                 return NotFound();
             }
 
-            var patient = await _context.Patient
+            var patient = await _context.Patients
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (patient == null)
             {
@@ -149,15 +150,15 @@ namespace Fysio.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var patient = await _context.Patient.FindAsync(id);
-            _context.Patient.Remove(patient);
+            var patient = await _context.Patients.FindAsync(id);
+            _context.Patients.Remove(patient);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool PatientExists(int id)
         {
-            return _context.Patient.Any(e => e.Id == id);
+            return _context.Patients.Any(e => e.Id == id);
         }
     }
 }

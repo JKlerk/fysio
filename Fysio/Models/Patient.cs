@@ -22,5 +22,7 @@ namespace Fysio.Models
         public string Street { get; set; }
         
         public string Postalcode { get; set; }
+
+        public string SsNumber { get; set; }
     }
 }

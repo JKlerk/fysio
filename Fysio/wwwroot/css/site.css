@@ -3,19 +3,24 @@
 @tailwind utilities;
 
 .fade-enter-active {
-    transition: all .3s ease;
-    -webkit-transition: all .3s ease; /* WebKit */
-    -moz-transition: all .3s ease;; /* Mozilla */
-    -o-transition: all .3s ease;; /* Opera */
-    -ms-transition: all .3s ease;; /* Internet Explorer */
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease; /* WebKit */
+    -moz-transition: all 0.3s ease; /* Mozilla */
+    -o-transition: all 0.3s ease; /* Opera */
+    -ms-transition: all 0.3s ease; /* Internet Explorer */
 }
 .fade-leave-active {
-    transition: all .3s ease;
-    -webkit-transition: all .3s ease; /* WebKit */
-    -moz-transition: all .3s ease;; /* Mozilla */
-    -o-transition: all .3s ease;; /* Opera */
-    -ms-transition: all .3s ease;; /* Internet Explorer */
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease; /* WebKit */
+    -moz-transition: all 0.3s ease; /* Mozilla */
+    -o-transition: all 0.3s ease; /* Opera */
+    -ms-transition: all 0.3s ease; /* Internet Explorer */
 }
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
     opacity: 0;
+}
+
+.ipt {
+    @apply mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md;
 }

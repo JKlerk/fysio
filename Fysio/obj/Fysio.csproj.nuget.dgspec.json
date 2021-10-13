@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/jklerk/projects/Fysio/Fysio/Fysio.csproj": {}
+    "C:\\Users\\joeyd\\projects\\fysio\\Fysio\\Fysio.csproj": {}
   },
   "projects": {
-    "/Users/jklerk/projects/Fysio/Fysio/Fysio.csproj": {
+    "C:\\Users\\joeyd\\projects\\fysio\\Fysio\\Fysio.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/jklerk/projects/Fysio/Fysio/Fysio.csproj",
+        "projectUniqueName": "C:\\Users\\joeyd\\projects\\fysio\\Fysio\\Fysio.csproj",
         "projectName": "Fysio",
-        "projectPath": "/Users/jklerk/projects/Fysio/Fysio/Fysio.csproj",
-        "packagesPath": "/Users/jklerk/.nuget/packages/",
-        "outputPath": "/Users/jklerk/projects/Fysio/Fysio/obj/",
+        "projectPath": "C:\\Users\\joeyd\\projects\\fysio\\Fysio\\Fysio.csproj",
+        "packagesPath": "C:\\Users\\joeyd\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\joeyd\\projects\\fysio\\Fysio\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/jklerk/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\joeyd\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -91,7 +93,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.401/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
