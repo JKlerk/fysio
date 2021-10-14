@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.DomainServices;
 using Fysio.Data;
+using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -31,15 +33,9 @@ namespace Fysio
                 options.UseSqlServer(Configuration.GetConnectionString("MvcPatientContext")));
             
             services.AddDatabaseDeveloperPageExceptionFilter();
+
+            services.AddScoped<IPatientRepository, PatientRepository>();
             
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //    options.UseSqlite(
-            //        Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDatabaseDeveloperPageExceptionFilter();
-
-            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            //    .AddEntityFrameworkStores<ApplicationDbContext>();
-
             services.AddControllersWithViews();
             services.AddHealthChecks();
             services.AddRazorPages();

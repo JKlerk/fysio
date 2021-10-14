@@ -373,3 +373,9 @@ C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Fysio.dll
 C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\ref\Fysio.dll
 C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Fysio.pdb
 C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Fysio.genruntimeconfig.cache
+C:\Users\joeyd\projects\fysio\Fysio\bin\Debug\net5.0\Core.Domain.dll
+C:\Users\joeyd\projects\fysio\Fysio\bin\Debug\net5.0\Core.DomainServices.dll
+C:\Users\joeyd\projects\fysio\Fysio\bin\Debug\net5.0\Infrastructure.dll
+C:\Users\joeyd\projects\fysio\Fysio\bin\Debug\net5.0\Infrastructure.pdb
+C:\Users\joeyd\projects\fysio\Fysio\bin\Debug\net5.0\Core.Domain.pdb
+C:\Users\joeyd\projects\fysio\Fysio\bin\Debug\net5.0\Core.DomainServices.pdb

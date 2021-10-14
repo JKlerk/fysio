@@ -1,7 +1,7 @@
-﻿using Fysio.Models;
+﻿using Core.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace Fysio.Data
+namespace Infrastructure
 {
     public class FysioContext : DbContext
     {

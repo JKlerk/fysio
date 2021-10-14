@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Fysio.Models;
+using Core.Domain;
+using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Fysio.Data
