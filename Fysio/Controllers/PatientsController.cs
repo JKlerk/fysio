@@ -4,19 +4,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.Domain;
 using Core.DomainServices;
+using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Fysio.Controllers
 {
     public class PatientsController : Controller
     {
-        private IPatientRepository _patientRepository;
+        private readonly IPatientRepository _patientRepository;
+        private readonly ITherapistRepository _therapistRepository;
         
 
-        public PatientsController(IPatientRepository patientRepository)
+        public PatientsController(IPatientRepository patientRepository, ITherapistRepository therapistRepository)
         {
             _patientRepository = patientRepository;
+            _therapistRepository = therapistRepository;
         }
 
         // GET: Patients
@@ -32,71 +36,75 @@ namespace Fysio.Controllers
         }
 
         // GET: Patients/Details/5
-        // public async Task<IActionResult> Details(int? id)
-        // {
-        //     if (id == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //
-        //     var patient = await _context.Patients
-        //         .FirstOrDefaultAsync(m => m.Id == id);
-        //     if (patient == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //
-        //     return View(patient);
-        // }
-        //
-        // // GET: Patients/Create
-        // public async Task<IActionResult> Create()
-        // {
-        //     return View(await _context.Therapists.ToListAsync());
-        // }
-        //
-        // // POST: Patients/Create
-        // // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var patient = _patientRepository.FindPatient(id).Result;
+            // var _context = new FysioContext();
+            //
+            // var patient = await _patientRepository.Find(id)
+            //     .FirstOrDefaultAsync(m => m.Id == id);
+            // if (patient == null)
+            // {
+            //     return NotFound();
+            // }
+            //
+            // return View(patient);
+            return View(patient);
+        }
+        
+        // GET: Patients/Create
+        public async Task<IActionResult> Create()
+        {
+            return View( _therapistRepository.GetAll());
+        }
+        
+        // POST: Patients/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         // [HttpPost]
         // [ValidateAntiForgeryToken]
         // public async Task<IActionResult> Create(Patient patient)
         // {
         //
+        //     // if (ModelState.IsValid)
+        //     // {
+        //     //     _context.Add(patient);
+        //     //     await _context.SaveChangesAsync();
+        //     //     return RedirectToAction(nameof(Index));
+        //     // }
+        //     // return View();
+        // }
+        // public async Task<IActionResult> Create([Bind("Id,Name,Email,Gender,Birthdate")] Patient patient)
+        // {
         //     if (ModelState.IsValid)
         //     {
         //         _context.Add(patient);
         //         await _context.SaveChangesAsync();
         //         return RedirectToAction(nameof(Index));
         //     }
-        //     return View();
-        // }
-        // // public async Task<IActionResult> Create([Bind("Id,Name,Email,Gender,Birthdate")] Patient patient)
-        // // {
-        // //     if (ModelState.IsValid)
-        // //     {
-        // //         _context.Add(patient);
-        // //         await _context.SaveChangesAsync();
-        // //         return RedirectToAction(nameof(Index));
-        // //     }
-        // //     return View(patient);
-        // // }
-        //
-        // // GET: Patients/Edit/5
-        // public async Task<IActionResult> Edit(int? id)
-        // {
-        //     if (id == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //
-        //     var patient = await _context.Patients.FindAsync(id);
-        //     if (patient == null)
-        //     {
-        //         return NotFound();
-        //     }
         //     return View(patient);
         // }
+        
+        // GET: Patients/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+        
+            var patient = await _patientRepository.FindPatient(id);
+            if (patient == null)
+            {
+                return NotFound();
+            }
+            return View(patient);
+        }
         //
         // // POST: Patients/Edit/5
         // // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -151,16 +159,18 @@ namespace Fysio.Controllers
         //     return View(patient);
         // }
         //
-        // // POST: Patients/Delete/5
-        // [HttpPost, ActionName("Delete")]
-        // [ValidateAntiForgeryToken]
-        // public async Task<IActionResult> DeleteConfirmed(int id)
-        // {
-        //     var patient = await _context.Patients.FindAsync(id);
-        //     _context.Patients.Remove(patient);
-        //     await _context.SaveChangesAsync();
-        //     return RedirectToAction(nameof(Index));
-        // }
+        // POST: Patients/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var patient = await _patientRepository.FindPatient(id);
+           
+            _patientRepository.RemovePatient(patient);
+            _patientRepository.SaveChangesAsync();
+            
+            return RedirectToAction(nameof(Index));
+        }
         //
         // private bool PatientExists(int id)
         // {

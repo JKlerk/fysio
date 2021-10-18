@@ -1,74 +1,78 @@
-@model Fysio.Models.Patient
+@model Core.Domain.Patient
+<!-- <div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label> <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
 
-@{
-ViewData["Title"] = "Edit";
-}
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label> <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
 
-@* <div class="row"> *@
-    @* <div class="col-md-4"> *@
-        @* <form asp-action="Edit"> *@
-            @* <div asp-validation-summary="ModelOnly" class="text-danger"></div> *@
-            @* <input type="hidden" asp-for="Id" /> *@
-            @* <div class="form-group"> *@
-                @* <label asp-for="Name" class="control-label"></label> *@
-                @* <input asp-for="Name" class="form-control" /> *@
-                @* <span asp-validation-for="Name" class="text-danger"></span> *@
-                @* </div> *@
-            @* <div class="form-group"> *@
-                @* <label asp-for="Email" class="control-label"></label> *@
-                @* <input asp-for="Email" class="form-control" /> *@
-                @* <span asp-validation-for="Email" class="text-danger"></span> *@
-                @* </div> *@
-            @* <div class="form-group"> *@
-                @* <label asp-for="Gender" class="control-label"></label> *@
-                @* <input asp-for="Gender" class="form-control" /> *@
-                @* <span asp-validation-for="Gender" class="text-danger"></span> *@
-                @* </div> *@
-            @* <div class="form-group"> *@
-                @* <label asp-for="Birthdate" class="control-label"></label> *@
-                @* <input asp-for="Birthdate" class="form-control" /> *@
-                @* <span asp-validation-for="Birthdate" class="text-danger"></span> *@
-                @* </div> *@
-            @* <div class="form-group"> *@
-                @* <input type="submit" value="Save" class="btn btn-primary" /> *@
-                @* </div> *@
-            @* </form> *@
-        @* </div> *@
-    @* </div> *@
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label"></label> <input asp-for="Gender" class="form-control" />
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
 
-<form form asp-action="Edit" class="bg-white shadow overflow-hidden sm:rounded-lg w-2/3">
-    <div class="px-4 py-5 sm:px-6 flex">
+            <div class="form-group">
+                <label asp-for="Birthdate" class="control-label"></label> <input asp-for="Birthdate" class="form-control" />
+                <span asp-validation-for="Birthdate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group"><input type="submit" value="Save" class="btn btn-primary" /></div>
+        </form>
+    </div>
+</div> -->
+
+<form form asp-action="Edit" class="bg-white overflow-hidden sm:rounded-lg w-2/3">
+    <div class="py-5 flex">
         <div>
-            <h3 class="text-lg leading-6 font-medium text-gray-900">
-                Patient Information
-            </h3>
-            <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                Patients details and information.
-            </p>
+            <h3 class="text-lg leading-6 font-medium text-gray-900">Patient Information</h3>
+            <p class="mt-1 max-w-2xl text-sm text-gray-500">Patients details and information.</p>
         </div>
     </div>
-
-    <div class="grid grid-cols-6 gap-6 px-6">
+    <hr />
+    <div class="grid grid-cols-6 gap-6 mt-4">
         <div class="col-span-6 sm:col-span-3">
-            <label for="first-name" class="block text-sm font-medium text-gray-700">Full
-                name</label>
-            <input asp-for="Name" placeholder="John Doe" type="text" name="name" id="first-name" autocomplete="off"
-                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 border shadow-sm sm:text-sm border-gray-300 rounded-md" />
+            <label for="first-name" class="block text-sm font-medium text-gray-700">Full name</label>
+            <input
+                asp-for="Name"
+                placeholder="John Doe"
+                type="text"
+                name="name"
+                id="first-name"
+                autocomplete="off"
+                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 border shadow-sm sm:text-sm border-gray-300 rounded-md"
+            />
         </div>
 
         <div class="col-span-6 sm:col-span-4">
-            <label for="email-address" class="block text-sm font-medium text-gray-700">Email
-                address</label>
-            <input asp-for="Email" placeholder="eg. email@email.com" type="text" name="email" id="email-address"
+            <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label>
+            <input
+                asp-for="Email"
+                placeholder="eg. email@email.com"
+                type="text"
+                name="email"
+                id="email-address"
                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 border shadow-sm sm:text-sm border-gray-300 rounded-md"
-                autocomplete="off" />
+                autocomplete="off"
+            />
         </div>
 
         <div class="col-span-6 sm:col-span-3">
-            <label for="gender" class="block text-sm font-medium text-gray-700">Gender /
-                Sex</label>
-            <select asp-for="Gender" id="gender" name="gender" autocomplete="off"
-                class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            <label for="gender" class="block text-sm font-medium text-gray-700">Gender / Sex</label>
+            <select
+                asp-for="Gender"
+                id="gender"
+                name="gender"
+                autocomplete="off"
+                class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            >
                 <option>Male</option>
                 <option>Female</option>
                 <option>Other</option>
@@ -77,57 +81,111 @@ ViewData["Title"] = "Edit";
 
         <div class="col-span-6 sm:col-span-3">
             <label for="birthdate" class="block text-sm font-medium text-gray-700">Birthdate</label>
-            <input asp-for="Birthdate" name="birthdate"
+            <input
+                asp-for="Birthdate"
+                name="birthdate"
                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 border shadow-sm sm:text-sm border-gray-300 rounded-md"
-                type="datetime-local" />
+                type="datetime-local"
+            />
         </div>
         <div class="col-span-6 sm:col-span-2">
-            <label for="phone" class="block text-sm font-medium text-gray-700">Phone number
-            </label>
-            <input asp-for="PhoneNumber" placeholder="eg. 06 12 12 12 12" type="text" name="phonenumber" id="phone"
+            <label for="phone" class="block text-sm font-medium text-gray-700">Phone number </label>
+            <input
+                asp-for="PhoneNumber"
+                placeholder="eg. 06 12 12 12 12"
+                type="text"
+                name="phonenumber"
+                id="phone"
                 autocomplete="off"
-                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 border shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 border shadow-sm sm:text-sm border-gray-300 rounded-md"
+            />
         </div>
 
-        <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+        <!-- <div class="col-span-6 sm:col-span-6 lg:col-span-2">
             <label for="city" class="block text-sm font-medium text-gray-700">City</label>
-            @* <input asp-for="City" placeholder="eg. Rotterdam" type="text" name="city" id="city" autocomplete="off" *@
-                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 border shadow-sm sm:text-sm border-gray-300 rounded-md" />
+
+            <input
+                asp-for="City"
+                placeholder="eg. Rotterdam"
+                type="text"
+                name="city"
+                id="city"
+                autocomplete="off"
+                class="
+                    mt-1
+                    focus:ring-indigo-500 focus:border-indigo-500
+                    block
+                    w-full
+                    p-2
+                    border
+                    shadow-sm
+                    sm:text-sm
+                    border-gray-300
+                    rounded-md
+                "
+            />
         </div>
 
         <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-            <label for="street" class="block text-sm font-medium text-gray-700">Street name /
-                house number</label>
-            @* <input asp-for="Street" placeholder="eg. Streetname 24" type="text" name="street" id="street" *@
+            <label for="street" class="block text-sm font-medium text-gray-700">Street name / house number</label>
+
+            <input
+                asp-for="Street"
+                placeholder="eg. Streetname 24"
+                type="text"
+                name="street"
+                id="street"
                 autocomplete="off"
-                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 border shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                class="
+                    mt-1
+                    focus:ring-indigo-500 focus:border-indigo-500
+                    block
+                    w-full
+                    p-2
+                    border
+                    shadow-sm
+                    sm:text-sm
+                    border-gray-300
+                    rounded-md
+                "
+            />
         </div>
 
         <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-            <label for="postalcode" class="block text-sm font-medium text-gray-700">ZIP /
-                Postal</label>
-            @* <input asp-for="Postalcode" placeholder="eg. 1232 AB" type="text" name="postalcode" id="postalcode" *@
+            <label for="postalcode" class="block text-sm font-medium text-gray-700">ZIP / Postal</label>
+
+            <input
+                asp-for="Postalcode"
+                placeholder="eg. 1232 AB"
+                type="text"
+                name="postalcode"
+                id="postalcode"
                 autocomplete="off"
-                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 border shadow-sm sm:text-sm border-gray-300 rounded-md" />
-        </div>
+                class="
+                    mt-1
+                    focus:ring-indigo-500 focus:border-indigo-500
+                    block
+                    w-full
+                    p-2
+                    border
+                    shadow-sm
+                    sm:text-sm
+                    border-gray-300
+                    rounded-md
+                "
+            />
+        </div> -->
     </div>
-    <div class="flex px-6 my-5">
+    <div class="flex my-5">
         <div>
-            <button asp-action="Index"
-                class="bg-blue-500 hover:bg-blue-600 rounded-lg text-white p-2 text-center text-sm font-bold">
-                Back to overview
-            </button>
+            <button asp-action="Index" class="bg-blue-500 hover:bg-blue-600 rounded-lg text-white p-2 text-center text-sm font-bold">Back to overview</button>
         </div>
         <div class="flex flex-1 justify-end">
-            <button value="Create" type="submit" v-on:click="addPatient()"
-                class="bg-green-500 hover:bg-green-600 rounded-lg text-white p-2 text-center text-sm font-bold">
-                Edit
-                patient
+            <button value="Create" type="submit" v-on:click="addPatient()" class="bg-green-500 hover:bg-green-600 rounded-lg text-white p-2 text-center text-sm font-bold">
+                Edit patient
             </button>
         </div>
     </div>
 </form>
 
-@section Scripts {
-@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+@section Scripts { @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} }

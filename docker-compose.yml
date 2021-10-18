@@ -1,10 +1,11 @@
-mssql:
-  image: 'mcr.microsoft.com/mssql/server'
-#   user: root
-  ports:
-      - '1433:1433'
-  environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=XEK8bcz9grc_vfm7cfj
-  # volumes:
-  #     - './drive:/var/opt/mssql'
+services:
+    mssql:
+        image: "mcr.microsoft.com/mssql/server"
+        #   user: root
+        ports:
+            - "1433:1433"
+        environment:
+            - ACCEPT_EULA=Y
+            - SA_PASSWORD=XEK8bcz9grc_vfm7cfj
+        # volumes:
+        #     - './drive:/var/opt/mssql'

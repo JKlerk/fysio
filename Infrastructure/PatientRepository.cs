@@ -10,8 +10,8 @@ namespace Infrastructure
     public class PatientRepository : IPatientRepository
     {
 
-        private FysioContext _context;
-        
+        private static FysioContext _context;
+
         public PatientRepository(FysioContext context)
         {
             _context = context;
@@ -21,7 +21,21 @@ namespace Infrastructure
         {
             return _context.Patients.ToList();
         }
-        
-       
+
+        public async Task<Patient> FindPatient(int? id)
+        {
+            return await _context.Patients
+                .FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        public void RemovePatient(Patient patient)
+        {
+            _context.Patients.Remove(patient);
+        }
+
+        public void SaveChangesAsync()
+        {
+            _context.SaveChangesAsync();
+        }
     }
 }

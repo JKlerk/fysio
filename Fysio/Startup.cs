@@ -35,6 +35,7 @@ namespace Fysio
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddScoped<ITherapistRepository, TherapistRepository>();
             
             services.AddControllersWithViews();
             services.AddHealthChecks();

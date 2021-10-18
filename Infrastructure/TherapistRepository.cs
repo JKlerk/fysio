@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Core.Domain;
 using Core.DomainServices;
 
@@ -6,9 +7,15 @@ namespace Infrastructure
 {
     public class TherapistRepository : ITherapistRepository
     {
-        public IQueryable<Therapist> GetAll()
+        private FysioContext _context;
+
+        public TherapistRepository(FysioContext context)
         {
-            throw new System.NotImplementedException();
+            _context = context;
+        }
+        public List<Therapist> GetAll()
+        {
+            return _context.Therapists.ToList();
         }
     }
 }
