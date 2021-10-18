@@ -2307,7 +2307,7 @@
       },
       "Core.Domain/1.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.8",
+        "framework": ".NETCoreApp,Version=v5.0",
         "compile": {
           "bin/placeholder/Core.Domain.dll": {}
         },
