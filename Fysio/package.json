@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "npx tailwind build ./wwwroot/css/site.css -o ./wwwroot/css/output.css",
+        "build": "npx tailwindcss -i ./wwwroot/css/site.css -o ./wwwroot/css/output.css",
         "wbp": "webpack wwwroot/source/app.js wwwroot/dist/bundle.js",
         "migration:run": "dotnet ef database update",
         "dev": "dotnet watch run",
@@ -17,8 +17,11 @@
     "license": "ISC",
     "dependencies": {
         "auto-prefixer": "^0.4.2",
-        "postcss": "^8.3.6",
-        "tailwindcss": "^2.2.15",
         "webpack": "^5.52.1"
+    },
+    "devDependencies": {
+        "autoprefixer": "^10.3.7",
+        "postcss": "^8.3.11",
+        "tailwindcss": "^2.2.17"
     }
 }

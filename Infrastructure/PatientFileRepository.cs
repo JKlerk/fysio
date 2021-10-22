@@ -7,12 +7,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
-    public class PatientRepository : IPatientRepository
+    public class PatientFileRepository : IPatientFileRepository
     {
 
         private static FysioContext _context;
 
-        public PatientRepository(FysioContext context)
+        public PatientFileRepository(FysioContext context)
         {
             _context = context;
         }
@@ -33,20 +33,16 @@ namespace Infrastructure
             _context.Patients.Remove(patient);
         }
 
-        public void AddPatient(Patient patient)
+        public void Add(PatientFile patientFile)
         {
-            _context.Patients.Add(patient);
-            
+            _context.PatientFiles.Add(patientFile);
         }
+        
 
         public void SaveChanges()
         {
             _context.SaveChanges();
         }
-
-        public void SaveChangesAsync()
-        {
-            _context.SaveChangesAsync();
-        }
+        
     }
 }

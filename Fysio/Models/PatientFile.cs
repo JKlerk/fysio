@@ -34,6 +34,8 @@ namespace Fysio.Models
 
         public string Notes { get; set; }
 
+        public string TherapistType { get; set; }
+
         public string TreatmentPlan { get; set; }
 
         public int PatientId { get; set; }

@@ -35,6 +35,7 @@ namespace Fysio
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddScoped<IPatientFileRepository, PatientFileRepository>();
             services.AddScoped<ITherapistRepository, TherapistRepository>();
             
             services.AddControllersWithViews();
@@ -70,6 +71,12 @@ namespace Fysio
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Patient}/{action=Index}/{id?}"
+                );
+
+                endpoints.MapControllerRoute(
+                    name: "Dashboard",
+                    pattern: "/",
+                    defaults: new { controller = "Dashboard", action = "Index" }
                 );
                 
                 //

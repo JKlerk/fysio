@@ -20,7 +20,7 @@ namespace Fysio.Data
 
             var patients = new Patient[]
             {
-            new Patient{ Name="Carson",Email="test@test.com", PhoneNumber= "0612121212", Gender = "Male", Birthdate = DateTime.Parse("2002-09-01"), PatientNumber = Guid.NewGuid().ToString()},
+            new Patient{ Name="Carson",Email="test@test.com", PhoneNumber= "0612121212", Gender = "Male", Birthdate = DateTime.Parse("2002-09-01"), PatientNumber = Guid.NewGuid().ToString(), StaffNumber = "2168734"},
             };
             foreach (Patient s in patients)
             {
@@ -53,6 +53,7 @@ namespace Fysio.Data
                 PractitionerId = therapists[0].Id, 
                 RegisterDate = DateTime.Parse("2002-09-01"), 
                 Notes = "Empty", 
+                TherapistType = "Student",
                 PatientId = patients[0].Id
             },
             };

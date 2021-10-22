@@ -25,6 +25,11 @@ namespace Core.Domain
         public int? PatientId { get; set; }
         public Patient Patient { get; set; }
 
+        public bool isStudent()
+        {
+            return (StudentNumber != null) ? true : false;
+        }
+        
         // public ICollection<PatientFile> PatientFiles { get; set; }
     }
 }

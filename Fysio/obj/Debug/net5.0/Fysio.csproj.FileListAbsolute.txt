@@ -352,7 +352,6 @@ C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Fysio.TagHelpers.input.cach
 C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Fysio.TagHelpers.output.cache
 C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Fysio.RazorCoreGenerate.cache
 C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
-C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Views\Patients\Create.cshtml.g.cs
 C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Views\Patients\Delete.cshtml.g.cs
@@ -379,3 +378,5 @@ C:\Users\joeyd\projects\fysio\Fysio\bin\Debug\net5.0\Infrastructure.dll
 C:\Users\joeyd\projects\fysio\Fysio\bin\Debug\net5.0\Infrastructure.pdb
 C:\Users\joeyd\projects\fysio\Fysio\bin\Debug\net5.0\Core.Domain.pdb
 C:\Users\joeyd\projects\fysio\Fysio\bin\Debug\net5.0\Core.DomainServices.pdb
+C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
+C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Views\Dashboard\Index.cshtml.g.cs

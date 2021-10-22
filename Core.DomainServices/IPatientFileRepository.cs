@@ -4,7 +4,7 @@ using Core.Domain;
 
 namespace Core.DomainServices
 {
-    public interface IPatientRepository
+    public interface IPatientFileRepository
     {
         IEnumerable<Patient> GetAll();
 
@@ -12,7 +12,7 @@ namespace Core.DomainServices
 
         void RemovePatient(Patient patient);
 
-        public void AddPatient(Patient patient);
+        public void Add(PatientFile patientFile);
         
         void SaveChanges();
     }

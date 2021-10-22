@@ -9,6 +9,8 @@ namespace Fysio.Models
         public int Id { get; set; }
 
         public string PatientNumber { get; set; }
+        
+        public string StaffNumber { get; set; }
 
         public string Name { get; set; }
 

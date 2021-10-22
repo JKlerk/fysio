@@ -15,12 +15,15 @@ namespace Fysio.Controllers
     {
         private readonly IPatientRepository _patientRepository;
         private readonly ITherapistRepository _therapistRepository;
+        private readonly IPatientFileRepository _patientFileRepository;
         
 
-        public PatientsController(IPatientRepository patientRepository, ITherapistRepository therapistRepository)
+        public PatientsController(IPatientRepository patientRepository, ITherapistRepository therapistRepository, IPatientFileRepository patientFileRepository)
         {
             _patientRepository = patientRepository;
             _therapistRepository = therapistRepository;
+            _patientFileRepository = patientFileRepository;
+
         }
 
         // GET: Patients
@@ -66,19 +69,23 @@ namespace Fysio.Controllers
         // POST: Patients/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        // [HttpPost]
-        // [ValidateAntiForgeryToken]
-        // public async Task<IActionResult> Create(Patient patient)
-        // {
-        //
-        //     // if (ModelState.IsValid)
-        //     // {
-        //     //     _context.Add(patient);
-        //     //     await _context.SaveChangesAsync();
-        //     //     return RedirectToAction(nameof(Index));
-        //     // }
-        //     // return View();
-        // }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Patient patient, PatientFile patientFile)
+        {
+        
+            if (ModelState.IsValid)
+            {
+                patient.PatientNumber = Guid.NewGuid().ToString();
+                _patientRepository.AddPatient(patient);
+                _patientRepository.SaveChanges();
+                patientFile.PatientId = patient.Id;
+                patientFile.Age = patient.CalculateAge();
+                _patientFileRepository.Add(patientFile);
+                _patientRepository.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
         // public async Task<IActionResult> Create([Bind("Id,Name,Email,Gender,Birthdate")] Patient patient)
         // {
         //     if (ModelState.IsValid)
@@ -167,7 +174,7 @@ namespace Fysio.Controllers
             var patient = await _patientRepository.FindPatient(id);
            
             _patientRepository.RemovePatient(patient);
-            _patientRepository.SaveChangesAsync();
+            _patientRepository.SaveChanges();
             
             return RedirectToAction(nameof(Index));
         }
