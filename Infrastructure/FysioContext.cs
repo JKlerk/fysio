@@ -19,8 +19,11 @@ namespace Infrastructure
             //     .HasMany(p => p.PatientFile);
 
             modelBuilder.Entity<Patient>().ToTable("Patients");
+            modelBuilder.Entity<Patient>().HasOne(p => p.PatientFile).WithOne(pf => pf.Patient);
+            
             modelBuilder.Entity<Therapist>().ToTable("Therapists");
             modelBuilder.Entity<PatientFile>().ToTable("PatientsFile");
+            modelBuilder.Entity<PatientFile>().HasOne(p => p.Patient);
         }
     }
 }

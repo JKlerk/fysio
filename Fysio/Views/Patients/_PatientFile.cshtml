@@ -15,6 +15,7 @@
                 <div class="col-span-1">
                     <label for="diagcode" class="block text-sm font-medium text-gray-700">Diagnose Code</label>
                     <input
+                        asp-for="DiagnoseCode"
                         placeholder="eg. BECHS431"
                         type="text"
                         name="DiagnoseCode"
@@ -26,6 +27,7 @@
                 <div class="col-span-1">
                     <label for="TherapistType" class="block text-sm font-medium text-gray-700">Student / Teacher</label>
                     <select
+                        asp-for="TherapistType"
                         id="TherapistType"
                         name="TherapistType"
                         autocomplete="off"
@@ -51,6 +53,7 @@
             <div class="mt-6">
                 <label for="altmail" class="block text-sm font-medium text-gray-700">Issue description</label>
                 <textarea
+                    asp-for="Description"
                     placeholder="A lot of text"
                     type="text"
                     name="Description"
@@ -63,6 +66,7 @@
                 <div class="col-span-1">
                     <label for="interviewer" class="block text-sm font-medium text-gray-700">Interviewer</label>
                     <select
+                        asp-for="InterviewerId"
                         id="interviewer"
                         name="InterviewerId"
                         autocomplete="off"
@@ -88,6 +92,7 @@
                 <div class="col-span-1">
                     <label for="supervisor" class="block text-sm font-medium text-gray-700">Under supervision from:</label>
                     <select
+                        asp-for="SupervisorId"
                         id="supervisor"
                         name="SupervisorId"
                         autocomplete="off"

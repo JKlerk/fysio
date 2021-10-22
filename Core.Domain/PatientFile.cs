@@ -36,7 +36,6 @@ namespace Core.Domain
 
         public int PatientId { get; set; }
         public Patient Patient { get; set; }
-
         public LinkedList<Treatment> Treatments { get; set; }
     }
 }

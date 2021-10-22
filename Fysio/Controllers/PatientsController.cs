@@ -90,7 +90,7 @@ namespace Fysio.Controllers
             }
             else
             {
-                ViewBag.therapists =_therapistRepository.GetAll();;
+                ViewBag.therapists = _therapistRepository.GetAll();
                 ViewBag.patient = patient;
                 return View();
             }
@@ -115,12 +115,15 @@ namespace Fysio.Controllers
             {
                 return NotFound();
             }
-        
+            
             var patient = await _patientRepository.FindPatient(id);
             if (patient == null)
             {
                 return NotFound();
             }
+
+            ViewBag.therapists = _therapistRepository.GetAll();
+
             return View(patient);
         }
         //

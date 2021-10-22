@@ -24,8 +24,9 @@ namespace Infrastructure
 
         public async Task<Patient> FindPatient(int? id)
         {
-            return await _context.Patients
-                .FirstOrDefaultAsync(m => m.Id == id);
+            return _context.Patients.Where(b => b.Id == id).Include("PatientFile").First();
+            // return await _context.Patients
+            //     .FirstOrDefaultAsync(m => m.Id == id);
         }
 
         public void RemovePatient(Patient patient)

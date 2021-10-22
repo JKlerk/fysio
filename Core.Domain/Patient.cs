@@ -20,8 +20,7 @@ namespace Core.Domain
         
         public string PhoneNumber { get; set; }
         
-        public ICollection<PatientFile> PatientFiles { get; set; }
-
+        public PatientFile PatientFile { get; set; }
         public ICollection<Appointment> Appointments { get; set; }
 
         public int CalculateAge()
