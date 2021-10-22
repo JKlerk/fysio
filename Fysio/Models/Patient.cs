@@ -7,20 +7,29 @@ namespace Fysio.Models
     public class Patient
     {
         public int Id { get; set; }
-
+        
+        [Required]
         public string PatientNumber { get; set; }
         
+        [Required]
         public string StaffNumber { get; set; }
 
+        [Required(AllowEmptyStrings = false)]
+        [StringLength(1)]
         public string Name { get; set; }
 
+        [Required]
         public string Email { get; set; }
 
+        [Required]
         public string Gender { get; set; }
-
+        
+        [Required]
         [DataType(DataType.Date)]
         public DateTime Birthdate { get; set; }
         
+        [Required]
+        [Phone]
         public string PhoneNumber { get; set; }
         
         public ICollection<PatientFile> PatientFiles { get; set; }

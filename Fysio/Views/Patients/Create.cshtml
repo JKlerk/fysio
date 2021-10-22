@@ -1,15 +1,20 @@
-@model List<Core.Domain.Therapist>
-    <div class="p-0 font-inter w-full z-10">
+@model Core.Domain.Patient;
+@{
+    List<Core.Domain.Therapist> therapists = ViewBag.therapists != null ? ViewBag.therapists : new List<Core.Domain.Therapist>();
+}
+<div class="p-0 font-inter w-full z-10">
         <div class="" autocomplete="off">
             <form action="/Patients/Create" method="POST" v-if="visible" class="w-full">
                 @Html.AntiForgeryToken()
+            
                 <div class="py-5 flex">
                     <div>
                         <h3 class="text-lg leading-6 font-bold text-fysio-header font-source">Patient Information</h3>
                         <p class="mt-1 max-w-2xl text-sm text-gray-500 font-roboto">Patients details and information.</p>
                     </div>
                 </div>
-                <hr />
+            <hr />
+            @Html.ValidationSummary()
                 <div class="grid grid-cols-6 gap-6 mt-5 font-roboto">
                     <div class="col-span-6 sm:col-span-3">
                         <label for="first-name" class="block text-sm font-medium text-gray-700">Full name</label>
@@ -21,6 +26,7 @@
                             autocomplete="off"
                             class="ipt mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
+                        <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
 
                     <div class="col-span-6 sm:col-span-3">
@@ -33,6 +39,7 @@
                             class="ipt mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             autocomplete="off"
                         />
+          
                     </div>
 
                     <div class="col-span-6 sm:col-span-3">
@@ -46,6 +53,7 @@
                             <option>Male</option>
                             <option>Female</option>
                         </select>
+                        
                     </div>
 
                     <div class="col-span-6 sm:col-span-3">
@@ -55,6 +63,7 @@
                             class="ipt mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             type="datetime-local"
                         />
+                        <span asp-validation-for="Birthdate" class="text-danger"></span>
                     </div>
                     <div class="col-span-6 sm:col-span-2">
                         <label for="phone" class="block text-sm font-medium text-gray-700">Phone number </label>
@@ -66,6 +75,7 @@
                             autocomplete="off"
                             class="ipt mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                     </div>
 
                     <div class="col-span-6 sm:col-span-6 lg:col-span-2">
@@ -78,6 +88,7 @@
                             autocomplete="off"
                             class="ipt mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
+                        
                     </div>
 
                     <div class="col-span-6 sm:col-span-3 lg:col-span-2">
@@ -90,171 +101,14 @@
                             autocomplete="off"
                             class="ipt mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
+                     
                     </div>
                 </div>
                 <hr class="mt-5" />
-
                 <!-- DOSSIER STUFF -->
-                <div class="">
-                    <div class="py-5">
-                        <div>
-                            <h3 class="text-lg leading-6 font-bold font-source text-fysio-header">Patient File</h3>
-                            <p class="mt-1 max-w-2xl text-sm text-gray-500 font-roboto">Patients details and information.</p>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="py-5 font-roboto">
-                        <div class="grid grid-cols-4 gap-6">
-                            <div class="col-span-1">
-                                <label for="diagcode" class="block text-sm font-medium text-gray-700">Diagnose Code</label>
-                                <input
-                                    placeholder="eg. BECHS431"
-                                    type="text"
-                                    name="DiagnoseCode"
-                                    id="DiagnoseCode"
-                                    autocomplete="off"
-                                    class="ipt mt-1 outline-none block w-full rounded-md focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
-                                />
-                            </div>
-                            <div class="col-span-1">
-                                <label for="TherapistType" class="block text-sm font-medium text-gray-700">Student / Teacher</label>
-                                <select
-                                    id="TherapistType"
-                                    name="TherapistType"
-                                    autocomplete="off"
-                                    class="
-                                        mt-1
-                                        block
-                                        w-full
-                                        py-2
-                                        px-3
-                                        border border-gray-300
-                                        bg-white
-                                        rounded-md
-                                        shadow-sm
-                                        focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
-                                        sm:text-sm
-                                    "
-                                >
-                                    <option>Student</option>
-                                    <option>Teacher</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mt-6">
-                            <label for="altmail" class="block text-sm font-medium text-gray-700">Issue description</label>
-                            <textarea
-                                placeholder="A lot of text"
-                                type="text"
-                                name="Description"
-                                id="altmail"
-                                autocomplete="off"
-                                class="ipt mt-1 outline-none block focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
-                            ></textarea>
-                        </div>
-                        <div class="grid grid-cols-4 gap-6 mt-6">
-                            <div class="col-span-1">
-                                <label for="interviewer" class="block text-sm font-medium text-gray-700">Interviewer</label>
-                                <select
-                                    id="interviewer"
-                                    name="InterviewerId"
-                                    autocomplete="off"
-                                    class="
-                                        mt-1
-                                        block
-                                        w-full
-                                        py-2
-                                        px-3
-                                        border border-gray-300
-                                        bg-white
-                                        rounded-md
-                                        shadow-sm
-                                        focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
-                                        sm:text-sm
-                                    "
-                                >
-                                    @foreach (var therapist in @Model) {
-                                    <option value="@therapist.Id">@therapist.Name</option>
-                                    }
-                                </select>
-                            </div>
-                            <div class="col-span-1">
-                                <label for="supervisor" class="block text-sm font-medium text-gray-700">Under supervision from:</label>
-                                <select
-                                    id="supervisor"
-                                    name="SupervisorId"
-                                    autocomplete="off"
-                                    class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                >
-                                    @foreach (var therapist in @Model) {
-                                    <option value="@therapist.Id">@therapist.Name</option>
-                                    }
-                                </select>
-                            </div>
-                            <div class="col-span-1">
-                                <label for="practitioner" class="block text-sm font-medium text-gray-700">Practitioner:</label>
-                                <select
-                                    id="practitioner"
-                                    name="PractitionerId"
-                                    autocomplete="off"
-                                    class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                >
-                                    @foreach (var therapist in @Model) {
-                                    <option value="@therapist.Id">@therapist.Name</option>
-                                    }
-                                </select>
-                            </div>
-                            <div class="col-span-1">
-                                <label for="RegisterDate" class="block text-sm font-medium text-gray-700">Register Date</label>
-                                <input
-                                    name="RegisterDate"
-                                    class="ipt mt-1 outline-none block w-full rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    type="datetime-local"
-                                />
-                            </div>
-                            <div class="col-span-1">
-                                <label for="DischargeDate" class="block text-sm font-medium text-gray-700">Discharge Date</label>
-                                <input
-                                    id="DischargeDate"
-                                    name="DischargeDate"
-                                    class="ipt mt-1 outline-none block w-full rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    type="datetime-local"
-                                />
-                            </div>
-                        </div>
-                        <div class="mt-6">
-                            <label for="notes" class="block text-sm font-medium text-gray-700">Notes: </label>
-                            <textarea
-                                placeholder="A lot of text"
-                                type="text"
-                                name="notes"
-                                id="notes"
-                                autocomplete="off"
-                                class="ipt mt-1 outline-none block focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
-                            ></textarea>
-                        </div>
-                        <div class="mt-6">
-                            <label for="treatmentplan" class="block text-sm font-medium text-gray-700">Treament plan: </label>
-                            <textarea
-                                placeholder="A lot of text"
-                                type="text"
-                                name="treatmentplan"
-                                id="treatmentplan"
-                                autocomplete="off"
-                                class="ipt mt-1 outline-none block focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
-                            ></textarea>
-                        </div>
-                    </div>
-                    <!-- END DOSSIER STUFF -->
-                    <div class="flex flex-1 justify-end mt-5 pb-6 px-6">
-                        <button style="background-color: #00b4d8" value="Create" type="submit" class="hover:bg-blue-600 rounded-lg text-white p-2 text-center text-sm font-bold">
-                            Add patient
-                        </button>
-                    </div>
-                </div>
+                @Html.Partial("_PatientFile");
             </form>
         </div>
     </div>
 
     @section Scripts { @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} }
-</Core.Domain.Therapist>

@@ -380,3 +380,4 @@ C:\Users\joeyd\projects\fysio\Fysio\bin\Debug\net5.0\Core.Domain.pdb
 C:\Users\joeyd\projects\fysio\Fysio\bin\Debug\net5.0\Core.DomainServices.pdb
 C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Views\Dashboard\Index.cshtml.g.cs
+C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Views\Patients\_PatientFile.cshtml.g.cs

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Domain;
@@ -63,7 +64,8 @@ namespace Fysio.Controllers
         // GET: Patients/Create
         public async Task<IActionResult> Create()
         {
-            return View( _therapistRepository.GetAll());
+            ViewBag.therapists = _therapistRepository.GetAll();
+            return View();
         }
         
         // POST: Patients/Create
@@ -83,7 +85,16 @@ namespace Fysio.Controllers
                 patientFile.Age = patient.CalculateAge();
                 _patientFileRepository.Add(patientFile);
                 _patientRepository.SaveChanges();
+
+                // return View("Create", mymodel);
             }
+            else
+            {
+                ViewBag.therapists =_therapistRepository.GetAll();;
+                ViewBag.patient = patient;
+                return View();
+            }
+
             return RedirectToAction("Index");
         }
         // public async Task<IActionResult> Create([Bind("Id,Name,Email,Gender,Birthdate")] Patient patient)
