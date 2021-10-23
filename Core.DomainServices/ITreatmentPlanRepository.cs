@@ -3,8 +3,8 @@ using Core.Domain;
 
 namespace Core.DomainServices
 {
-    public interface ITreatmentRepository
+    public interface ITreatmentPlanRepository
     {
-        List<Treatment> GetAll();
+        List<TreatmentPlan> GetAll();
     }
 }

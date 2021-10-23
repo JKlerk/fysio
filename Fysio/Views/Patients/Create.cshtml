@@ -1,114 +1,111 @@
-@model Core.Domain.Patient;
-@{
-    List<Core.Domain.Therapist> therapists = ViewBag.therapists != null ? ViewBag.therapists : new List<Core.Domain.Therapist>();
+@model Core.Domain.Patient; 
+@{ 
+    List<Core.Domain.Therapist> therapists = ViewBag.therapists != null ? ViewBag.therapists : new List<Core.Domain.Therapist>(); 
 }
-<div class="p-0 font-inter w-full z-10">
-        <div class="" autocomplete="off">
-            <form action="/Patients/Create" method="POST" v-if="visible" class="w-full">
-                @Html.AntiForgeryToken()
-            
-                <div class="py-5 flex">
-                    <div>
-                        <h3 class="text-lg leading-6 font-bold text-fysio-header font-source">Patient Information</h3>
-                        <p class="mt-1 max-w-2xl text-sm text-gray-500 font-roboto">Patients details and information.</p>
-                    </div>
-                </div>
-            <hr />
-            @Html.ValidationSummary()
-                <div class="grid grid-cols-6 gap-6 mt-5 font-roboto">
-                    <div class="col-span-6 sm:col-span-3">
-                        <label for="first-name" class="block text-sm font-medium text-gray-700">Full name</label>
-                        <input
-                            placeholder="John Doe"
-                            type="text"
-                            name="name"
-                            id="first-name"
-                            autocomplete="off"
-                            class="ipt mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        />
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
+        <div class="p-0 font-inter w-full z-10">
+            <div class="" autocomplete="off">
+                <form action="/Patients/Create" method="POST" v-if="visible" class="w-full">
+                    @Html.AntiForgeryToken()
 
-                    <div class="col-span-6 sm:col-span-3">
-                        <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label>
-                        <input
-                            placeholder="eg. email@email.com"
-                            type="text"
-                            name="email"
-                            id="email-address"
-                            class="ipt mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            autocomplete="off"
-                        />
-          
+                    <div class="py-5 flex">
+                        <div>
+                            <h3 class="text-lg leading-6 font-bold text-fysio-header font-source">Patient Information</h3>
+                            <p class="mt-1 max-w-2xl text-sm text-gray-500 font-roboto">Patients details and information.</p>
+                        </div>
                     </div>
+                    <hr />
+                    @Html.ValidationSummary()
+                    <div class="grid grid-cols-6 gap-6 mt-5 font-roboto">
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="first-name" class="block text-sm font-medium text-gray-700">Full name</label>
+                            <input
+                                placeholder="John Doe"
+                                type="text"
+                                name="name"
+                                id="first-name"
+                                autocomplete="off"
+                                class="ipt mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
 
-                    <div class="col-span-6 sm:col-span-3">
-                        <label for="gender" class="block text-sm font-medium text-gray-700">Gender / Sex</label>
-                        <select
-                            id="gender"
-                            name="gender"
-                            autocomplete="off"
-                            class="ipt mt-1 outline-none block p-2 rounded-md px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        >
-                            <option>Male</option>
-                            <option>Female</option>
-                        </select>
-                        
-                    </div>
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label>
+                            <input
+                                placeholder="eg. email@email.com"
+                                type="text"
+                                name="email"
+                                id="email-address"
+                                class="ipt mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                autocomplete="off"
+                            />
+                        </div>
 
-                    <div class="col-span-6 sm:col-span-3">
-                        <label for="birthdate" class="block text-sm font-medium text-gray-700">Birthdate</label>
-                        <input
-                            name="birthdate"
-                            class="ipt mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            type="datetime-local"
-                        />
-                        <span asp-validation-for="Birthdate" class="text-danger"></span>
-                    </div>
-                    <div class="col-span-6 sm:col-span-2">
-                        <label for="phone" class="block text-sm font-medium text-gray-700">Phone number </label>
-                        <input
-                            placeholder="eg. 0612121212"
-                            type="text"
-                            name="phonenumber"
-                            id="phone"
-                            autocomplete="off"
-                            class="ipt mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        />
-                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                    </div>
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="gender" class="block text-sm font-medium text-gray-700">Gender / Sex</label>
+                            <select
+                                id="gender"
+                                name="gender"
+                                autocomplete="off"
+                                class="ipt mt-1 outline-none block p-2 rounded-md px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            >
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </div>
 
-                    <div class="col-span-6 sm:col-span-6 lg:col-span-2">
-                        <label for="StaffNumber" class="block text-sm font-medium text-gray-700">Staff number</label>
-                        <input
-                            placeholder="eg. 2168734"
-                            type="text"
-                            name="StaffNumber"
-                            id="StaffNumber"
-                            autocomplete="off"
-                            class="ipt mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        />
-                        
-                    </div>
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="birthdate" class="block text-sm font-medium text-gray-700">Birthdate</label>
+                            <input
+                                name="birthdate"
+                                class="ipt mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                type="datetime-local"
+                            />
+                            <span asp-validation-for="Birthdate" class="text-danger"></span>
+                        </div>
+                        <div class="col-span-6 sm:col-span-2">
+                            <label for="phone" class="block text-sm font-medium text-gray-700">Phone number </label>
+                            <input
+                                placeholder="eg. 0612121212"
+                                type="text"
+                                name="phonenumber"
+                                id="phone"
+                                autocomplete="off"
+                                class="ipt mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
 
-                    <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                        <label for="altmail" class="block text-sm font-medium text-gray-700">Alternative Email</label>
-                        <input
-                            placeholder="eg. test2@test.com"
-                            type="text"
-                            name="altmail"
-                            id="altmail"
-                            autocomplete="off"
-                            class="ipt mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        />
-                     
+                        <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                            <label for="StaffNumber" class="block text-sm font-medium text-gray-700">Staff number</label>
+                            <input
+                                placeholder="eg. 2168734"
+                                type="text"
+                                name="StaffNumber"
+                                id="StaffNumber"
+                                autocomplete="off"
+                                class="ipt mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                            <label for="altmail" class="block text-sm font-medium text-gray-700">Alternative Email</label>
+                            <input
+                                placeholder="eg. test2@test.com"
+                                type="text"
+                                name="altmail"
+                                id="altmail"
+                                autocomplete="off"
+                                class="ipt mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            />
+                        </div>
                     </div>
-                </div>
-                <hr class="mt-5" />
-                <!-- DOSSIER STUFF -->
-                @Html.Partial("_PatientFile");
-            </form>
+                    <hr class="mt-5" />
+                    <!-- DOSSIER STUFF -->
+                    @Html.Partial("_PatientFile")
+                    @Html.Partial("../TreatmentPlan/_Create")
+                </form>
+            </div>
         </div>
-    </div>
 
-    @section Scripts { @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} }
+        @section Scripts { @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }}

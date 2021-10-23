@@ -39,6 +39,7 @@
     <Folder Include="Data\Migrations\" />
     <Folder Include="Migrations" />
     <Folder Include="Views\Dashboard" />
+    <Folder Include="Views\TreatmentPlan\" />
   </ItemGroup>
 
   <ItemGroup>

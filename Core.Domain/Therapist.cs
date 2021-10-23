@@ -29,7 +29,5 @@ namespace Core.Domain
         {
             return (StudentNumber != null) ? true : false;
         }
-        
-        // public ICollection<PatientFile> PatientFiles { get; set; }
     }
 }
