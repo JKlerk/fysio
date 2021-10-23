@@ -382,3 +382,5 @@ C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Views\Home\Index.csht
 C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Views\Dashboard\Index.cshtml.g.cs
 C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Views\Patients\_PatientFile.cshtml.g.cs
 C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Views\TreatmentPlan\_Create.cshtml.g.cs
+C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Views\TreatmentPlan\Details.cshtml.g.cs
+C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Views\TreatmentPlan\Index.cshtml.g.cs

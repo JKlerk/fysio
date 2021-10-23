@@ -1,0 +1,54 @@
+﻿@model Core.Domain.TreatmentPlan
+<div class="py-5">
+    <div>
+        <h1 class="text-3xl text-fysio-header font-source font-bold">Current treatment period:</h1>
+    </div>
+    <div class="grid grid-cols-2 gap-4 font-roboto mt-10">
+        <div class="bg-white rounded shadow p-4">
+            <h1 class="text-xl text-fysio-header">Start time of period:</h1>
+            <p class="text-sm">@Model.StartTime</p>
+        </div>
+        <div class="bg-white rounded shadow p-4">
+            <h1 class="text-xl text-fysio-header">End time of period:</h1>
+            <p class="text-sm">@Model.EndTime</p>
+        </div>
+    </div>
+    <h1 class="text-2xl text-fysio-header font-bold mt-10 mb-4">Treatments:</h1>
+
+    <div class="grid grid-cols-4 gap-4 font-roboto">
+        @foreach (var treatment in Model.Treatments) {
+        <a class="bg-white border hover:bg-gray-100 transition-colors duration-100 p-4 shadow rounded flex">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-fysio-header my-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+                />
+            </svg>
+            <div class="my-auto ml-2 flex w-full select-none">
+                <div>
+                    <h1 class="font-bold">@treatment.Type</h1>
+                    <p class="text-gray-600 text-sm">Therapist: @treatment.Therapist.Name</p>
+                    <p class="text-gray-600 text-sm">Done treatment on: @treatment.Date</p>
+                </div>
+                <div class="flex flex-1 justify-end">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                        />
+                    </svg>
+                </div>
+            </div>
+        </a>
+        }
+        <a class="bg-white hover:bg-gray-100 p-4 shadow rounded flex justify-center items-center text-gray-300 hover:text-gray-700 transition-colors duration-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        </a>
+    </div>
+</div>

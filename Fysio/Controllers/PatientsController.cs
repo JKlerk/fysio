@@ -36,13 +36,10 @@ namespace Fysio.Controllers
         // GET: Patients
         public async Task<ActionResult<IEnumerable<Patient>>> Index()
         {
-            var students = from s in _patientRepository.GetAll()
+            var patients = from s in _patientRepository.GetAll()
                 select s;
             
-            return View(students);
-            // return View(_patientRepository.GetAll());
-            
-            // return View(await _context.Patients.Include(e => e.PatientFiles).ToListAsync());
+            return View(patients);
         }
 
         // GET: Patients/Details/5
@@ -73,7 +70,6 @@ namespace Fysio.Controllers
             var patientViewModel = new PatientViewModel();
             patientViewModel.Therapists = _therapistRepository.GetAll();
             
-            // ViewBag.therapists = _therapistRepository.GetAll();
             return View(patientViewModel);
         }
         
@@ -117,17 +113,7 @@ namespace Fysio.Controllers
 
             }
         }
-        // public async Task<IActionResult> Create([Bind("Id,Name,Email,Gender,Birthdate")] Patient patient)
-        // {
-        //     if (ModelState.IsValid)
-        //     {
-        //         _context.Add(patient);
-        //         await _context.SaveChangesAsync();
-        //         return RedirectToAction(nameof(Index));
-        //     }
-        //     return View(patient);
-        // }
-        
+
         // GET: Patients/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -141,10 +127,13 @@ namespace Fysio.Controllers
             {
                 return NotFound();
             }
+            
+            PatientViewModel patientViewModel = new PatientViewModel();
+            patientViewModel.Patient = patient;
+            patientViewModel.PatientFile = patient.PatientFile;
+            patientViewModel.Therapists = _therapistRepository.GetAll();
 
-            ViewBag.therapists = _therapistRepository.GetAll();
-
-            return View(patient);
+            return View(patientViewModel);
         }
         //
         // // POST: Patients/Edit/5

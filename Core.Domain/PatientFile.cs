@@ -20,7 +20,6 @@ namespace Core.Domain
         public int? SupervisorId { get; set; }
         public Therapist Supervisor { get; set; }
 
-   
         public int? PractitionerId { get; set; }
         public Therapist Practitioner { get; set; }
 
@@ -32,7 +31,6 @@ namespace Core.Domain
 
         public string TherapistType { get; set; }
         
-
         public int PatientId { get; set; }
         public Patient Patient { get; set; }
         

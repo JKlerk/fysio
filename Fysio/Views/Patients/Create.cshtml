@@ -15,13 +15,13 @@
                     <div class="grid grid-cols-6 gap-6 mt-5 font-roboto">
                         <div class="col-span-6 sm:col-span-3">
                             <label for="first-name" class="block text-sm font-medium text-gray-700">Full name</label>
-                            @Html.EditorFor(m => m.Patient.Name, new { htmlAttributes = new { @class = "ipt text-sm", placeholder = "John Doe" }, })
+                            @Html.EditorFor(m => m.Patient.Name, new { htmlAttributes = new { @class = "ipt", placeholder = "John Doe" }, })
                             <span asp-validation-for="Patient.Name" class="text-danger"></span>
                         </div>
 
                         <div class="col-span-6 sm:col-span-3">
                             <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label>
-                             @Html.EditorFor(m => m.Patient.Email, new { htmlAttributes = new { @class = "ipt text-sm", placeholder = "john@doe.com" }, })
+                             @Html.EditorFor(m => m.Patient.Email, new { htmlAttributes = new { @class = "ipt", placeholder = "john@doe.com" }, })
                             <span asp-validation-for="Patient.Email" class="text-danger"></span>
                         </div>
 
@@ -41,18 +41,18 @@
 
                         <div class="col-span-6 sm:col-span-3">
                             <label for="birthdate" class="block text-sm font-medium text-gray-700">Birthdate</label>
-                            @Html.EditorFor(m => m.Patient.Birthdate, new { htmlAttributes = new { @class = "ipt text-sm" } })
+                            @Html.EditorFor(m => m.Patient.Birthdate, new { htmlAttributes = new { @class = "ipt" } })
                             <span asp-validation-for="Patient.Birthdate" class="text-danger"></span>
                         </div>
                         <div class="col-span-6 sm:col-span-2">
                             <label for="phone" class="block text-sm font-medium text-gray-700">Phone number </label>
-                            @Html.EditorFor(m => m.Patient.PhoneNumber, new { htmlAttributes = new { @class = "ipt text-sm", placeholder = "eg. 06 12121212" }, })
+                            @Html.EditorFor(m => m.Patient.PhoneNumber, new { htmlAttributes = new { @class = "ipt", placeholder = "eg. 06 12121212" }, })
                             <span asp-validation-for="Patient.PhoneNumber" class="text-danger"></span>
                         </div>
 
                         <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                             <label for="StaffNumber" class="block text-sm font-medium text-gray-700">Staff number</label>
-                            @Html.EditorFor(m => m.Patient.StaffNumber, new { htmlAttributes = new { @class = "ipt text-sm", placeholder = "eg. 2168734" }, })
+                            @Html.EditorFor(m => m.Patient.StaffNumber, new { htmlAttributes = new { @class = "ipt", placeholder = "eg. 2168734" }, })
                             <span asp-validation-for="Patient.StaffNumber" class="text-danger"></span>
                         </div>
 

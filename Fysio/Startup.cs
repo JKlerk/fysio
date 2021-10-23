@@ -70,17 +70,23 @@ namespace Fysio
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Patient}/{action=Index}/{id?}"
-                );
-
+                
                 endpoints.MapControllerRoute(
                     name: "Dashboard",
                     pattern: "/",
                     defaults: new { controller = "Dashboard", action = "Index" }
                 );
                 
+                endpoints.MapControllerRoute(
+                    name: "Patient",
+                    pattern: "{controller=Patient}/{action=Index}/{id?}"
+                );
+                
+                endpoints.MapControllerRoute(
+                    name: "Treatment",
+                    pattern: "{controller=TreatmentPlan}/{action=Index}/{id?}"
+                );
+
                 //
                 // endpoints.MapControllerRoute(name: "patients",
                 //     pattern: "patients/",

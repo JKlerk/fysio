@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core.Domain;
 
 namespace Core.DomainServices
@@ -9,5 +10,7 @@ namespace Core.DomainServices
         
         public void Add(TreatmentPlan treatmentPlan);
         void SaveChanges();
+
+        public Task<TreatmentPlan> Find(int? id);
     }
 }

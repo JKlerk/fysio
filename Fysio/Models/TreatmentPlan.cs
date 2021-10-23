@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Fysio.Models
 {
@@ -8,6 +9,7 @@ namespace Fysio.Models
     {
         public int Id { get; set; }
         
+        [Required]
         public int PatientFileId { get; set; }
         public PatientFile PatientFile { get; set; }
         

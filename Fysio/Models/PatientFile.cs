@@ -46,12 +46,10 @@ namespace Fysio.Models
         [Required]
         public string TherapistType { get; set; }
 
-        public string TreatmentPlan { get; set; }
-
         [Required]
         public int PatientId { get; set; }
         public Patient Patient { get; set; }
 
-        public LinkedList<Treatment> Treatments { get; set; }
+        public TreatmentPlan TreatmentPlan { get; set; }
     }
 }

@@ -1,18 +1,9 @@
 @model IEnumerable<Core.Domain.Patient>
     @{ ViewData["Title"] = "Home Page"; }
-    <div class="flex">
-        <h1 class="text-4xl font-semibold">Patients</h1>
-        <div class="flex flex-1 justify-end">
-            <div class="flex">
-                <p class="my-auto mr-4 uppercase text-sm text-gray-600">Username</p>
-                <img
-                    src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60"
-                    class="h-10 w-10 rounded-full"
-                />
-            </div>
-        </div>
+  
+    <h1 class="text-4xl font-semibold">Patients</h1>
     </div>
-    <section class="mx-auto mt-10">
+    <section class="mx-auto">
         <div class="flex flex-col">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -31,9 +22,9 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach (var patient in @Model) {
-                                <tr>
+                                <tr class="hover:bg-gray-100 transition-colors duration-100">
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
+                                        <a href="/patients/details/@patient.Id" class="flex items-center">
                                             <div class="flex-shrink-0 h-10 w-10">
                                                 <img
                                                     class="h-10 w-10 rounded-full"
@@ -45,11 +36,13 @@
                                                 <div class="text-sm font-medium text-gray-900">@patient.Name</div>
                                                 <div class="text-sm text-gray-500">@patient.Email</div>
                                             </div>
-                                        </div>
+                                        </a>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">@patient.PhoneNumber</div>
-                                        <div class="text-sm text-gray-500">@patient.PatientNumber</div>
+                                        <a href="/patients/details/@patient.Id">
+                                            <div class="text-sm text-gray-900">@patient.PhoneNumber</div>
+                                            <div class="text-sm text-gray-500">@patient.PatientNumber</div>
+                                        </a>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> @patient.Gender </span>
