@@ -14,6 +14,7 @@ namespace Fysio.Models
 
         public string Description { get; set; }
         
+        public int TherapistId { get; set; }
         public Therapist Therapist { get; set; }
     
         [DataType(DataType.Date)]

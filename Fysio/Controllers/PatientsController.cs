@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
-using Core.Domain;
 using Core.DomainServices;
+using Fysio.Models;
 using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Patient = Core.Domain.Patient;
+using PatientFile = Core.Domain.PatientFile;
+using Treatment = Core.Domain.Treatment;
+using TreatmentPlan = Core.Domain.TreatmentPlan;
 
 
 namespace Fysio.Controllers
@@ -17,14 +21,16 @@ namespace Fysio.Controllers
         private readonly IPatientRepository _patientRepository;
         private readonly ITherapistRepository _therapistRepository;
         private readonly IPatientFileRepository _patientFileRepository;
-        
+        private readonly ITreatmentPlanRepository _treatmentPlanRepository;
+        private readonly ITreatmentRepository _treatmentRepository;
 
-        public PatientsController(IPatientRepository patientRepository, ITherapistRepository therapistRepository, IPatientFileRepository patientFileRepository)
+        public PatientsController(IPatientRepository patientRepository, ITherapistRepository therapistRepository, IPatientFileRepository patientFileRepository, ITreatmentPlanRepository treatmentPlanRepository, ITreatmentRepository treatmentRepository)
         {
             _patientRepository = patientRepository;
             _therapistRepository = therapistRepository;
             _patientFileRepository = patientFileRepository;
-
+            _treatmentPlanRepository = treatmentPlanRepository;
+            _treatmentRepository = treatmentRepository;
         }
 
         // GET: Patients
@@ -64,8 +70,11 @@ namespace Fysio.Controllers
         // GET: Patients/Create
         public async Task<IActionResult> Create()
         {
-            ViewBag.therapists = _therapistRepository.GetAll();
-            return View();
+            var patientViewModel = new PatientViewModel();
+            patientViewModel.Therapists = _therapistRepository.GetAll();
+            
+            // ViewBag.therapists = _therapistRepository.GetAll();
+            return View(patientViewModel);
         }
         
         // POST: Patients/Create
@@ -73,11 +82,16 @@ namespace Fysio.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Patient patient, PatientFile patientFile)
+        public async Task<IActionResult> Create(PatientViewModel patientViewModel)
         {
         
             if (ModelState.IsValid)
             {
+                Patient patient = patientViewModel.Patient;
+                PatientFile patientFile = patientViewModel.PatientFile;
+                TreatmentPlan treatmentPlan = patientViewModel.TreatmentPlan;
+                Treatment treatment = patientViewModel.Treatment;
+                
                 patient.PatientNumber = Guid.NewGuid().ToString();
                 _patientRepository.AddPatient(patient);
                 _patientRepository.SaveChanges();
@@ -86,16 +100,22 @@ namespace Fysio.Controllers
                 _patientFileRepository.Add(patientFile);
                 _patientRepository.SaveChanges();
 
-                // return View("Create", mymodel);
+                treatmentPlan.PatientFileId = patientFile.Id;
+                _treatmentPlanRepository.Add(treatmentPlan);
+                _treatmentPlanRepository.SaveChanges();
+                
+                treatment.TreatmentPlanId = treatmentPlan.Id;
+                _treatmentRepository.Add(treatment);
+                _treatmentRepository.SaveChanges();
+
+                return RedirectToAction("Index");
             }
             else
             {
-                ViewBag.therapists = _therapistRepository.GetAll();
-                ViewBag.patient = patient;
-                return View();
-            }
+                patientViewModel.Therapists = _therapistRepository.GetAll();
+                return View("Create", patientViewModel);
 
-            return RedirectToAction("Index");
+            }
         }
         // public async Task<IActionResult> Create([Bind("Id,Name,Email,Gender,Birthdate")] Patient patient)
         // {

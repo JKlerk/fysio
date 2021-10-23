@@ -21,9 +21,10 @@ namespace Infrastructure
             //     .HasMany(p => p.PatientFile);
 
             modelBuilder.Entity<Patient>().ToTable("Patients");
-            modelBuilder.Entity<Patient>().HasOne(p => p.PatientFile).WithOne(pf => pf.Patient);
+            modelBuilder.Entity<Patient>().HasOne(p => p.PatientFile).WithOne(pf => pf.Patient).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<PatientFile>().ToTable("PatientsFile");
-            modelBuilder.Entity<PatientFile>().HasOne(pf => pf.Patient).WithOne(p => p.PatientFile);
+            modelBuilder.Entity<PatientFile>().HasOne(pf => pf.Patient).WithOne(p => p.PatientFile).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<PatientFile>().HasOne(pf => pf.TreatmentPlan).WithOne(tp => tp.PatientFile).OnDelete(DeleteBehavior.Cascade);
             
             // modelBuilder.Entity<PatientFile>().HasOne(pf => pf.Supervisor).WithMany(th => th.Supervised);
             // modelBuilder.Entity<PatientFile>().HasOne(pf => pf.Interviewer).WithMany(th => th.Interviewed);
@@ -37,10 +38,12 @@ namespace Infrastructure
             // modelBuilder.Entity<Therapist>().HasMany(t => t.PatientFiles).WithOne(pf => pf.Practitioner);
             
             modelBuilder.Entity<TreatmentPlan>().ToTable("TreatmentPlans");
-            modelBuilder.Entity<TreatmentPlan>().HasMany(tp => tp.Treatments).WithOne(t => t.TreatmentPlan);       
+            modelBuilder.Entity<TreatmentPlan>().HasOne(tp => tp.PatientFile).WithOne(pf => pf.TreatmentPlan).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<TreatmentPlan>().HasMany(tp => tp.Treatments).WithOne(t => t.TreatmentPlan).OnDelete(DeleteBehavior.Cascade);       
             
             modelBuilder.Entity<Treatment>().ToTable("Treatments");
-            modelBuilder.Entity<Treatment>().HasOne(t => t.TreatmentPlan).WithMany(tp => tp.Treatments);
+            modelBuilder.Entity<Treatment>().HasOne(t => t.TreatmentPlan).WithMany(tp => tp.Treatments)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

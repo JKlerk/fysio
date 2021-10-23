@@ -1,57 +1,61 @@
-﻿@model Core.Domain.TreatmentPlan
+﻿@model PatientViewModel 
 <hr />
-<div class="">
-    <div class="py-5">
-        <div>
-            <h3 class="text-lg leading-6 font-bold font-source text-fysio-header">Treatment Plan</h3>
-            <p class="mt-1 max-w-2xl text-sm text-gray-500 font-roboto">Treatment details and information.</p>
-        </div>
-    </div>
-    <hr />
-    <div class="py-5 font-roboto">
-        <div class="grid grid-cols-4 gap-6">
-            <div class="col-span-1">
-                <label for="diagcode" class="block text-sm font-medium text-gray-700">Diagnose Code</label>
-                <input
-                    placeholder="eg. BECHS431"
-                    type="text"
-                    name="DiagnoseCode"
-                    id="DiagnoseCode"
-                    autocomplete="off"
-                    class="ipt mt-1 outline-none block w-full rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
+        <div class="">
+            <div class="py-5">
+                <div>
+                    <h3 class="text-lg leading-6 font-bold font-source text-fysio-header">Treatment Plan</h3>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500 font-roboto">Treatment details and information.</p>
+                </div>
             </div>
-            <div class="col-span-1">
-                <label for="TherapistType" class="block text-sm font-medium text-gray-700">Student / Teacher</label>
-                <select
-                    id="TherapistType"
-                    name="TherapistType"
-                    autocomplete="off"
-                    class="
-                        mt-1
-                        block
-                        w-full
-                        py-2
-                        px-3
-                        border border-gray-300
-                        bg-white
-                        rounded-md
-                        shadow-sm
-                        focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
-                        sm:text-sm
-                    "
-                >
-                    <option>Student</option>
-                    <option>Teacher</option>
-                </select>
+            <hr />
+            <div class="py-5 font-roboto">
+                <div class="grid grid-cols-4 gap-6">
+                    <div class="col-span-2 sm:col-span-1">
+                        <label for="StartTime" class="block text-sm font-medium text-gray-700">Start date</label>
+                        @Html.EditorFor(m => m.TreatmentPlan.StartTime, new { htmlAttributes = new { @class = "ipt text-sm" } })
+                        <span asp-validation-for="TreatmentPlan.StartTime" class="text-danger"></span>
+                    </div>
+                    <div class="col-span-2 sm:col-span-1">
+                        <label for="EndTime" class="block text-sm font-medium text-gray-700">End date</label>
+                        @Html.EditorFor(m => m.TreatmentPlan.EndTime, new { htmlAttributes = new { @class = "ipt text-sm"} })
+                        <span asp-validation-for="TreatmentPlan.EndTime" class="text-danger"></span>
+                    </div>
+                    <div class="col-span-6 sm:col-span-6 lg:col-span-1">
+                        <label for="Type" class="block text-sm font-medium text-gray-700">Type treatment (Vektis)</label>
+                        @Html.EditorFor(m => m.Treatment.Type, new { htmlAttributes = new { @class = "ipt text-sm", placeholder = "Vektis Code" }, })
+                    </div>
+                    <div class="col-span-1">
+                        <label for="practitioner" class="block text-sm font-medium text-gray-700">Practitioner:</label>
+                        <select
+                            id="practitioner"
+                            name="Treatment.TherapistId"
+                            autocomplete="off"
+                            class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        >
+                            @foreach (var therapist in Model.Therapists) {
+                            <option value="@therapist.Id">@therapist.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <label for="altmail" class="block text-sm font-medium text-gray-700">Issue description</label>
+                    <textarea
+                        asp-for="Treatment.Description"
+                        placeholder="A lot of text"
+                        type="text"
+                        name="Treatment.Description"
+                        id="altmail"
+                        autocomplete="off"
+                        class="ipt mt-1 outline-none block focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
+                    ></textarea>
+                </div>
+            </div>
+            <div class="flex flex-1 justify-end mt-5 pb-6 px-6">
+                <button style="background-color: #00b4d8" value="Create" type="submit" class="hover:bg-blue-600 rounded-lg text-white p-2 text-center text-sm font-bold">
+                    Add patient
+                </button>
             </div>
         </div>
-    </div>
-    <div class="flex flex-1 justify-end mt-5 pb-6 px-6">
-        <button style="background-color: #00b4d8" value="Create" type="submit" class="hover:bg-blue-600 rounded-lg text-white p-2 text-center text-sm font-bold">
-            Add patient
-        </button>
-    </div>
-</div>
 
-@section Scripts { @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} }
+        @section Scripts { @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} }

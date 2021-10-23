@@ -12,7 +12,8 @@ namespace Core.Domain
         public string Type { get; set; }
 
         public string Description { get; set; }
-        
+
+        public int TherapistId { get; set; }
         public Therapist Therapist { get; set; }
     
         public DateTime Date { get; set; }

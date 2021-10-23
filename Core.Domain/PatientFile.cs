@@ -26,7 +26,7 @@ namespace Core.Domain
 
         public DateTime RegisterDate { get; set; }
 
-        public string DischargeDate { get; set; }
+        public DateTime DischargeDate { get; set; }
 
         public string Notes { get; set; }
 

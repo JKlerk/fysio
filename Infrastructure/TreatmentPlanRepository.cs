@@ -19,5 +19,15 @@ namespace Infrastructure
         {
             return _context.TreatmentPlans.ToList();
         }
+
+        public void Add(TreatmentPlan treatmentPlan)
+        {
+            _context.TreatmentPlans.Add(treatmentPlan);
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
+        }
     }
 }

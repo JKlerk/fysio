@@ -133,7 +133,8 @@
         </div>
         <p class="hidden" id="route">@Context.Request.Path</p>
         <div id="app" class="container lg:w-full mx-auto py-6 px-10">@RenderBody()</div>
-        <script src="~/dist/bundle.js"></script>
+        <script src="~/js/site.js"></script>
+
         @await RenderSectionAsync("Scripts", required: false)
     </body>
 </html>

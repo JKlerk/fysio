@@ -36,8 +36,10 @@ namespace Fysio.Models
         [Required]
         [DataType(DataType.Date)]
         public DateTime RegisterDate { get; set; }
-
-        public string DischargeDate { get; set; }
+        
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime DischargeDate { get; set; }
 
         public string Notes { get; set; }
 
