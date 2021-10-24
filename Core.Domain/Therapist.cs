@@ -21,7 +21,7 @@ namespace Core.Domain
         public int RoleId { get; set; }
 
         public int? PatientId { get; set; }
-        public Patient Patient { get; set; }
+        public virtual Patient Patient { get; set; }
 
         public bool isStudent()
         {

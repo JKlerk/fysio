@@ -14,14 +14,14 @@ namespace Core.Domain
         public string DiagnoseCode { get; set; }
 
         public int? InterviewerId { get; set; }
-        public Therapist Interviewer { get; set; }
+        public virtual Therapist Interviewer { get; set; }
 
      
         public int? SupervisorId { get; set; }
-        public Therapist Supervisor { get; set; }
+        public virtual Therapist Supervisor { get; set; }
 
         public int? PractitionerId { get; set; }
-        public Therapist Practitioner { get; set; }
+        public virtual Therapist Practitioner { get; set; }
 
         public DateTime RegisterDate { get; set; }
 
@@ -32,8 +32,8 @@ namespace Core.Domain
         public string TherapistType { get; set; }
         
         public int PatientId { get; set; }
-        public Patient Patient { get; set; }
+        public virtual Patient Patient { get; set; }
         
-        public TreatmentPlan TreatmentPlan { get; set; }
+        public virtual TreatmentPlan TreatmentPlan { get; set; }
     }
 }

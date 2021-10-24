@@ -8,9 +8,9 @@ namespace Core.Domain
         public int Id { get; set; }
         
         public int PatientFileId { get; set; }
-        public PatientFile PatientFile { get; set; }
+        public virtual PatientFile PatientFile { get; set; }
 
-        public List<Treatment> Treatments { get; set; }
+        public virtual List<Treatment> Treatments { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
     }

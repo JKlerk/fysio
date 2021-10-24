@@ -37,5 +37,7 @@ namespace Infrastructure
             modelBuilder.Entity<Treatment>().HasOne(t => t.TreatmentPlan).WithMany(tp => tp.Treatments)
                 .OnDelete(DeleteBehavior.Cascade);
         }
+        
+        
     }
 }

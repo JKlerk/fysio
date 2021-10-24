@@ -7,10 +7,10 @@ namespace Core.Domain
         public int Id { get; set; }
         
         public int PatientId { get; set; }
-        public Patient Patient { get; set; }
+        public virtual Patient Patient { get; set; }
         
         public int TherapistId { get; set; }
-        public Therapist Therapist { get; set; }
+        public virtual Therapist Therapist { get; set; }
 
         public string Description { get; set; }
         

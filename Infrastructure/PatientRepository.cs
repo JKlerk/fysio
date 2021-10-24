@@ -24,7 +24,7 @@ namespace Infrastructure
 
         public async Task<Patient> FindPatient(int? id)
         {
-            return _context.Patients.Where(p => p.Id == id).Include(p => p.PatientFile).ThenInclude(pf => pf.TreatmentPlan).ThenInclude(tf => tf.Treatments).ThenInclude(t => t.Therapist).First();
+            return _context.Patients.First(p => p.Id == id);
         }
 
         public void RemovePatient(Patient patient)
