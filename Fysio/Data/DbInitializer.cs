@@ -13,7 +13,10 @@ namespace Fysio.Data
         public static void Initialize(FysioContext context)
         {
             context.Database.EnsureCreated();
-            
+            if (context.Patients.Any())
+            {
+                return;   // DB has been seeded
+            }
             List<Patient> patientsSeeder = new PatientSeeder().patients; 
             List<Therapist> therapistsSeeder = new TherapistSeeder().therapists;
 

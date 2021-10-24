@@ -44,7 +44,6 @@ namespace Fysio
                 config.LoginPath = "/user/login";
             });
             
-            
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<IPatientFileRepository, PatientFileRepository>();
             services.AddScoped<ITherapistRepository, TherapistRepository>();
@@ -81,7 +80,6 @@ namespace Fysio
 
             app.UseEndpoints(endpoints =>
             {
-                
                 endpoints.MapControllerRoute(
                     name: "Dashboard",
                     pattern: "/",
@@ -97,12 +95,6 @@ namespace Fysio
                     name: "Treatment",
                     pattern: "{controller=TreatmentPlan}/{action=Index}/{id?}"
                 );
-
-                //
-                // endpoints.MapControllerRoute(name: "patients",
-                //     pattern: "patients/",
-                //     defaults: new { controller = "Patients" }
-                // );
 
                 endpoints.MapRazorPages();
             });

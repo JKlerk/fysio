@@ -22,8 +22,7 @@ namespace Infrastructure
         {
             modelBuilder.Entity<Patient>().ToTable("Patients");
             modelBuilder.Entity<Patient>().HasOne(p => p.PatientFile).WithOne(pf => pf.Patient).OnDelete(DeleteBehavior.Cascade);
-
-
+            
             modelBuilder.Entity<Therapist>().ToTable("Therapists");
             
             modelBuilder.Entity<PatientFile>().ToTable("PatientsFile");

@@ -1,8 +1,36 @@
-﻿
-<div>
-    <form method="post" action="/user/login">
-        <input name="email" placeholder="Email">
-        <input name="password" placeholder="Password" type="password">
-        <button type="submit">Submit</button>
-    </form>
+﻿@{ Layout = null; }
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Fysio</title>
+    <link rel="stylesheet" href="~/css/output.css" />
+</head>
+<img src="~/img/joey.png" class="h-8 absolute top-0 left-0 m-4 select-none" alt="Sample Photo" />
+<div class="grid grid-cols-3 px-5 min-h-screen max-h-screen">
+    <div class="flex items-center justify-center col-span-2">
+        <div class="w-1/3">
+            <div class="mb-10">
+                <h1 class="text-2xl font-source font-semibold">The Fysio app</h1>
+                <p class="text-gray-600">Better therapy, for a better quality of life</p>
+            </div>
+            <form method="post" action="/user/login" class="w-full">
+                <div class="mb-4">
+                    <label class="text-gray-700">Email address</label>
+                    <input class="ipt" name="email" placeholder="Email" />
+                </div>
+                <div>
+                    <label class="text-gray-700">Password</label>
+                    <input class="ipt" name="password" placeholder="Enter your password" type="password" />
+                </div>
+                <p class="text-fysio-header text-sm hover:underline">Forgot your password?</p>
+                <button class="mt-4 py-1 px-2 w-full bg-fysio-header text-white font-bold rounded-lg hover:opacity-75 transition-opacity duration-100" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div class="flex justify-center">
+        <img
+            class="max-h-screen col-start-2 col-end-4"
+            src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=774&q=80"
+        />
+    </div>
 </div>
