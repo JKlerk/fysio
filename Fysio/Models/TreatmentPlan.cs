@@ -11,7 +11,7 @@ namespace Fysio.Models
         
         [Required]
         public int PatientFileId { get; set; }
-        public PatientFile PatientFile { get; set; }
+        public virtual PatientFile PatientFile { get; set; }
         
         public List<Treatment> Treatments;
         

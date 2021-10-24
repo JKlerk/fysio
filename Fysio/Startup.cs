@@ -23,7 +23,8 @@ namespace Fysio
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<FysioContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("MvcPatientContext"), x => x.MigrationsAssembly("Infrastructure")));
+                options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("MvcPatientContext"), x => x.MigrationsAssembly("Infrastructure"))
+            );
 
             services.AddDbContext<IdentityContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("IdentityContext"), x => x.MigrationsAssembly("Infrastructure")));

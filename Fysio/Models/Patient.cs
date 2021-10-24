@@ -32,8 +32,8 @@ namespace Fysio.Models
         [Phone]
         public string PhoneNumber { get; set; }
         
-        public PatientFile PatientFile { get; set; }
-        public ICollection<Appointment> Appointments { get; set; }
+        public virtual PatientFile PatientFile { get; set; }
+        public virtual ICollection<Appointment> Appointments { get; set; }
 
         // public string City { get; set; }
         //

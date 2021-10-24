@@ -21,7 +21,7 @@ namespace Fysio.Models
         public int RoleId { get; set; }
 
         public int? PatientId { get; set; }
-        public Patient Patient { get; set; }
+        public virtual Patient Patient { get; set; }
 
         // public ICollection<PatientFile> PatientFiles { get; set; }
     }

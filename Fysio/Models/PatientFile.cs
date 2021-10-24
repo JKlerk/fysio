@@ -21,17 +21,17 @@ namespace Fysio.Models
         [Required]
         [ForeignKey("Id")]
         public int? InterviewerId { get; set; }
-        public Therapist Interviewer { get; set; }
+        public virtual Therapist Interviewer { get; set; }
 
         [Required]
         [ForeignKey("Id")]
         public int? SupervisorId { get; set; }
-        public Therapist Supervisor { get; set; }
+        public virtual Therapist Supervisor { get; set; }
 
         [Required]
         [ForeignKey("Id")]
         public int? PractitionerId { get; set; }
-        public Therapist Practitioner { get; set; }
+        public virtual Therapist Practitioner { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
@@ -48,8 +48,8 @@ namespace Fysio.Models
 
         [Required]
         public int PatientId { get; set; }
-        public Patient Patient { get; set; }
+        public virtual Patient Patient { get; set; }
 
-        public TreatmentPlan TreatmentPlan { get; set; }
+        public virtual TreatmentPlan TreatmentPlan { get; set; }
     }
 }

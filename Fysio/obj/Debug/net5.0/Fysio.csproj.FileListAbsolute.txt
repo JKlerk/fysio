@@ -387,3 +387,5 @@ C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Fysio.dll
 C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\ref\Fysio.dll
 C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Fysio.pdb
 C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Fysio.genruntimeconfig.cache
+C:\Users\joeyd\projects\fysio\Fysio\bin\Debug\net5.0\Castle.Core.dll
+C:\Users\joeyd\projects\fysio\Fysio\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Proxies.dll
