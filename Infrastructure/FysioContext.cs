@@ -1,4 +1,7 @@
-﻿using Core.Domain;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Core.Domain;
+using Infrastructure.Seeders;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
@@ -17,26 +20,16 @@ namespace Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // modelBuilder.Entity<Patient>()
-            //     .HasMany(p => p.PatientFile);
-
             modelBuilder.Entity<Patient>().ToTable("Patients");
             modelBuilder.Entity<Patient>().HasOne(p => p.PatientFile).WithOne(pf => pf.Patient).OnDelete(DeleteBehavior.Cascade);
+
+
+            modelBuilder.Entity<Therapist>().ToTable("Therapists");
+            
             modelBuilder.Entity<PatientFile>().ToTable("PatientsFile");
             modelBuilder.Entity<PatientFile>().HasOne(pf => pf.Patient).WithOne(p => p.PatientFile).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<PatientFile>().HasOne(pf => pf.TreatmentPlan).WithOne(tp => tp.PatientFile).OnDelete(DeleteBehavior.Cascade);
-            
-            // modelBuilder.Entity<PatientFile>().HasOne(pf => pf.Supervisor).WithMany(th => th.Supervised);
-            // modelBuilder.Entity<PatientFile>().HasOne(pf => pf.Interviewer).WithMany(th => th.Interviewed);
-            // modelBuilder.Entity<PatientFile>().HasOne(pf => pf.Practitioner).WithMany(th => th.Practitioner);
 
-            // modelBuilder.Entity<PatientFile>().HasOne(pf => pf.Interviewer).WithMany(p => p.Interviewed);
-            // modelBuilder.Entity<PatientFile>().HasOne(pf => pf.Supervisor).WithMany(p => p.Supervised);
-            // modelBuilder.Entity<PatientFile>().HasOne(pf => pf.Practitioner).WithMany(p => p.Practitioner);
-
-            modelBuilder.Entity<Therapist>().ToTable("Therapists");
-            // modelBuilder.Entity<Therapist>().HasMany(t => t.PatientFiles).WithOne(pf => pf.Practitioner);
-            
             modelBuilder.Entity<TreatmentPlan>().ToTable("TreatmentPlans");
             modelBuilder.Entity<TreatmentPlan>().HasOne(tp => tp.PatientFile).WithOne(pf => pf.TreatmentPlan).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<TreatmentPlan>().HasMany(tp => tp.Treatments).WithOne(t => t.TreatmentPlan).OnDelete(DeleteBehavior.Cascade);       

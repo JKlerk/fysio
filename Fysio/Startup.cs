@@ -1,15 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Core.DomainServices;
-using Fysio.Data;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,10 +23,28 @@ namespace Fysio
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<FysioContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("MvcPatientContext")));
+                options.UseSqlServer(Configuration.GetConnectionString("MvcPatientContext"), x => x.MigrationsAssembly("Infrastructure")));
+
+            services.AddDbContext<IdentityContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("IdentityContext"), x => x.MigrationsAssembly("Infrastructure")));
+            
+            services.AddIdentity<IdentityUser, IdentityRole>(config =>
+            {
+                config.Password.RequiredLength = 4;
+                config.Password.RequireDigit = false;
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequireUppercase = false;
+            }).AddEntityFrameworkStores<IdentityContext>().AddDefaultTokenProviders();
             
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.Cookie.Name = "Fysio.Cookie";
+                config.LoginPath = "/user/login";
+            });
+            
+            
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<IPatientFileRepository, PatientFileRepository>();
             services.AddScoped<ITherapistRepository, TherapistRepository>();
@@ -65,8 +76,8 @@ namespace Fysio
             app.UseStatusCodePages();
             app.UseRouting();
 
-            //app.UseAuthentication();
-            //app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
