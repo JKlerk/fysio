@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Runtime;
 using System.Threading.Tasks;
 using Core.DomainServices;
 using Fysio.Models;
 using Infrastructure;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Patient = Core.Domain.Patient;
@@ -37,8 +39,7 @@ namespace Fysio.Controllers
 
         // GET: Patients
         [HttpGet]
-        [Authorize(Roles = "Therapist")]
-        [Authorize(Roles = "Student")]
+        [Authorize(Roles = "Therapist,Student")]
         public async Task<ActionResult<IEnumerable<Patient>>> Index()
         {
             var patients = from s in _patientRepository.GetAll()
@@ -60,24 +61,12 @@ namespace Fysio.Controllers
             {
                 return NotFound();
             }
-
-            // var _context = new FysioContext();
-            //
-            // var patient = await _patientRepository.Find(id)
-            //     .FirstOrDefaultAsync(m => m.Id == id);
-            // if (patient == null)
-            // {
-            //     return NotFound();
-            // }
-            //
-            // return View(patient);
             return View(patient);
         }
         
         // GET: Patients/Create
         [HttpGet]
-        [Authorize(Roles = "Therapist")]
-        [Authorize(Roles = "Student")]
+        [Authorize(Roles = "Therapist,Student")]
         public async Task<IActionResult> Create()
         {
             var patientViewModel = new PatientViewModel();
@@ -91,8 +80,7 @@ namespace Fysio.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Therapist")]
-        [Authorize(Roles = "Student")]
+        [Authorize(Roles = "Therapist,Student")]
         public async Task<IActionResult> Create(PatientViewModel patientViewModel)
         {
         
@@ -144,6 +132,16 @@ namespace Fysio.Controllers
             
             return View(patientViewModel);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Profile()
+        {
+            var username = User.Identity.Name;
+            var patient = await _patientRepository.FindByName(username);
+            if (patient == null) return NotFound();
+            return Redirect("/patients/details/" + patient.Id);
+        }
+        
         
         [HttpPost]
         public async Task<IActionResult> Edit(PatientViewModel patientViewModel, int? id)
@@ -186,8 +184,7 @@ namespace Fysio.Controllers
         
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Therapist")]
-        [Authorize(Roles = "Student")]
+        [Authorize(Roles = "Therapist,Student")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var patient = await _patientRepository.Find(id);

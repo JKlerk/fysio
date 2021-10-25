@@ -9,8 +9,8 @@
         "wbp": "webpack wwwroot/source/app.js wwwroot/dist/bundle.js",
         "migration:run": "dotnet ef database update",
         "dev": "dotnet watch run",
-        "migration:generate": "dotnet ef migrations add InitialCreate",
-        "migration:remove": "dotnet ef migrations remove"
+        "migration:identity": "dotnet ef migrations add IdentityDB --project ../Infrastructure --context IdentityContext",
+        "migration:update": "dotnet ef database update --context IdentityContext"
     },
     "keywords": [],
     "author": "",

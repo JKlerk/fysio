@@ -16,8 +16,20 @@ namespace Infrastructure.Seeders
             data.Add(
                 new Therapist()
                 {
-                    Name="Carson",
-                    Email="test@test.com", 
+                    Name="Pascal Stoop",
+                    Email="p.stoop@avans.nl", 
+                    PhoneNumber= "0612121212", 
+                    BigNumber = "12345678901", 
+                    StudentNumber = "null", 
+                    AvailableDate = DateTime.Parse("2002-09-01").ToString()
+                }
+            );
+            
+            data.Add(
+                new Therapist()
+                {
+                    Name="Ali Biyikli",
+                    Email="a.biyikli@avans.nl", 
                     PhoneNumber= "0612121212", 
                     BigNumber = "12345678901", 
                     StudentNumber = "null", 

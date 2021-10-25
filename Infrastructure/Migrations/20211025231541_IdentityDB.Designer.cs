@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20211025190851_UpdateDB")]
-    partial class UpdateDB
+    [Migration("20211025231541_IdentityDB")]
+    partial class IdentityDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,21 +51,21 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = "5c491816-e35b-48cc-8c8b-b7b1c7df224f",
-                            ConcurrencyStamp = "0ff50cdd-0043-4edf-ba2e-c0d3f579000f",
+                            ConcurrencyStamp = "938a80aa-e58d-42e3-b02d-5a577a0cc48a",
                             Name = "Therapist",
                             NormalizedName = "THERAPIST"
                         },
                         new
                         {
                             Id = "15ed72fe-db9d-403b-beb6-8d5b8953bba6",
-                            ConcurrencyStamp = "49826ae6-40c6-41f6-b49b-7f8f6397180b",
+                            ConcurrencyStamp = "21faaebe-ae5b-428b-8d62-a17d5363a2a6",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         },
                         new
                         {
                             Id = "ba196295-7c35-49ab-99c2-5c95e987c000",
-                            ConcurrencyStamp = "97eea4a4-9821-4644-bdef-b124525b7a49",
+                            ConcurrencyStamp = "a7b69d49-dc83-4eb3-8a9a-27dccc10e591",
                             Name = "Patient",
                             NormalizedName = "PATIENT"
                         });
@@ -164,47 +164,31 @@ namespace Infrastructure.Migrations
                         {
                             Id = "54f013a2-3d91-4257-983a-8953181cf6f9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "18607e5b-0b47-455c-b115-f34c6693930c",
-                            Email = "m.gerdes@avans.nl",
+                            ConcurrencyStamp = "6395702b-e0f9-45f0-910c-029c7b7f17b2",
+                            Email = "a.biyikli@avans.nl",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            NormalizedEmail = "M.GERDES@AVANS.NL",
-                            NormalizedUserName = "M.GERDES",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGM7lKTOWQHXWDXuBkPPOGfDvO+jdWSiiax+he3aDLphurItTAQ4HLSNbXnj1mo+ig==",
+                            NormalizedEmail = "A.BIYIKLI@AVANS.NL",
+                            NormalizedUserName = "A.BIYIKLI",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKOTaw0IrLHQ3UgQruY9k6qBk7uP6aIun0/fDxRLnNOvk9IMjb5CPPEA5EomwbX1eg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e708b89c-7edf-49f2-98d6-ece199f07c4f",
+                            SecurityStamp = "d86220c3-98b9-471e-b5aa-6fb7c5360e81",
                             TwoFactorEnabled = false,
-                            UserName = "m.gerdes"
+                            UserName = "a.biyikli"
                         },
                         new
                         {
                             Id = "4e317568-1661-4302-be84-0ea791d6a044",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "390220f5-705f-4919-ab70-217d785a1676",
-                            Email = "j.smarius@avans.nl",
+                            ConcurrencyStamp = "fe739e70-9594-4561-aa94-fe1c7fc9995a",
+                            Email = "p.stoop@avans.nl",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            NormalizedEmail = "J.SMARIUS@AVANS.NL",
-                            NormalizedUserName = "J.SMARIUS",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJdVso3suRLPWFSYMGqIbsVT/LrXHGNAV1KaILezHktJ7n6VdkXc5AAU/hrUG2xx2g==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "7ffabbf6-db30-49dd-a347-1383124ed186",
-                            TwoFactorEnabled = false,
-                            UserName = "j.smarius"
-                        },
-                        new
-                        {
-                            Id = "0a11bbe8-f0d2-4063-b6e1-f5359adbb909",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "72ed0a38-3565-49f0-a8ff-d809079a6105",
-                            Email = "p.stoop@student.avans.nl",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "P.STOOP@STUDENT.AVANS.NL",
+                            NormalizedEmail = "P.STOOP@AVANS.NL",
                             NormalizedUserName = "P.STOOP",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMDiefW1k5DU9g8ziO6OGiypdJ1t/4fPr/DyPifj24V2P23A7eFLQHoInEeZbX9K8w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELv7oO03AEe2nN6Wjy5IhhokhSEh854LPBwjzZAh4L8uDv7KMTaSehyw1uh7prDlnQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "19c4b790-9362-4161-a6df-9340ded5bcf4",
+                            SecurityStamp = "d999072e-25c2-4eee-9505-17ba7960f95c",
                             TwoFactorEnabled = false,
                             UserName = "p.stoop"
                         });
@@ -280,11 +264,6 @@ namespace Infrastructure.Migrations
                         {
                             UserId = "4e317568-1661-4302-be84-0ea791d6a044",
                             RoleId = "5c491816-e35b-48cc-8c8b-b7b1c7df224f"
-                        },
-                        new
-                        {
-                            UserId = "0a11bbe8-f0d2-4063-b6e1-f5359adbb909",
-                            RoleId = "ba196295-7c35-49ab-99c2-5c95e987c000"
                         });
                 });
 

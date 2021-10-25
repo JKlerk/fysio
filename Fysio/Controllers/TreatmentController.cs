@@ -22,8 +22,7 @@ namespace Fysio.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Therapist")]
-        [Authorize(Roles = "Student")]
+        [Authorize(Roles = "Therapist,Student")]
         public async Task<IActionResult> Create(int id)
         {
 
@@ -47,8 +46,7 @@ namespace Fysio.Controllers
         
         
         [HttpPost]
-        [Authorize(Roles = "Therapist")]
-        [Authorize(Roles = "Student")]
+        [Authorize(Roles = "Therapist,Student")]
         public async Task<IActionResult> PostCreate(TreatmentViewModel treatmentViewModel)
         {
             if (ModelState.IsValid)
@@ -68,8 +66,7 @@ namespace Fysio.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Therapist")]
-        [Authorize(Roles = "Student")]
+        [Authorize(Roles = "Therapist,Student")]
         public async Task<IActionResult> Edit(int id)
         {
 
@@ -92,8 +89,7 @@ namespace Fysio.Controllers
         }
         
         [HttpPost]
-        [Authorize(Roles = "Therapist")]
-        [Authorize(Roles = "Student")]
+        [Authorize(Roles = "Therapist,Student")]
         public async Task<IActionResult> PostEdit(Treatment treatment)
         {
             if (ModelState.IsValid)
@@ -112,8 +108,7 @@ namespace Fysio.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Therapist")]
-        [Authorize(Roles = "Student")]
+        [Authorize(Roles = "Therapist,Student")]
         public async Task<IActionResult> Delete(int id)
         {
             var treatment = await _treatmentRepository.Find(id);

@@ -15,9 +15,9 @@ namespace Infrastructure.Seeders
             data.Add(
                 new Patient {
                     Name="Kate Velasquez",
-                    Email="test@test.com", 
+                    Email="kate@test.com", 
                     PhoneNumber= "0612121212", 
-                    Gender = "Male", 
+                    Gender = "Female", 
                     Birthdate = DateTime.Parse("2002-09-01"), 
                     PatientNumber = Guid.NewGuid().ToString(), 
                     StaffNumber = "2168734"
@@ -27,9 +27,9 @@ namespace Infrastructure.Seeders
             data.Add(
                 new Patient {
                     Name="Emily Fariello",
-                    Email="test@test.com", 
+                    Email="emily@test.com", 
                     PhoneNumber= "0612121212", 
-                    Gender = "Male", 
+                    Gender = "Female", 
                     Birthdate = DateTime.Parse("2002-09-01"), 
                     PatientNumber = Guid.NewGuid().ToString(), 
                     StaffNumber = "2168734"

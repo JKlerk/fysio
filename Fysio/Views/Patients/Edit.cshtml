@@ -54,21 +54,9 @@
                             <label for="StaffNumber" class="block text-sm font-medium text-gray-700">Staff number</label>
                             @Html.EditorFor(m => m.Patient.StaffNumber, new { htmlAttributes = new { @class = "ipt" } })
                         </div>
-
-                        <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                            <label for="altmail" class="block text-sm font-medium text-gray-700">Alternative Email</label>
-                            <input
-                                placeholder="eg. test2@test.com"
-                                type="text"
-                                name="altmail"
-                                id="altmail"
-                                autocomplete="off"
-                                class="ipt mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            />
-                        </div>
                     </div>
                     <hr class="mt-5" />
-                    @if (User.IsInRole("Therapist") && User.IsInRole("Student")){
+                    @if (User.IsInRole("Therapist") || User.IsInRole("Student")){
                         <!-- DOSSIER STUFF -->
                         @await Html.PartialAsync("_PatientFile", Model)
                     }

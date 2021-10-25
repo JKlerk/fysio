@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class UpdateDB : Migration
+    public partial class IdentityDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -157,9 +157,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "5c491816-e35b-48cc-8c8b-b7b1c7df224f", "0ff50cdd-0043-4edf-ba2e-c0d3f579000f", "Therapist", "THERAPIST" },
-                    { "15ed72fe-db9d-403b-beb6-8d5b8953bba6", "49826ae6-40c6-41f6-b49b-7f8f6397180b", "Student", "STUDENT" },
-                    { "ba196295-7c35-49ab-99c2-5c95e987c000", "97eea4a4-9821-4644-bdef-b124525b7a49", "Patient", "PATIENT" }
+                    { "5c491816-e35b-48cc-8c8b-b7b1c7df224f", "938a80aa-e58d-42e3-b02d-5a577a0cc48a", "Therapist", "THERAPIST" },
+                    { "15ed72fe-db9d-403b-beb6-8d5b8953bba6", "21faaebe-ae5b-428b-8d62-a17d5363a2a6", "Student", "STUDENT" },
+                    { "ba196295-7c35-49ab-99c2-5c95e987c000", "a7b69d49-dc83-4eb3-8a9a-27dccc10e591", "Patient", "PATIENT" }
                 });
 
             migrationBuilder.InsertData(
@@ -167,9 +167,8 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "54f013a2-3d91-4257-983a-8953181cf6f9", 0, "18607e5b-0b47-455c-b115-f34c6693930c", "m.gerdes@avans.nl", true, false, null, "M.GERDES@AVANS.NL", "M.GERDES", "AQAAAAEAACcQAAAAEGM7lKTOWQHXWDXuBkPPOGfDvO+jdWSiiax+he3aDLphurItTAQ4HLSNbXnj1mo+ig==", null, false, "e708b89c-7edf-49f2-98d6-ece199f07c4f", false, "m.gerdes" },
-                    { "4e317568-1661-4302-be84-0ea791d6a044", 0, "390220f5-705f-4919-ab70-217d785a1676", "j.smarius@avans.nl", true, false, null, "J.SMARIUS@AVANS.NL", "J.SMARIUS", "AQAAAAEAACcQAAAAEJdVso3suRLPWFSYMGqIbsVT/LrXHGNAV1KaILezHktJ7n6VdkXc5AAU/hrUG2xx2g==", null, false, "7ffabbf6-db30-49dd-a347-1383124ed186", false, "j.smarius" },
-                    { "0a11bbe8-f0d2-4063-b6e1-f5359adbb909", 0, "72ed0a38-3565-49f0-a8ff-d809079a6105", "p.stoop@student.avans.nl", true, false, null, "P.STOOP@STUDENT.AVANS.NL", "P.STOOP", "AQAAAAEAACcQAAAAEMDiefW1k5DU9g8ziO6OGiypdJ1t/4fPr/DyPifj24V2P23A7eFLQHoInEeZbX9K8w==", null, false, "19c4b790-9362-4161-a6df-9340ded5bcf4", false, "p.stoop" }
+                    { "54f013a2-3d91-4257-983a-8953181cf6f9", 0, "6395702b-e0f9-45f0-910c-029c7b7f17b2", "a.biyikli@avans.nl", true, false, null, "A.BIYIKLI@AVANS.NL", "A.BIYIKLI", "AQAAAAEAACcQAAAAEKOTaw0IrLHQ3UgQruY9k6qBk7uP6aIun0/fDxRLnNOvk9IMjb5CPPEA5EomwbX1eg==", null, false, "d86220c3-98b9-471e-b5aa-6fb7c5360e81", false, "a.biyikli" },
+                    { "4e317568-1661-4302-be84-0ea791d6a044", 0, "fe739e70-9594-4561-aa94-fe1c7fc9995a", "p.stoop@avans.nl", true, false, null, "P.STOOP@AVANS.NL", "P.STOOP", "AQAAAAEAACcQAAAAELv7oO03AEe2nN6Wjy5IhhokhSEh854LPBwjzZAh4L8uDv7KMTaSehyw1uh7prDlnQ==", null, false, "d999072e-25c2-4eee-9505-17ba7960f95c", false, "p.stoop" }
                 });
 
             migrationBuilder.InsertData(
@@ -181,11 +180,6 @@ namespace Infrastructure.Migrations
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[] { "5c491816-e35b-48cc-8c8b-b7b1c7df224f", "4e317568-1661-4302-be84-0ea791d6a044" });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUserRoles",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "ba196295-7c35-49ab-99c2-5c95e987c000", "0a11bbe8-f0d2-4063-b6e1-f5359adbb909" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

@@ -84,7 +84,7 @@ namespace Fysio.Controllers
 
             var user = new IdentityUser
             {
-                UserName = Regex.Replace(patient.Name, @"\s+", ""),
+                UserName = Regex.Replace(patient.Name, @"\s+", "."),
                 Email = email,
                 Id = patient.PatientNumber
             };

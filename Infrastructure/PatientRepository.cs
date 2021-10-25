@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Core.Domain;
 using Core.DomainServices;
@@ -56,6 +57,19 @@ namespace Infrastructure
             try
             {
                 return _context.Patients.First(x => x.Email == email);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public async Task<Patient> FindByName(string name)
+        {
+            name = name.Replace(".", " ");
+            try
+            {
+                return _context.Patients.First(x => x.Name == name);
             }
             catch
             {
