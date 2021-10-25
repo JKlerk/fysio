@@ -157,9 +157,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "5c491816-e35b-48cc-8c8b-b7b1c7df224f", "83ba9281-d9fe-434e-90af-493eab9f19e8", "Therapist", "THERAPIST" },
-                    { "15ed72fe-db9d-403b-beb6-8d5b8953bba6", "020b6f1a-4bff-4e23-8359-c93750112354", "Student", "STUDENT" },
-                    { "ba196295-7c35-49ab-99c2-5c95e987c000", "96d9ca18-3a86-4664-81bc-b4b162498675", "Patient", "PATIENT" }
+                    { "5c491816-e35b-48cc-8c8b-b7b1c7df224f", "0ff50cdd-0043-4edf-ba2e-c0d3f579000f", "Therapist", "THERAPIST" },
+                    { "15ed72fe-db9d-403b-beb6-8d5b8953bba6", "49826ae6-40c6-41f6-b49b-7f8f6397180b", "Student", "STUDENT" },
+                    { "ba196295-7c35-49ab-99c2-5c95e987c000", "97eea4a4-9821-4644-bdef-b124525b7a49", "Patient", "PATIENT" }
                 });
 
             migrationBuilder.InsertData(
@@ -167,9 +167,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "54f013a2-3d91-4257-983a-8953181cf6f9", 0, "ee396580-b1cb-4ab4-aa2e-b1fb425f87de", "m.gerdes@avans.nl", true, false, null, "M.GERDES@AVANS.NL", "M.GERDES", "AQAAAAEAACcQAAAAEL2vHSM2dtOgbFSKEiB3vlOAPcTj9qx6/EjKBRZ5Pj+7cqaNvdK25XRK/fp6XjqmVg==", null, false, "2568a066-a423-4319-90a5-f00fe367c58a", false, "m.gerdes" },
-                    { "4e317568-1661-4302-be84-0ea791d6a044", 0, "d40db502-6e2e-4a85-a6a3-04fb889b2328", "j.smarius@avans.nl", true, false, null, "J.SMARIUS@AVANS.NL", "J.SMARIUS", "AQAAAAEAACcQAAAAEC+kzJ+UxzGSTF5VrvHSsBHMJmKgAU1J7lJlmBptcZDUHW9lYGmLR69g9IIdvEX/+A==", null, false, "e167a587-5a7c-49a6-8eb1-9e58bc1881c4", false, "j.smarius" },
-                    { "0a11bbe8-f0d2-4063-b6e1-f5359adbb909", 0, "af10d110-0e30-46ad-a571-f799cd60bf76", "p.stoop@student.avans.nl", true, false, null, "P.STOOP@STUDENT.AVANS.NL", "P.STOOP", "AQAAAAEAACcQAAAAEBT/+EttLHylDUxdWzNcAHwGai4xoY8teXU4jfPDz1xqY957oK+D1SWgcW2l7SXSIQ==", null, false, "e3f04ae0-45f7-4320-928c-cb615d8c7485", false, "p.stoop" }
+                    { "54f013a2-3d91-4257-983a-8953181cf6f9", 0, "18607e5b-0b47-455c-b115-f34c6693930c", "m.gerdes@avans.nl", true, false, null, "M.GERDES@AVANS.NL", "M.GERDES", "AQAAAAEAACcQAAAAEGM7lKTOWQHXWDXuBkPPOGfDvO+jdWSiiax+he3aDLphurItTAQ4HLSNbXnj1mo+ig==", null, false, "e708b89c-7edf-49f2-98d6-ece199f07c4f", false, "m.gerdes" },
+                    { "4e317568-1661-4302-be84-0ea791d6a044", 0, "390220f5-705f-4919-ab70-217d785a1676", "j.smarius@avans.nl", true, false, null, "J.SMARIUS@AVANS.NL", "J.SMARIUS", "AQAAAAEAACcQAAAAEJdVso3suRLPWFSYMGqIbsVT/LrXHGNAV1KaILezHktJ7n6VdkXc5AAU/hrUG2xx2g==", null, false, "7ffabbf6-db30-49dd-a347-1383124ed186", false, "j.smarius" },
+                    { "0a11bbe8-f0d2-4063-b6e1-f5359adbb909", 0, "72ed0a38-3565-49f0-a8ff-d809079a6105", "p.stoop@student.avans.nl", true, false, null, "P.STOOP@STUDENT.AVANS.NL", "P.STOOP", "AQAAAAEAACcQAAAAEMDiefW1k5DU9g8ziO6OGiypdJ1t/4fPr/DyPifj24V2P23A7eFLQHoInEeZbX9K8w==", null, false, "19c4b790-9362-4161-a6df-9340ded5bcf4", false, "p.stoop" }
                 });
 
             migrationBuilder.InsertData(
@@ -185,7 +185,7 @@ namespace Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "15ed72fe-db9d-403b-beb6-8d5b8953bba6", "0a11bbe8-f0d2-4063-b6e1-f5359adbb909" });
+                values: new object[] { "ba196295-7c35-49ab-99c2-5c95e987c000", "0a11bbe8-f0d2-4063-b6e1-f5359adbb909" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

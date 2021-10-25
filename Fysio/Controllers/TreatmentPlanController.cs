@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Core.Domain;
 using Core.DomainServices;
 using Fysio.Models;
@@ -70,6 +71,7 @@ namespace Fysio.Controllers
                 _treatmentPlanRepository.SaveChanges();
                 
                 treatment.TreatmentPlanId = treatmentPlan.Id;
+                treatment.AddedDate = DateTime.Now;
                 _treatmentRepository.Add(treatment);
                 _treatmentRepository.SaveChanges();
                 

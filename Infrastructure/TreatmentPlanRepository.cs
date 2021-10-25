@@ -18,7 +18,7 @@ namespace Infrastructure
 
         public List<TreatmentPlan> GetAll()
         {
-            return _context.TreatmentPlans.Include(tp => tp.Treatments).ToList();
+            return _context.TreatmentPlans.ToList();
         }
 
         public void Add(TreatmentPlan treatmentPlan)
@@ -33,7 +33,7 @@ namespace Infrastructure
 
         public async Task<TreatmentPlan> Find(int? id)
         {
-            return _context.TreatmentPlans.Where(tp => tp.Id == id).Include(tp => tp.Treatments).ThenInclude(t => t.Therapist).First();
+            return _context.TreatmentPlans.First(tp => tp.Id == id);
         }
 
         public async Task<TreatmentPlan> FindWherePatientFileId(int id)

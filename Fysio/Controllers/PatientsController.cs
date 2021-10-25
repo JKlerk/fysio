@@ -51,8 +51,13 @@ namespace Fysio.Controllers
             {
                 return NotFound();
             }
+            
+            var patient = await _patientRepository.Find(id);
+            if (patient == null)
+            {
+                return NotFound();
+            }
 
-            var patient = _patientRepository.Find(id).Result;
             // var _context = new FysioContext();
             //
             // var patient = await _patientRepository.Find(id)

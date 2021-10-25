@@ -17,7 +17,10 @@ namespace Fysio.Models
         public int TherapistId { get; set; }
         public virtual Therapist Therapist { get; set; }
     
+        
         [DataType(DataType.Date)]
-        public DateTime Date { get; set; }
+        public DateTime AddedDate { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime FinishDate { get; set; }
     }
 }

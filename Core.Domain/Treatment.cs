@@ -16,7 +16,8 @@ namespace Core.Domain
         public int TherapistId { get; set; }
         public virtual Therapist Therapist { get; set; }
     
-        public DateTime Date { get; set; }
+        public DateTime AddedDate { get; set; }
+        public DateTime FinishDate { get; set; }
     }
 
 }

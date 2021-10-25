@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20211025151242_UpdateDB")]
+    [Migration("20211025190851_UpdateDB")]
     partial class UpdateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,21 +51,21 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = "5c491816-e35b-48cc-8c8b-b7b1c7df224f",
-                            ConcurrencyStamp = "83ba9281-d9fe-434e-90af-493eab9f19e8",
+                            ConcurrencyStamp = "0ff50cdd-0043-4edf-ba2e-c0d3f579000f",
                             Name = "Therapist",
                             NormalizedName = "THERAPIST"
                         },
                         new
                         {
                             Id = "15ed72fe-db9d-403b-beb6-8d5b8953bba6",
-                            ConcurrencyStamp = "020b6f1a-4bff-4e23-8359-c93750112354",
+                            ConcurrencyStamp = "49826ae6-40c6-41f6-b49b-7f8f6397180b",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         },
                         new
                         {
                             Id = "ba196295-7c35-49ab-99c2-5c95e987c000",
-                            ConcurrencyStamp = "96d9ca18-3a86-4664-81bc-b4b162498675",
+                            ConcurrencyStamp = "97eea4a4-9821-4644-bdef-b124525b7a49",
                             Name = "Patient",
                             NormalizedName = "PATIENT"
                         });
@@ -164,15 +164,15 @@ namespace Infrastructure.Migrations
                         {
                             Id = "54f013a2-3d91-4257-983a-8953181cf6f9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ee396580-b1cb-4ab4-aa2e-b1fb425f87de",
+                            ConcurrencyStamp = "18607e5b-0b47-455c-b115-f34c6693930c",
                             Email = "m.gerdes@avans.nl",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "M.GERDES@AVANS.NL",
                             NormalizedUserName = "M.GERDES",
-                            PasswordHash = "AQAAAAEAACcQAAAAEL2vHSM2dtOgbFSKEiB3vlOAPcTj9qx6/EjKBRZ5Pj+7cqaNvdK25XRK/fp6XjqmVg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGM7lKTOWQHXWDXuBkPPOGfDvO+jdWSiiax+he3aDLphurItTAQ4HLSNbXnj1mo+ig==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2568a066-a423-4319-90a5-f00fe367c58a",
+                            SecurityStamp = "e708b89c-7edf-49f2-98d6-ece199f07c4f",
                             TwoFactorEnabled = false,
                             UserName = "m.gerdes"
                         },
@@ -180,15 +180,15 @@ namespace Infrastructure.Migrations
                         {
                             Id = "4e317568-1661-4302-be84-0ea791d6a044",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d40db502-6e2e-4a85-a6a3-04fb889b2328",
+                            ConcurrencyStamp = "390220f5-705f-4919-ab70-217d785a1676",
                             Email = "j.smarius@avans.nl",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "J.SMARIUS@AVANS.NL",
                             NormalizedUserName = "J.SMARIUS",
-                            PasswordHash = "AQAAAAEAACcQAAAAEC+kzJ+UxzGSTF5VrvHSsBHMJmKgAU1J7lJlmBptcZDUHW9lYGmLR69g9IIdvEX/+A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJdVso3suRLPWFSYMGqIbsVT/LrXHGNAV1KaILezHktJ7n6VdkXc5AAU/hrUG2xx2g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e167a587-5a7c-49a6-8eb1-9e58bc1881c4",
+                            SecurityStamp = "7ffabbf6-db30-49dd-a347-1383124ed186",
                             TwoFactorEnabled = false,
                             UserName = "j.smarius"
                         },
@@ -196,15 +196,15 @@ namespace Infrastructure.Migrations
                         {
                             Id = "0a11bbe8-f0d2-4063-b6e1-f5359adbb909",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "af10d110-0e30-46ad-a571-f799cd60bf76",
+                            ConcurrencyStamp = "72ed0a38-3565-49f0-a8ff-d809079a6105",
                             Email = "p.stoop@student.avans.nl",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "P.STOOP@STUDENT.AVANS.NL",
                             NormalizedUserName = "P.STOOP",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBT/+EttLHylDUxdWzNcAHwGai4xoY8teXU4jfPDz1xqY957oK+D1SWgcW2l7SXSIQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMDiefW1k5DU9g8ziO6OGiypdJ1t/4fPr/DyPifj24V2P23A7eFLQHoInEeZbX9K8w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e3f04ae0-45f7-4320-928c-cb615d8c7485",
+                            SecurityStamp = "19c4b790-9362-4161-a6df-9340ded5bcf4",
                             TwoFactorEnabled = false,
                             UserName = "p.stoop"
                         });
@@ -284,7 +284,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             UserId = "0a11bbe8-f0d2-4063-b6e1-f5359adbb909",
-                            RoleId = "15ed72fe-db9d-403b-beb6-8d5b8953bba6"
+                            RoleId = "ba196295-7c35-49ab-99c2-5c95e987c000"
                         });
                 });
 

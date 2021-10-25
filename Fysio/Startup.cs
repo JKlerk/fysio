@@ -104,6 +104,11 @@ namespace Fysio
                     name: "Treatment",
                     pattern: "{controller=TreatmentPlan}/{action=Index}/{id?}"
                 );
+                
+                endpoints.MapControllerRoute(
+                    name: "Treatment",
+                    pattern: "{controller=Treatment}/{action=Index}/{id?}"
+                );
 
                 endpoints.MapRazorPages();
             });

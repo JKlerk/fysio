@@ -24,7 +24,14 @@ namespace Infrastructure
 
         public async Task<Patient> Find(int? id)
         {
-            return _context.Patients.First(p => p.Id == id);
+            try
+            {
+                return _context.Patients.First(p => p.Id == id);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public void Remove(Patient patient)
