@@ -5,8 +5,8 @@
     @Html.AntiForgeryToken()
     <div class="py-5">
         <div>
-            <h3 class="text-lg leading-6 font-bold font-source text-fysio-header">Treatment Plan</h3>
-            <p class="mt-1 max-w-2xl text-sm text-gray-500 font-roboto">Treatment details and information.</p>
+            <h3 class="text-lg leading-6 font-bold font-source text-fysio-header">Treatment</h3>
+            <p class="mt-1 max-w-2xl text-sm text-gray-500 font-roboto">Treatment information.</p>
         </div>
     </div>
     <hr/>
@@ -43,9 +43,14 @@
             </textarea>
         </div>
     </div>
-    <div class="flex flex-1 justify-end mt-5 pb-6 px-6">
-        <button style="background-color: #00b4d8" value="Create" type="submit" class="hover:bg-blue-600 rounded-lg text-white p-2 text-center text-sm font-bold">
-            Add treatmentplan
-        </button>
+    <div class="flex mt-2">
+        <div class="flex justify-start">
+            <a href="/treatmentplan/details/@Model.Treatment.TreatmentPlanId" class="p-2 text-fysio-header font-bold rounded-lg hover:opacity-75 border border-fysio-header transition-opacity duration-100 text-sm px-5">Back</a>
+        </div>
+        <div class="flex flex-1 justify-end">
+            <button style="background-color: #00b4d8" value="Create" type="submit" class="hover:bg-blue-600 rounded-lg text-white p-2 text-center text-sm font-bold">
+                Edit treatment
+            </button>
+        </div>
     </div>
 </form>

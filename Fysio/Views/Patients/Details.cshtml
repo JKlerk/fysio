@@ -174,10 +174,10 @@
                         <div class="my-auto ml-2 flex w-full select-none">
                             <a href="/treatmentplan/details/@Model.PatientFile.TreatmentPlan.Id">
                                 <h1 class="font-bold">@treatment.Type</h1>
-                                <p class="text-gray-600 text-sm">Therapist: @treatment.Therapist.Name</p>
-                                <p class="text-gray-600 text-sm">Done treatment on: @treatment.FinishDate</p>
+                                <p class="text-gray-600 text-sm font-semibold">Therapist: <span class="font-normal">@treatment.Therapist.Name</span></p>
+                                <p class="text-gray-600 text-sm font-semibold">Done treatment on: <span class="font-normal">@treatment.FinishDate</span></p>
                             </a>
-                            <div class="flex flex-1 justify-end">
+                            <div class="flex flex-1 justify-end my-auto">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path
                                         stroke-linecap="round"
