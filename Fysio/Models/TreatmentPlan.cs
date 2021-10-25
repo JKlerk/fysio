@@ -13,6 +13,8 @@ namespace Fysio.Models
         public int PatientFileId { get; set; }
         public virtual PatientFile PatientFile { get; set; }
         
+        public int MaxTreatments { get; set; }
+
         public List<Treatment> Treatments;
         
         [DataType(DataType.Date)]

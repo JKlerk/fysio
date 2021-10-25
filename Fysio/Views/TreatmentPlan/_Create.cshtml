@@ -20,6 +20,13 @@
                         @Html.EditorFor(m => m.TreatmentPlan.EndTime, new { htmlAttributes = new { @class = "ipt text-sm"} })
                         <span asp-validation-for="TreatmentPlan.EndTime" class="text-danger"></span>
                     </div>
+                    
+                    <div class="col-span-2 sm:col-span-1">
+                        <label for="maxtreatment" class="block text-sm font-medium text-gray-700">Max. Treatments</label>
+                        @Html.EditorFor(m => m.TreatmentPlan.MaxTreatments, new {htmlAttributes = new {@class = "ipt text-sm"}})
+                        <span asp-validation-for="TreatmentPlan.EndTime" class="text-danger"></span>
+                    </div>
+                    
                     <div class="col-span-6 sm:col-span-6 lg:col-span-1">
                         <label for="Type" class="block text-sm font-medium text-gray-700">Type treatment (Vektis)</label>
                         @Html.EditorFor(m => m.Treatment.Type, new { htmlAttributes = new { @class = "ipt text-sm", placeholder = "Vektis Code" }, })
