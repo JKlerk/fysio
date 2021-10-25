@@ -51,6 +51,18 @@ namespace Infrastructure
             _context.Entry(oldData).CurrentValues.SetValues(patient);
         }
 
+        public async Task<Patient> FindByEmail(string email)
+        {
+            try
+            {
+                return _context.Patients.First(x => x.Email == email);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public void SaveChanges()
         {
             _context.SaveChanges();

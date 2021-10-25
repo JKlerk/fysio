@@ -16,6 +16,8 @@ namespace Core.DomainServices
         public void Add(Patient patient);
 
         public void Update(Patient patient);
+
+        public Task<Patient> FindByEmail(string email);
         
         void SaveChanges();
     }

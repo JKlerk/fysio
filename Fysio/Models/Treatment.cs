@@ -10,6 +10,7 @@ namespace Fysio.Models
         public int TreatmentPlanId { get; set; }
         public virtual TreatmentPlan TreatmentPlan { get; set; }
 
+        [Required]
         public string Type { get; set; }
 
         public string Description { get; set; }

@@ -48,7 +48,9 @@ namespace Fysio.Controllers
         {
             if (ModelState.IsValid)
             {
-                Treatment treatment = treatmentViewModel.Treatment;
+                Treatment treatment = new Treatment();
+                treatment.Id = treatmentViewModel.Treatment.Id;
+                
                 
                 treatment.AddedDate = DateTime.Now;
                 _treatmentRepository.Add(treatment);
