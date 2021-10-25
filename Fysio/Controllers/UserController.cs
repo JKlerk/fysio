@@ -47,11 +47,6 @@ namespace Fysio.Controllers
             
             if (user != null)
             {
-
-                var therapist = _therapistRepository.FindByEmail(email);
-                // sign in
-                
-                
                 var result = await _signInManager.PasswordSignInAsync(user, password, false, false);
                 if (result.Succeeded)
                 {

@@ -1,9 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Core.DomainServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fysio.Controllers
 {
+    [Authorize]
     public class TreatmentPlanController : Controller
     {
 

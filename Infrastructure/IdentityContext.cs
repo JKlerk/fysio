@@ -35,14 +35,14 @@ namespace Infrastructure
                 Id = "15ed72fe-db9d-403b-beb6-8d5b8953bba6",
             };
 
-            var clientRole = new IdentityRole
+            var patientRole = new IdentityRole
             {
                 Name = Role.PatientRole,
                 NormalizedName = Role.PatientRole.ToUpper(),
                 Id = "ba196295-7c35-49ab-99c2-5c95e987c000",
             };
 
-            builder.Entity<IdentityRole>().HasData(physioRole, studentRole, clientRole);
+            builder.Entity<IdentityRole>().HasData(physioRole, studentRole, patientRole);
 
             var user1 = new IdentityUser()
             {
@@ -97,7 +97,7 @@ namespace Infrastructure
                 },
                 new IdentityUserRole<string>
                 {
-                    RoleId = studentRole.Id,
+                    RoleId = patientRole.Id,
                     UserId = user3.Id
                 }
             );

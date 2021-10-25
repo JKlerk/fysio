@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Core.DomainServices;
 using Fysio.Models;
 using Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Patient = Core.Domain.Patient;
@@ -16,6 +17,7 @@ using TreatmentPlan = Core.Domain.TreatmentPlan;
 
 namespace Fysio.Controllers
 {
+    [Authorize]
     public class PatientsController : Controller
     {
         private readonly IPatientRepository _patientRepository;
