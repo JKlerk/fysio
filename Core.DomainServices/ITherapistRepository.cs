@@ -7,5 +7,7 @@ namespace Core.DomainServices
     public interface ITherapistRepository
     {
         List<Therapist> GetAll();
+
+        public Therapist FindByEmail(string email);
     }
 }

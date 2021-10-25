@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using Core.Domain;
+using Core.DomainServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,12 +12,13 @@ namespace Fysio.Controllers
 
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly ITherapistRepository _therapistRepository;
         
-        
-        public UserController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public UserController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ITherapistRepository therapistRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _therapistRepository = therapistRepository;
         }
 
         [HttpGet]
@@ -41,12 +44,15 @@ namespace Fysio.Controllers
         public async Task<IActionResult> Login(string email, string password)
         {
             var user = await _userManager.FindByEmailAsync(email);
-
+            
             if (user != null)
             {
-                // sign in
-                var result = await _signInManager.PasswordSignInAsync(user, password, false, false);
 
+                var therapist = _therapistRepository.FindByEmail(email);
+                // sign in
+                
+                
+                var result = await _signInManager.PasswordSignInAsync(user, password, false, false);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");

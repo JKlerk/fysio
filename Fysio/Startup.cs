@@ -1,3 +1,4 @@
+using Core.Domain;
 using Core.DomainServices;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
@@ -35,8 +36,15 @@ namespace Fysio
                 config.Password.RequireDigit = false;
                 config.Password.RequireNonAlphanumeric = false;
                 config.Password.RequireUppercase = false;
-            }).AddEntityFrameworkStores<IdentityContext>().AddDefaultTokenProviders();
+            }).AddEntityFrameworkStores<IdentityContext>().AddRoles<IdentityRole>().AddDefaultTokenProviders();
             
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Role.TherapistRole, policy => policy.RequireRole(Role.TherapistRole));
+                options.AddPolicy(Role.StudentRole, policy => policy.RequireRole(Role.StudentRole));
+                options.AddPolicy(Role.AdminRole, policy => policy.RequireRole(Role.AdminRole));
+            });
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.ConfigureApplicationCookie(config =>
@@ -51,7 +59,7 @@ namespace Fysio
             services.AddScoped<ITreatmentPlanRepository, TreatmentPlanRepository>();
             services.AddScoped<ITreatmentRepository, TreatmentRepository>();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddHealthChecks();
             services.AddRazorPages();
 

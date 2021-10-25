@@ -17,5 +17,10 @@ namespace Infrastructure
         {
             return _context.Therapists.ToList();
         }
+
+        public Therapist FindByEmail(string email)
+        {
+            return _context.Therapists.First(q => q.Email == email);
+        }
     }
 }

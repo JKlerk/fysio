@@ -16,7 +16,7 @@ namespace Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.10")
+                .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -44,6 +44,29 @@ namespace Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "5c491816-e35b-48cc-8c8b-b7b1c7df224f",
+                            ConcurrencyStamp = "83ba9281-d9fe-434e-90af-493eab9f19e8",
+                            Name = "Therapist",
+                            NormalizedName = "THERAPIST"
+                        },
+                        new
+                        {
+                            Id = "15ed72fe-db9d-403b-beb6-8d5b8953bba6",
+                            ConcurrencyStamp = "020b6f1a-4bff-4e23-8359-c93750112354",
+                            Name = "Student",
+                            NormalizedName = "STUDENT"
+                        },
+                        new
+                        {
+                            Id = "ba196295-7c35-49ab-99c2-5c95e987c000",
+                            ConcurrencyStamp = "96d9ca18-3a86-4664-81bc-b4b162498675",
+                            Name = "Patient",
+                            NormalizedName = "PATIENT"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -133,6 +156,56 @@ namespace Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "54f013a2-3d91-4257-983a-8953181cf6f9",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ee396580-b1cb-4ab4-aa2e-b1fb425f87de",
+                            Email = "m.gerdes@avans.nl",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "M.GERDES@AVANS.NL",
+                            NormalizedUserName = "M.GERDES",
+                            PasswordHash = "AQAAAAEAACcQAAAAEL2vHSM2dtOgbFSKEiB3vlOAPcTj9qx6/EjKBRZ5Pj+7cqaNvdK25XRK/fp6XjqmVg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "2568a066-a423-4319-90a5-f00fe367c58a",
+                            TwoFactorEnabled = false,
+                            UserName = "m.gerdes"
+                        },
+                        new
+                        {
+                            Id = "4e317568-1661-4302-be84-0ea791d6a044",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "d40db502-6e2e-4a85-a6a3-04fb889b2328",
+                            Email = "j.smarius@avans.nl",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "J.SMARIUS@AVANS.NL",
+                            NormalizedUserName = "J.SMARIUS",
+                            PasswordHash = "AQAAAAEAACcQAAAAEC+kzJ+UxzGSTF5VrvHSsBHMJmKgAU1J7lJlmBptcZDUHW9lYGmLR69g9IIdvEX/+A==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "e167a587-5a7c-49a6-8eb1-9e58bc1881c4",
+                            TwoFactorEnabled = false,
+                            UserName = "j.smarius"
+                        },
+                        new
+                        {
+                            Id = "0a11bbe8-f0d2-4063-b6e1-f5359adbb909",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "af10d110-0e30-46ad-a571-f799cd60bf76",
+                            Email = "p.stoop@student.avans.nl",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "P.STOOP@STUDENT.AVANS.NL",
+                            NormalizedUserName = "P.STOOP",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBT/+EttLHylDUxdWzNcAHwGai4xoY8teXU4jfPDz1xqY957oK+D1SWgcW2l7SXSIQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "e3f04ae0-45f7-4320-928c-cb615d8c7485",
+                            TwoFactorEnabled = false,
+                            UserName = "p.stoop"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -194,6 +267,23 @@ namespace Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "54f013a2-3d91-4257-983a-8953181cf6f9",
+                            RoleId = "5c491816-e35b-48cc-8c8b-b7b1c7df224f"
+                        },
+                        new
+                        {
+                            UserId = "4e317568-1661-4302-be84-0ea791d6a044",
+                            RoleId = "5c491816-e35b-48cc-8c8b-b7b1c7df224f"
+                        },
+                        new
+                        {
+                            UserId = "0a11bbe8-f0d2-4063-b6e1-f5359adbb909",
+                            RoleId = "15ed72fe-db9d-403b-beb6-8d5b8953bba6"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
