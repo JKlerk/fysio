@@ -8,6 +8,9 @@ namespace Core.DomainServices
         List<Treatment> GetAll();
         
         public void Add(Treatment treatment);
+        
+        public void Update(Treatment treatment);
+        
         void SaveChanges();
     }
 }

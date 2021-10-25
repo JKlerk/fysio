@@ -22,30 +22,31 @@ namespace Infrastructure
             return _context.Patients.ToList();
         }
 
-        public async Task<Patient> FindPatient(int? id)
+        public async Task<Patient> Find(int? id)
         {
             return _context.Patients.First(p => p.Id == id);
         }
 
-        public void RemovePatient(Patient patient)
+        public void Remove(Patient patient)
         {
             _context.Patients.Remove(patient);
         }
 
-        public void AddPatient(Patient patient)
+        public void Add(Patient patient)
         {
             _context.Patients.Add(patient);
             
         }
 
+        public void Update(Patient patient)
+        {
+            var oldData = _context.Patients.First(x => x.Id == patient.Id);
+            _context.Entry(oldData).CurrentValues.SetValues(patient);
+        }
+
         public void SaveChanges()
         {
             _context.SaveChanges();
-        }
-
-        public void SaveChangesAsync()
-        {
-            _context.SaveChangesAsync();
         }
     }
 }

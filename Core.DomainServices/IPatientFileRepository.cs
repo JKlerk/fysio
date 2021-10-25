@@ -8,11 +8,11 @@ namespace Core.DomainServices
     {
         IEnumerable<Patient> GetAll();
 
-        Task<Patient> FindPatient(int? id);
-
-        void RemovePatient(Patient patient);
+        Task<PatientFile> Find(int? id);
 
         public void Add(PatientFile patientFile);
+
+        public void Update(PatientFile patientFile);
         
         void SaveChanges();
     }

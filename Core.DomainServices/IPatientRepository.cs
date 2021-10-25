@@ -9,11 +9,13 @@ namespace Core.DomainServices
     {
         IEnumerable<Patient> GetAll();
 
-        Task<Patient> FindPatient(int? id);
+        Task<Patient> Find(int? id);
 
-        void RemovePatient(Patient patient);
+        void Remove(Patient patient);
 
-        public void AddPatient(Patient patient);
+        public void Add(Patient patient);
+
+        public void Update(Patient patient);
         
         void SaveChanges();
     }

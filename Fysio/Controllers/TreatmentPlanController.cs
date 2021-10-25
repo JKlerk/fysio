@@ -1,7 +1,11 @@
 ﻿using System.Threading.Tasks;
+using Core.Domain;
 using Core.DomainServices;
+using Fysio.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Treatment = Core.Domain.Treatment;
+using TreatmentPlan = Core.Domain.TreatmentPlan;
 
 namespace Fysio.Controllers
 {
@@ -11,11 +15,13 @@ namespace Fysio.Controllers
 
         private readonly ITreatmentPlanRepository _treatmentPlanRepository;
         private readonly ITreatmentRepository _treatmentRepository;
-        
-        public TreatmentPlanController (ITreatmentPlanRepository treatmentPlanRepository, ITreatmentRepository treatmentRepository)
+        private readonly ITherapistRepository _therapistRepository;
+
+        public TreatmentPlanController (ITreatmentPlanRepository treatmentPlanRepository, ITreatmentRepository treatmentRepository, ITherapistRepository therapistRepository)
         {
             _treatmentPlanRepository = treatmentPlanRepository;
             _treatmentRepository = treatmentRepository;
+            _therapistRepository = therapistRepository;
         }
         
         // GET
@@ -32,19 +38,46 @@ namespace Fysio.Controllers
             }
 
             var tp = _treatmentPlanRepository.Find(id).Result;
-            
-            // var patient = _patientRepository.FindPatient(id).Result;
-            // var _context = new FysioContext();
-            //
-            // var patient = await _patientRepository.Find(id)
-            //     .FirstOrDefaultAsync(m => m.Id == id);
-            // if (patient == null)
-            // {
-            //     return NotFound();
-            // }
-            //
-            // return View(patient);
             return View(tp);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Create(int id)
+        {
+            if (_treatmentPlanRepository.FindWherePatientFileId(id).Status.ToString() != "Faulted") return RedirectToAction("Index");
+            
+            TreatmentViewModel treatmentViewModel = new TreatmentViewModel();
+            treatmentViewModel.Therapists = _therapistRepository.GetAll();
+            treatmentViewModel.TreatmentPlan = new TreatmentPlan();
+            treatmentViewModel.TreatmentPlan.PatientFileId = id;
+            return View(treatmentViewModel);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(TreatmentViewModel treatmentPlanViewModel)
+        {
+
+            if (_treatmentPlanRepository.FindWherePatientFileId(treatmentPlanViewModel.TreatmentPlan.PatientFileId).Status.ToString() != "Faulted") return RedirectToAction("Index");
+            
+
+            if (ModelState.IsValid)
+            {
+                TreatmentPlan treatmentPlan = treatmentPlanViewModel.TreatmentPlan;
+                Treatment treatment = treatmentPlanViewModel.Treatment;
+                
+                _treatmentPlanRepository.Add(treatmentPlan);
+                _treatmentPlanRepository.SaveChanges();
+                
+                treatment.TreatmentPlanId = treatmentPlan.Id;
+                _treatmentRepository.Add(treatment);
+                _treatmentRepository.SaveChanges();
+                
+                return RedirectToAction("Index");
+            }
+            
+            treatmentPlanViewModel.Therapists = _therapistRepository.GetAll();
+            return View("Create", treatmentPlanViewModel);
         }
     }
 }

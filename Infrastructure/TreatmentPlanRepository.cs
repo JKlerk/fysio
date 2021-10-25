@@ -9,7 +9,7 @@ namespace Infrastructure
 {
     public class TreatmentPlanRepository : ITreatmentPlanRepository
     {
-        private FysioContext _context;
+        private readonly FysioContext _context;
 
         public TreatmentPlanRepository(FysioContext context)
         {
@@ -25,10 +25,20 @@ namespace Infrastructure
         {
             _context.TreatmentPlans.Add(treatmentPlan);
         }
-        
+
+        public void Update(TreatmentPlan treatmentPlan)
+        {
+            _context.TreatmentPlans.Update(treatmentPlan);
+        }
+
         public async Task<TreatmentPlan> Find(int? id)
         {
             return _context.TreatmentPlans.Where(tp => tp.Id == id).Include(tp => tp.Treatments).ThenInclude(t => t.Therapist).First();
+        }
+
+        public async Task<TreatmentPlan> FindWherePatientFileId(int id)
+        {
+            return _context.TreatmentPlans.First(tp => tp.PatientFileId == id);
         }
 
         public void SaveChanges()

@@ -52,7 +52,7 @@ namespace Fysio.Controllers
                 return NotFound();
             }
 
-            var patient = _patientRepository.FindPatient(id).Result;
+            var patient = _patientRepository.Find(id).Result;
             // var _context = new FysioContext();
             //
             // var patient = await _patientRepository.Find(id)
@@ -67,6 +67,7 @@ namespace Fysio.Controllers
         }
         
         // GET: Patients/Create
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             var patientViewModel = new PatientViewModel();
@@ -86,19 +87,15 @@ namespace Fysio.Controllers
             if (ModelState.IsValid)
             {
                 Patient patient = patientViewModel.Patient;
-                PatientFile patientFile = patientViewModel.PatientFile;
                 TreatmentPlan treatmentPlan = patientViewModel.TreatmentPlan;
                 Treatment treatment = patientViewModel.Treatment;
                 
                 patient.PatientNumber = Guid.NewGuid().ToString();
-                _patientRepository.AddPatient(patient);
-                _patientRepository.SaveChanges();
-                patientFile.PatientId = patient.Id;
-                patientFile.Age = patient.CalculateAge();
-                _patientFileRepository.Add(patientFile);
+                patient.PatientFile.Age = patient.CalculateAge();
+                _patientRepository.Add(patient);
                 _patientRepository.SaveChanges();
 
-                treatmentPlan.PatientFileId = patientFile.Id;
+                treatmentPlan.PatientFileId = patient.PatientFile.Id;
                 _treatmentPlanRepository.Add(treatmentPlan);
                 _treatmentPlanRepository.SaveChanges();
                 
@@ -112,7 +109,6 @@ namespace Fysio.Controllers
             {
                 patientViewModel.Therapists = _therapistRepository.GetAll();
                 return View("Create", patientViewModel);
-
             }
         }
 
@@ -124,7 +120,7 @@ namespace Fysio.Controllers
                 return NotFound();
             }
             
-            var patient = await _patientRepository.FindPatient(id);
+            var patient = await _patientRepository.Find(id);
             if (patient == null)
             {
                 return NotFound();
@@ -132,73 +128,51 @@ namespace Fysio.Controllers
             
             PatientViewModel patientViewModel = new PatientViewModel();
             patientViewModel.Patient = patient;
-            patientViewModel.PatientFile = patient.PatientFile;
             patientViewModel.Therapists = _therapistRepository.GetAll();
+            
+            return View(patientViewModel);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Edit(PatientViewModel patientViewModel, int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var patient = await _patientRepository.Find(id);
+            if (patient == null)
+            {
+                return NotFound();
+            }
+            
+            if (ModelState.IsValid)
+            {
+                Patient newPatient = patientViewModel.Patient;
+                newPatient.PatientFile.Id = patient.PatientFile.Id;
+                newPatient.PatientFile.PatientId = patient.PatientFile.PatientId;
+                newPatient.PatientFile.Age = patient.CalculateAge();
+                
+                _patientRepository.Update(newPatient);
+                _patientRepository.SaveChanges();
+                
+                _patientFileRepository.Update(newPatient.PatientFile);
+                _patientFileRepository.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
 
             return View(patientViewModel);
         }
-        //
-        // // POST: Patients/Edit/5
-        // // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        // [HttpPost]
-        // [ValidateAntiForgeryToken]
-        // public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,Gender,Birthdate, Phonenumber, City, Street, Postalcode")] Patient patient)
-        // {
-        //     if (id != patient.Id)
-        //     {
-        //         return NotFound();
-        //     }
-        //
-        //     if (ModelState.IsValid)
-        //     {
-        //         try
-        //         {
-        //             _context.Update(patient);
-        //             await _context.SaveChangesAsync();
-        //         }
-        //         catch (DbUpdateConcurrencyException)
-        //         {
-        //             if (!PatientExists(patient.Id))
-        //             {
-        //                 return NotFound();
-        //             }
-        //             else
-        //             {
-        //                 throw;
-        //             }
-        //         }
-        //         return RedirectToAction(nameof(Index));
-        //     }
-        //     return View(patient);
-        // }
-        //
-        // // GET: Patients/Delete/5
-        // public async Task<IActionResult> Delete(int? id)
-        // {
-        //     if (id == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //
-        //     var patient = await _context.Patients
-        //         .FirstOrDefaultAsync(m => m.Id == id);
-        //     if (patient == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //
-        //     return View(patient);
-        // }
-        //
-        // POST: Patients/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var patient = await _patientRepository.FindPatient(id);
+            var patient = await _patientRepository.Find(id);
            
-            _patientRepository.RemovePatient(patient);
+            _patientRepository.Remove(patient);
             _patientRepository.SaveChanges();
             
             return RedirectToAction(nameof(Index));

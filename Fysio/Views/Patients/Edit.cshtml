@@ -1,9 +1,10 @@
 @model PatientViewModel 
 <div class="p-0 font-inter w-full z-10">
             <div class="" autocomplete="off">
-                <form action="/Patients/edit/" method="POST" class="w-full">
+                <form action="/Patients/edit/@Model.Patient.Id" method="POST" class="w-full">
                     @Html.AntiForgeryToken()
-
+                    <input type="hidden" name="Patient.Id" value="@Model.Patient.Id">
+                    <input type="hidden" name="Patient.PatientNumber" value="@Model.Patient.PatientNumber">
                     <div class="py-5 flex">
                         <div>
                             <h3 class="text-lg leading-6 font-bold text-fysio-header font-source">Patient Information</h3>
@@ -29,12 +30,12 @@
                             <select
                                 asp-for="Patient.Gender"
                                 id="gender"
-                                name="gender"
+                                name="Patient.gender"
                                 autocomplete="off"
                                 class="ipt mt-1 outline-none block p-2 rounded-md px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             >
-                                <option>Male</option>
-                                <option>Female</option>
+                                <option selected value="Male">Male</option>
+                                <option value="Female">Female</option>
                             </select>
                         </div>
 
@@ -68,9 +69,12 @@
                     </div>
                     <hr class="mt-5" />
                     <!-- DOSSIER STUFF -->
-                    @Html.Partial("_PatientFile", Model)
+                    @await Html.PartialAsync("_PatientFile", Model)
+                    <div class="flex flex-1 justify-end mt-5 pb-6 px-6">
+                        <button style="background-color: #00b4d8" value="Create" type="submit" class="hover:bg-blue-600 rounded-lg text-white p-2 text-center text-sm font-bold">
+                            Add patient
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
-
-        @section Scripts { @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} }

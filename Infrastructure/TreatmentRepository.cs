@@ -25,6 +25,11 @@ namespace Infrastructure
             _context.Treatments.Add(treatment);
         }
 
+        public void Update(Treatment treatment)
+        {
+            _context.Treatments.Update(treatment);
+        }
+
         public void SaveChanges()
         {
             _context.SaveChanges();
