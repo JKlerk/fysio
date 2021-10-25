@@ -36,6 +36,9 @@ namespace Fysio.Controllers
         }
 
         // GET: Patients
+        [HttpGet]
+        [Authorize(Roles = "Therapist")]
+        [Authorize(Roles = "Student")]
         public async Task<ActionResult<IEnumerable<Patient>>> Index()
         {
             var patients = from s in _patientRepository.GetAll()
@@ -73,6 +76,8 @@ namespace Fysio.Controllers
         
         // GET: Patients/Create
         [HttpGet]
+        [Authorize(Roles = "Therapist")]
+        [Authorize(Roles = "Student")]
         public async Task<IActionResult> Create()
         {
             var patientViewModel = new PatientViewModel();
@@ -86,6 +91,8 @@ namespace Fysio.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Therapist")]
+        [Authorize(Roles = "Student")]
         public async Task<IActionResult> Create(PatientViewModel patientViewModel)
         {
         
@@ -154,6 +161,12 @@ namespace Fysio.Controllers
             
             if (ModelState.IsValid)
             {
+                if (patientViewModel.Patient.PatientFile == null)
+                {
+                    _patientRepository.Update(patientViewModel.Patient);
+                    _patientRepository.SaveChanges();
+                    return Redirect("/patients/details/" + patientViewModel.Patient.Id);
+                }
                 Patient newPatient = patientViewModel.Patient;
                 newPatient.PatientFile.Id = patient.PatientFile.Id;
                 newPatient.PatientFile.PatientId = patient.PatientFile.PatientId;
@@ -173,6 +186,8 @@ namespace Fysio.Controllers
         
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Therapist")]
+        [Authorize(Roles = "Student")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var patient = await _patientRepository.Find(id);

@@ -47,6 +47,7 @@ namespace Fysio.Controllers
         }
         
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(string email, string password)
         {
             var user = await _userManager.FindByEmailAsync(email);
@@ -56,6 +57,12 @@ namespace Fysio.Controllers
                 var result = await _signInManager.PasswordSignInAsync(user, password, false, false);
                 if (result.Succeeded)
                 {
+                    bool isPatient = await _userManager.IsInRoleAsync(user, "Patient");
+                    if (isPatient)
+                    {
+                        var patient = await _patientRepository.FindByEmail(user.Email);
+                        return Redirect("/patients/details/" + patient.Id);
+                    }
                     return RedirectToAction("Index");
                 }
             }
@@ -91,7 +98,7 @@ namespace Fysio.Controllers
                 var resultSignIn = await _signInManager.PasswordSignInAsync(user, password, false, false);
                 if (resultSignIn.Succeeded)
                 {
-                    return Redirect("/");
+                    return Redirect("/patient/details/" + patient.Id);
                 }   
             }
             

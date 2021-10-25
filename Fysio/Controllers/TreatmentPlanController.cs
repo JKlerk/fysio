@@ -38,11 +38,13 @@ namespace Fysio.Controllers
                 return NotFound();
             }
 
-            var tp = _treatmentPlanRepository.Find(id).Result;
+            var tp = await _treatmentPlanRepository.Find(id);
             return View(tp);
         }
 
         [HttpGet]
+        [Authorize(Roles = "Therapist")]
+        [Authorize(Roles = "Student")]
         public async Task<IActionResult> Create(int id)
         {
             if (_treatmentPlanRepository.FindWherePatientFileId(id).Status.ToString() != "Faulted") return RedirectToAction("Index");
@@ -56,6 +58,8 @@ namespace Fysio.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Therapist")]
+        [Authorize(Roles = "Student")]
         public async Task<IActionResult> Create(TreatmentViewModel treatmentPlanViewModel)
         {
 

@@ -214,13 +214,17 @@
             }
             else
             {
+                
                 <div class="flex">
                     <h1 class="font-source text-xl font-bold text-fysio-header mb-2">Treatments (0)</h1>
                     <h1 class="font-source text-xl font-bold text-fysio-header mb-2 flex flex-1 justify-end">No treatments</h1>
                 </div>
-                <div class="flex justify-center mt-10">
-                    <a href="/treatmentplan/create/@Model.PatientFile.Id" class="p-2 bg-fysio-header text-white font-bold rounded-lg hover:opacity-75 transition-opacity duration-100 text-sm">+ Create new treatmentplan</a>
-                </div>
+                @if (User.IsInRole("Therapist") && User.IsInRole("Student"))
+                {
+                    <div class="flex justify-center mt-10">
+                        <a href="/treatmentplan/create/@Model.PatientFile.Id" class="p-2 bg-fysio-header text-white font-bold rounded-lg hover:opacity-75 transition-opacity duration-100 text-sm">+ Create new treatmentplan</a>
+                    </div>
+                }
             }
         </div>
     }
