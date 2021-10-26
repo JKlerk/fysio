@@ -11,9 +11,4 @@ const app = new Vue({
     created() {
         console.log("Vue running");
     },
-    methods: {
-        addPatient() {
-            console.log("Called");
-        },
-    },
 });

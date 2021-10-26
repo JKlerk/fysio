@@ -58,6 +58,7 @@ namespace Fysio
             services.AddScoped<ITherapistRepository, TherapistRepository>();
             services.AddScoped<ITreatmentPlanRepository, TreatmentPlanRepository>();
             services.AddScoped<ITreatmentRepository, TreatmentRepository>();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddHealthChecks();

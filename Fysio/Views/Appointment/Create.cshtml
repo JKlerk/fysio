@@ -1,0 +1,65 @@
+﻿@model AppointmentViewModel
+<form method="post" action="/appointment/postcreate/" class="">
+    @Html.AntiForgeryToken()
+    <div class="py-5">
+        <div>
+            <h3 class="text-lg leading-6 font-bold font-source text-fysio-header">Appointment</h3>
+            <p class="mt-1 max-w-2xl text-sm text-gray-500 font-roboto">Appointment details and information.</p>
+        </div>
+    </div>
+    <hr/>
+    <div class="py-5 font-roboto">
+        <div class="grid grid-cols-4 gap-6">
+            <div class="col-span-1">
+                <label for="practitioner" class="block text-sm font-medium text-gray-700">Therapist:</label>
+                <select
+                    id="practitioner"
+                    name="Appointment.TherapistId"
+                    autocomplete="off"
+                    class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    @foreach (var therapist in Model.Therapists)
+                    {
+                        <option value="@therapist.Id">@therapist.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="grid grid-cols-4 gap-6 mt-3">
+            <div class="col-span-1">
+                <label for="treatment" class="block text-sm font-medium text-gray-700">Treatment:</label>
+                <select
+                    id="treatment"
+                    name="Treatment.Id"
+                    autocomplete="off"
+                    class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    @if (Model.Treatments.Count == 0)
+                    {
+                        <option selected disabled>No treatments available</option>
+                    }
+                    else
+                    {
+                        @foreach (var treatment in Model.Treatments)
+                        {
+                            <option value="@treatment.Id">@treatment.Type</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-span-2 sm:col-span-1">
+                <label for="StartTime" class="block text-sm font-medium text-gray-700">Appointment date</label>
+                @Html.EditorFor(m => m.Appointment.Date, new { htmlAttributes = new { @class = "ipt text-sm" } })
+                <span asp-validation-for="Appointment.Date" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="flex mt-2">
+        <div class="flex justify-start">
+            <a href="/appointment" class="p-2 text-fysio-header font-bold rounded-lg hover:opacity-75 border border-fysio-header transition-opacity duration-100 text-sm px-5">Back</a>
+        </div>
+        <div class="flex flex-1 justify-end">
+            <button style="background-color: #00b4d8" value="Create" type="submit" class="hover:bg-blue-600 rounded-lg text-white p-2 text-center text-sm font-bold">
+                Add appointment
+            </button>
+        </div>
+    </div>
+</form>

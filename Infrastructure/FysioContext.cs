@@ -20,6 +20,8 @@ namespace Infrastructure
         public DbSet<Image> Images { get; set; }
         public DbSet<Treatment> Treatments { get; set; }
 
+        public DbSet<Appointment> Appointments { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Patient>().ToTable("Patients");
@@ -36,8 +38,11 @@ namespace Infrastructure
             modelBuilder.Entity<TreatmentPlan>().HasMany(tp => tp.Treatments).WithOne(t => t.TreatmentPlan).OnDelete(DeleteBehavior.Cascade);       
             
             modelBuilder.Entity<Treatment>().ToTable("Treatments");
+            modelBuilder.Entity<Treatment>().ToTable("Treatments");
             modelBuilder.Entity<Treatment>().HasOne(t => t.TreatmentPlan).WithMany(tp => tp.Treatments)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Appointment>().ToTable("Appointments");
         }
     }
 }
