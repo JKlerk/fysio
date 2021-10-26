@@ -32674,6 +32674,13 @@ video {
   --tw-ring-color: rgba(0, 180, 216, var(--tw-ring-opacity));
 }
 
+.text-danger{
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  --tw-text-opacity: 1;
+  color: rgba(239, 68, 68, var(--tw-text-opacity))
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

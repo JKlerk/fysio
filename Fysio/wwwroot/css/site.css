@@ -25,3 +25,7 @@
 .ipt {
     @apply mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md text-sm focus:ring-fysio-header focus:border-fysio-header;
 }
+
+.text-danger{
+    @apply text-sm text-red-500
+}

@@ -5,11 +5,13 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Core.Domain;
 using Core.DomainServices;
+using Fysio.Models;
 using Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Image = Core.Domain.Image;
 
 namespace Fysio.Controllers
 {
@@ -19,13 +21,15 @@ namespace Fysio.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IPatientRepository _patientRepository;
+        private readonly IImageRepository _imageRepository;
         // private readonly UserRepository _userRepository;
         
-        public UserController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IPatientRepository patientRepository)
+        public UserController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IPatientRepository patientRepository, IImageRepository imageRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _patientRepository = patientRepository;
+            _imageRepository = imageRepository;
             // _userRepository = userRepository;
         }
 
@@ -51,79 +55,96 @@ namespace Fysio.Controllers
         
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(string email, string password)
+        public async Task<IActionResult> Login(UserModel um)
         {
-            var user = await _userManager.FindByEmailAsync(email);
-            
-            if (user != null)
+            if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(user, password, false, false);
-                if (result.Succeeded)
+                var user = await _userManager.FindByEmailAsync(um.Email);
+
+                if (user != null)
                 {
-                    bool isPatient = await _userManager.IsInRoleAsync(user, "Patient");
-                    if (isPatient)
+                    var result = await _signInManager.PasswordSignInAsync(user, um.Password, false, false);
+                    if (result.Succeeded)
                     {
-                        var patient = _patientRepository.FindByEmail(user.Email);
-                        return Redirect("/patients/details/" + patient.Id);
+                        bool isPatient = await _userManager.IsInRoleAsync(user, "Patient");
+                        if (isPatient)
+                        {
+                            var patient = _patientRepository.FindByEmail(user.Email);
+                            return Redirect("/patients/details/" + patient.Id);
+                        }
+
+                        return RedirectToAction("Index");
                     }
-                    return RedirectToAction("Index");
                 }
+                ModelState.AddModelError("Email", "This user does not exist");
+                return View(um);
             }
-
-
-            return RedirectToAction("Login");
+            return View(um);
         }
         
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Register(string email, string password, string confirmPassword, IFormFile userImage)
+        public async Task<IActionResult> Register(UserModel um)
         {
-            if (password != confirmPassword) return NotFound();
-            
-            var patient = _patientRepository.FindByEmail(email);
-            
-            if (patient == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
-            }
-
-            if (userImage.Length < 2097152)
-            {
-                using (var ms = new MemoryStream())
-                using (var fs = userImage.OpenReadStream())
+                if (um.Password != um.ConfirmPassword)
                 {
-                    await fs.CopyToAsync(ms);
-                    patient.Image.Src = $"data:{userImage.ContentType};base64,{Convert.ToBase64String(ms.ToArray())}";
-                    _patientRepository.Update(patient);
-                    _patientRepository.SaveChanges();
+                    ModelState.AddModelError("ConfirmPassword", "Password does not match");
+                    return View(um);
+                }
+
+                var patient = _patientRepository.FindByEmail(um.Email);
+
+                if (patient == null)
+                {
+                    ModelState.AddModelError("Email", "This user does not exist");
+                    return View(um);
+                }
+
+                if (um.UserImage.Length < 2097152)
+                {
+                    using (var ms = new MemoryStream())
+                    using (var fs = um.UserImage.OpenReadStream())
+                    {
+                        await fs.CopyToAsync(ms);
+                        
+                        _imageRepository.Add(new Image()
+                        {
+                            PatientId = patient.Id, 
+                            Src = $"data:{um.UserImage.ContentType};base64,{Convert.ToBase64String(ms.ToArray())}"
+                        });
+                        _imageRepository.SaveChanges();
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("UserImage", "The file is too large.");
+                    return View(um);
+                }
+
+                var user = new IdentityUser
+                {
+                    UserName = Regex.Replace(patient.Name, @"\s+", "."),
+                    Email = um.Email,
+                    Id = patient.PatientNumber
+                };
+                user.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(user, um.Password);
+
+                var result = await _userManager.CreateAsync(user);
+                var resultRole = await _userManager.AddToRoleAsync(user, "Patient");
+
+                if (result.Succeeded && resultRole.Succeeded)
+                {
+                    var resultSignIn = await _signInManager.PasswordSignInAsync(user, um.Password, false, false);
+                    if (resultSignIn.Succeeded)
+                    {
+                        return Redirect("/patients/details/" + patient.Id);
+                    }
                 }
             }
-            else
-            {
-                ModelState.AddModelError("File", "The file is too large.");
-            }
 
-            var user = new IdentityUser
-            {
-                UserName = Regex.Replace(patient.Name, @"\s+", "."),
-                Email = email,
-                Id = patient.PatientNumber
-            };
-            user.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(user, password);
-            
-            var result = await _userManager.CreateAsync(user);
-            var resultRole = await _userManager.AddToRoleAsync(user, "Patient");
-            
-            if (result.Succeeded && resultRole.Succeeded)
-            {
-                var resultSignIn = await _signInManager.PasswordSignInAsync(user, password, false, false);
-                if (resultSignIn.Succeeded)
-                {
-                    return Redirect("/patients/details/" + patient.Id);
-                }   
-            }
-            
-            return RedirectToAction("Register");
+            return View(um);
         }
 
         [HttpGet]

@@ -1,4 +1,5 @@
 ﻿@{ Layout = null; }
+@model UserModel
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,15 +17,18 @@
             <form enctype="multipart/form-data" method="post" action="/user/register" class="w-full">
                 <div class="mb-4">
                     <label class="text-gray-700">Email address</label>
-                    <input class="ipt" name="email" placeholder="Email" />
+                    <input asp-for="Email" class="ipt" name="Email" placeholder="Email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="mb-4">
                     <label class="text-gray-700">Password</label>
-                    <input class="ipt" name="password" placeholder="Enter your password" type="password" />
+                    <input asp-for="Password" class="ipt" name="Password" placeholder="Enter your password" type="password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="mb-4">
                     <label class="text-gray-700">Confirm Password</label>
-                    <input class="ipt" name="confirmPassword" placeholder="Enter your password" type="password" />
+                    <input class="ipt" name="ConfirmPassword" placeholder="Enter your password" type="password" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
                 <div class="mb-4">
                     <p class="text-gray-700">User image</p>
@@ -44,7 +48,7 @@
                                             <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
                                                 Attach a file</p>
                                         </div>
-                                        <input id="image" name="userImage" type="file" class="opacity-0"/>
+                                        <input id="image" name="UserImage" type="file" class="opacity-0"/>
                                     </label>
                                 </div>
                             </div>
@@ -53,6 +57,9 @@
                             <img id="uploadedImage" src="#" alt="Your image" />
                         </div>
                     </div>
+                </div>
+                <div>
+                    <span asp-validation-for="UserImage" class="text-danger"></span>
                 </div>
                 <a href="/user/login" class="text-fysio-header text-sm hover:underline">Do already have an account?</a>
                 <button class="mt-4 py-1 px-2 w-full bg-fysio-header text-white font-bold rounded-lg hover:opacity-75 transition-opacity duration-100" type="submit">Register now</button>
