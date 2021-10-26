@@ -1,21 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
-using System.Runtime;
-using System.Threading.Tasks;
 using Core.DomainServices;
 using Fysio.Models;
-using Infrastructure;
+using Fysio.Models.Extensions;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Patient = Core.Domain.Patient;
-using PatientFile = Core.Domain.PatientFile;
-using Treatment = Core.Domain.Treatment;
-using TreatmentPlan = Core.Domain.TreatmentPlan;
-
 
 namespace Fysio.Controllers
 {
@@ -70,8 +60,9 @@ namespace Fysio.Controllers
         public IActionResult Create()
         {
             var patientViewModel = new PatientViewModel();
-            patientViewModel.Therapists = _therapistRepository.GetAll();
-            
+
+            patientViewModel.AddTherapists(_therapistRepository.GetAll());
+
             return View(patientViewModel);
         }
         
@@ -86,30 +77,32 @@ namespace Fysio.Controllers
         
             if (ModelState.IsValid)
             {
-                Patient patient = patientViewModel.Patient;
-                TreatmentPlan treatmentPlan = patientViewModel.TreatmentPlan;
-                Treatment treatment = patientViewModel.Treatment;
-                
+                Core.Domain.Patient patient = patientViewModel.Patient.ConvertToDomain();
+                Core.Domain.PatientFile patientFile = patientViewModel.Patient.PatientFile.ConvertToDomain();
+                Core.Domain.TreatmentPlan treatmentPlan = patientViewModel.TreatmentPlan.ConvertToDomain();
+                Core.Domain.Treatment treatment = patientViewModel.Treatment.ConvertToDomain(); ;
+
                 patient.PatientNumber = Guid.NewGuid().ToString();
-                patient.PatientFile.Age = patient.CalculateAge();
                 _patientRepository.Add(patient);
                 _patientRepository.SaveChanges();
 
-                treatmentPlan.PatientFileId = patient.PatientFile.Id;
+                patientFile.PatientId = patient.Id;
+                patientFile.Age = patient.CalculateAge();
+                _patientFileRepository.Add(patientFile);
+                _patientFileRepository.SaveChanges();
+                
+                treatmentPlan.PatientFileId = patientFile.Id;
                 _treatmentPlanRepository.Add(treatmentPlan);
                 _treatmentPlanRepository.SaveChanges();
                 
                 treatment.TreatmentPlanId = treatmentPlan.Id;
                 _treatmentRepository.Add(treatment);
                 _treatmentRepository.SaveChanges();
-
                 return RedirectToAction("Index");
             }
-            else
-            {
-                patientViewModel.Therapists = _therapistRepository.GetAll();
-                return View("Create", patientViewModel);
-            }
+            
+            patientViewModel.AddTherapists(_therapistRepository.GetAll());
+            return View("Create", patientViewModel);
         }
 
         // GET: Patients/Edit/5
@@ -127,9 +120,9 @@ namespace Fysio.Controllers
             }
             
             PatientViewModel patientViewModel = new PatientViewModel();
-            patientViewModel.Patient = patient;
-            patientViewModel.Therapists = _therapistRepository.GetAll();
-            
+            patientViewModel.Patient = patient.ConvertToModel();
+            patientViewModel.AddTherapists(_therapistRepository.GetAll());
+
             return View(patientViewModel);
         }
 
@@ -150,35 +143,38 @@ namespace Fysio.Controllers
             {
                 return NotFound();
             }
-
-            var patient = _patientRepository.Find(id);
-            if (patient == null)
+        
+            var oldPatient = _patientRepository.Find(id);
+            if (oldPatient == null)
             {
                 return NotFound();
             }
             
             if (ModelState.IsValid)
             {
+                Core.Domain.Patient patient = patientViewModel.Patient.ConvertToDomain();
+                Core.Domain.PatientFile patientFile = patientViewModel.Patient.PatientFile.ConvertToDomain();
+
                 if (patientViewModel.Patient.PatientFile == null)
                 {
-                    _patientRepository.Update(patientViewModel.Patient);
+                    _patientRepository.Update(patient);
                     _patientRepository.SaveChanges();
-                    return Redirect("/patients/details/" + patientViewModel.Patient.Id);
+                    return Redirect("/patients/details/" + patient.Id);
                 }
-                Patient newPatient = patientViewModel.Patient;
-                newPatient.PatientFile.Id = patient.PatientFile.Id;
-                newPatient.PatientFile.PatientId = patient.PatientFile.PatientId;
-                newPatient.PatientFile.Age = patient.CalculateAge();
-                
-                _patientRepository.Update(newPatient);
-                _patientRepository.SaveChanges();
-                
-                _patientFileRepository.Update(newPatient.PatientFile);
-                _patientFileRepository.SaveChanges();
 
+                patient.Id = oldPatient.Id;
+                _patientRepository.Update(patient);
+                _patientRepository.SaveChanges();
+
+                patientFile.PatientId = patient.Id;
+                patientFile.Age = patient.CalculateAge();
+                patientFile.Id = oldPatient.PatientFile.Id;
+                _patientFileRepository.Update(patientFile);
+                _patientFileRepository.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
-
+            patientViewModel.AddTherapists(_therapistRepository.GetAll());
             return View(patientViewModel);
         }
         
@@ -194,10 +190,5 @@ namespace Fysio.Controllers
             
             return RedirectToAction(nameof(Index));
         }
-        //
-        // private bool PatientExists(int id)
-        // {
-        //     return _context.Patients.Any(e => e.Id == id);
-        // }
     }
 }

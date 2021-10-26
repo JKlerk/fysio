@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Core.DomainServices;
 using Fysio.Models;
+using Fysio.Models.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Treatment = Core.Domain.Treatment;
@@ -25,7 +26,7 @@ namespace Fysio.Controllers
         [Authorize(Roles = "Therapist,Student")]
         public IActionResult Create(int id)
         {
-
+        
             if (id == 0)
             {
                 return NotFound();
@@ -36,10 +37,10 @@ namespace Fysio.Controllers
             {
                 return NotFound();
             }
-
+        
             TreatmentViewModel treatmentViewModel = new TreatmentViewModel();
-            treatmentViewModel.Treatment = new Treatment { TreatmentPlanId = id };
-            treatmentViewModel.Therapists = _therapistRepository.GetAll();
+            treatmentViewModel.Treatment = new Models.Treatment{ TreatmentPlanId = id };
+            treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
             
             return View(treatmentViewModel);
         }
@@ -47,29 +48,26 @@ namespace Fysio.Controllers
         
         [HttpPost]
         [Authorize(Roles = "Therapist,Student")]
-        public IActionResult PostCreate(TreatmentViewModel treatmentViewModel)
+        public IActionResult Create(TreatmentViewModel treatmentViewModel)
         {
             if (ModelState.IsValid)
             {
-                Treatment treatment = new Treatment();
-                treatment.Id = treatmentViewModel.Treatment.Id;
-                
-                
+                Treatment treatment = treatmentViewModel.Treatment.ConvertToDomain();
                 treatment.AddedDate = DateTime.Now;
                 _treatmentRepository.Add(treatment);
                 _treatmentRepository.SaveChanges();
-
+        
                 return Redirect("/treatmentplan/details/" + treatment.TreatmentPlanId);
             }
-            
-            return RedirectToAction("Create");
+            treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
+            return View(treatmentViewModel);
         }
-
+        
         [HttpGet]
         [Authorize(Roles = "Therapist,Student")]
         public IActionResult Edit(int id)
         {
-
+        
             if (id == 0)
             {
                 return NotFound();
@@ -80,29 +78,31 @@ namespace Fysio.Controllers
             {
                 return NotFound();
             }
-
+        
             TreatmentViewModel treatmentViewModel = new TreatmentViewModel();
-            treatmentViewModel.Treatment = treatment;
-            treatmentViewModel.Therapists = _therapistRepository.GetAll();
+            treatmentViewModel.Treatment = treatment.ConvertToModel();
+            treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
             
             return View(treatmentViewModel);
         }
         
         [HttpPost]
         [Authorize(Roles = "Therapist,Student")]
-        public IActionResult PostEdit(Treatment treatment)
+        public IActionResult Edit(TreatmentViewModel treatmentViewModel)
         {
             if (ModelState.IsValid)
             {
+                Treatment treatment = treatmentViewModel.Treatment.ConvertToDomain();
                 var old = _treatmentRepository.Find(treatment.Id);
                 treatment.AddedDate = old.AddedDate;
                 _treatmentRepository.Update(treatment);
                 _treatmentRepository.SaveChanges();
-
+        
                 return Redirect("/treatmentplan/details/" + treatment.TreatmentPlanId);
             }
             
-            return RedirectToAction("Edit");
+            treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
+            return View(treatmentViewModel);
         }
         
         

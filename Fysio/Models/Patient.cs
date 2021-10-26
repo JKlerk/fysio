@@ -8,14 +8,12 @@ namespace Fysio.Models
     {
         public int Id { get; set; }
         
-        [Required]
         public string PatientNumber { get; set; }
         
         [Required]
         public string StaffNumber { get; set; }
 
-        [Required(AllowEmptyStrings = false)]
-        [StringLength(1)]
+        [Required]
         public string Name { get; set; }
 
         [Required]
@@ -36,13 +34,5 @@ namespace Fysio.Models
         
         public virtual PatientFile PatientFile { get; set; }
         public virtual List<Appointment> Appointments { get; set; }
-
-        // public string City { get; set; }
-        //
-        // public string Street { get; set; }
-        //
-        // public string Postalcode { get; set; }
-
-        // public string SsNumber { get; set; }
     }
 }

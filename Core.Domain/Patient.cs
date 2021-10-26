@@ -24,7 +24,7 @@ namespace Core.Domain
         
         public virtual PatientFile PatientFile { get; set; }
         public virtual List<Appointment> Appointments { get; set; }
-
+        
         public int CalculateAge()
         {
             DateTime now = DateTime.Now;
@@ -33,13 +33,5 @@ namespace Core.Domain
                 age--;
             return age;
         }
-        
-        // public string City { get; set; }
-        //
-        // public string Street { get; set; }
-        //
-        // public string Postalcode { get; set; }
-
-        // public string SsNumber { get; set; }
     }
 }

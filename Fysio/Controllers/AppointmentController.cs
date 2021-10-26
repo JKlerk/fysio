@@ -29,11 +29,18 @@ namespace Fysio.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            // TODO: Therapist should be able to appointments
+            if (!User.IsInRole("Therapist,Student"))
+            {
+                var username = User.Identity.Name;
+                var patient = _patientRepository.FindByName(username);
+                if (patient == null) return NotFound();
+                return View(patient.Appointments);
+            }
             
-            var username = User.Identity.Name;
-            var patient = _patientRepository.FindByName(username);
-            if (patient == null) return NotFound();
-            return View(patient.Appointments);
+            // var therapist = _therapistRepository.FindByEmail(User.Identity)
+            return View();
+            // return View(patient);
         }
 
         [HttpGet]

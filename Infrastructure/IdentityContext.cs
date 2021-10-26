@@ -50,8 +50,8 @@ namespace Infrastructure
                 Email = "a.biyikli@avans.nl",
                 Id = "54f013a2-3d91-4257-983a-8953181cf6f9",
                 EmailConfirmed = true,
-                UserName = "a.biyikli",
-                NormalizedUserName = "A.BIYIKLI",
+                UserName = "Ali.Biyikli",
+                NormalizedUserName = "ALI.BIYIKLI",
                 
                 SecurityStamp = Guid.NewGuid().ToString(),
             };
@@ -62,8 +62,8 @@ namespace Infrastructure
                 Email = "p.stoop@avans.nl",
                 Id = "4e317568-1661-4302-be84-0ea791d6a044",
                 EmailConfirmed = true,
-                UserName = "p.stoop",
-                NormalizedUserName = "P.STOOP",
+                UserName = "Pascal.Stoop",
+                NormalizedUserName = "PASCAL.STOOP",
                 SecurityStamp = Guid.NewGuid().ToString(),
             };
 

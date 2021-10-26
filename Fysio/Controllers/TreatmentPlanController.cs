@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Core.Domain;
 using Core.DomainServices;
 using Fysio.Models;
+using Fysio.Models.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Treatment = Core.Domain.Treatment;
@@ -46,11 +47,10 @@ namespace Fysio.Controllers
         [Authorize(Roles = "Therapist,Student")]
         public IActionResult Create(int id)
         {
-            if (_treatmentPlanRepository.FindWherePatientFileId(id) == null) return RedirectToAction("Index");
-            
             TreatmentViewModel treatmentViewModel = new TreatmentViewModel();
-            treatmentViewModel.Therapists = _therapistRepository.GetAll();
-            treatmentViewModel.TreatmentPlan = new TreatmentPlan();
+            
+            treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
+            treatmentViewModel.TreatmentPlan = new Models.TreatmentPlan();
             treatmentViewModel.TreatmentPlan.PatientFileId = id;
             return View(treatmentViewModel);
         }
@@ -61,13 +61,10 @@ namespace Fysio.Controllers
         public IActionResult Create(TreatmentViewModel treatmentPlanViewModel)
         {
 
-            if (_treatmentPlanRepository.FindWherePatientFileId(treatmentPlanViewModel.TreatmentPlan.PatientFileId) == null) return RedirectToAction("Index");
-            
-
             if (ModelState.IsValid)
             {
-                TreatmentPlan treatmentPlan = treatmentPlanViewModel.TreatmentPlan;
-                Treatment treatment = treatmentPlanViewModel.Treatment;
+                TreatmentPlan treatmentPlan = treatmentPlanViewModel.TreatmentPlan.ConvertToDomain();
+                Treatment treatment = treatmentPlanViewModel.Treatment.ConvertToDomain();
                 
                 _treatmentPlanRepository.Add(treatmentPlan);
                 _treatmentPlanRepository.SaveChanges();
@@ -77,10 +74,10 @@ namespace Fysio.Controllers
                 _treatmentRepository.Add(treatment);
                 _treatmentRepository.SaveChanges();
                 
-                return RedirectToAction("Index");
+                return Redirect("treatmentplan/details/" + treatmentPlan.Id);
             }
             
-            treatmentPlanViewModel.Therapists = _therapistRepository.GetAll();
+            treatmentPlanViewModel.AddTherapists(_therapistRepository.GetAll());;
             return View("Create", treatmentPlanViewModel);
         }
     }

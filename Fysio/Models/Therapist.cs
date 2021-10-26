@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Fysio.Models;
 
 namespace Fysio.Models
 {
@@ -22,7 +23,5 @@ namespace Fysio.Models
 
         public int? PatientId { get; set; }
         public virtual Patient Patient { get; set; }
-
-        // public ICollection<PatientFile> PatientFiles { get; set; }
     }
 }

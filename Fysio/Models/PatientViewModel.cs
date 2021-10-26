@@ -2,12 +2,17 @@
 
 namespace Fysio.Models
 {
-    public class PatientViewModel
+    public class PatientViewModel : IViewModel
     {
-        public List<Core.Domain.Therapist> Therapists { get; set; }
-        public Core.Domain.Patient Patient {get;set;}
-        public Core.Domain.PatientFile PatientFile {get;set;}
-        public Core.Domain.TreatmentPlan TreatmentPlan { get; set; }
-        public Core.Domain.Treatment Treatment { get; set; }
+        public List<Therapist> Therapists;
+        public Patient Patient {get;set;}
+        public PatientFile PatientFile {get;set;}
+        public TreatmentPlan TreatmentPlan { get; set; }
+        public Treatment Treatment { get; set; }
+        public void SetTherapist(List<Therapist> therapists)
+        {
+            Therapists = new List<Therapist>();
+            Therapists = therapists;
+        } 
     }
 }

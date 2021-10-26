@@ -30,6 +30,7 @@
                     <div class="col-span-6 sm:col-span-6 lg:col-span-1">
                         <label for="Type" class="block text-sm font-medium text-gray-700">Type treatment (Vektis)</label>
                         @Html.EditorFor(m => m.Treatment.Type, new { htmlAttributes = new { @class = "ipt text-sm", placeholder = "Vektis Code" }, })
+                        <span asp-validation-for="Treatment.Type" class="text-danger"></span>
                     </div>
                     <div class="col-span-1">
                         <label for="practitioner" class="block text-sm font-medium text-gray-700">Practitioner:</label>

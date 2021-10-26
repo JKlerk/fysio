@@ -157,9 +157,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "5c491816-e35b-48cc-8c8b-b7b1c7df224f", "938a80aa-e58d-42e3-b02d-5a577a0cc48a", "Therapist", "THERAPIST" },
-                    { "15ed72fe-db9d-403b-beb6-8d5b8953bba6", "21faaebe-ae5b-428b-8d62-a17d5363a2a6", "Student", "STUDENT" },
-                    { "ba196295-7c35-49ab-99c2-5c95e987c000", "a7b69d49-dc83-4eb3-8a9a-27dccc10e591", "Patient", "PATIENT" }
+                    { "5c491816-e35b-48cc-8c8b-b7b1c7df224f", "2c281588-0930-4af4-8f79-4d46477d1b40", "Therapist", "THERAPIST" },
+                    { "15ed72fe-db9d-403b-beb6-8d5b8953bba6", "4070aef4-5616-4729-8ec9-5e9d89664311", "Student", "STUDENT" },
+                    { "ba196295-7c35-49ab-99c2-5c95e987c000", "76c2060c-4b78-47d9-8421-9c5a4da22afd", "Patient", "PATIENT" }
                 });
 
             migrationBuilder.InsertData(
@@ -167,8 +167,8 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "54f013a2-3d91-4257-983a-8953181cf6f9", 0, "6395702b-e0f9-45f0-910c-029c7b7f17b2", "a.biyikli@avans.nl", true, false, null, "A.BIYIKLI@AVANS.NL", "A.BIYIKLI", "AQAAAAEAACcQAAAAEKOTaw0IrLHQ3UgQruY9k6qBk7uP6aIun0/fDxRLnNOvk9IMjb5CPPEA5EomwbX1eg==", null, false, "d86220c3-98b9-471e-b5aa-6fb7c5360e81", false, "a.biyikli" },
-                    { "4e317568-1661-4302-be84-0ea791d6a044", 0, "fe739e70-9594-4561-aa94-fe1c7fc9995a", "p.stoop@avans.nl", true, false, null, "P.STOOP@AVANS.NL", "P.STOOP", "AQAAAAEAACcQAAAAELv7oO03AEe2nN6Wjy5IhhokhSEh854LPBwjzZAh4L8uDv7KMTaSehyw1uh7prDlnQ==", null, false, "d999072e-25c2-4eee-9505-17ba7960f95c", false, "p.stoop" }
+                    { "54f013a2-3d91-4257-983a-8953181cf6f9", 0, "a898ae12-76d9-4540-b4cc-69b8fb61cd00", "a.biyikli@avans.nl", true, false, null, "A.BIYIKLI@AVANS.NL", "ALI.BIYIKLI", "AQAAAAEAACcQAAAAEOdLS/TLueATKV3vnjx/QRFMHs4NfyYzJswvvyRO2RaBLSbK8g6piUpbgp0rd1F9ew==", null, false, "518acaff-15db-4be3-9e43-20819335afba", false, "Ali.Biyikli" },
+                    { "4e317568-1661-4302-be84-0ea791d6a044", 0, "71e4ba61-1a82-48b7-9403-adf46783603c", "p.stoop@avans.nl", true, false, null, "P.STOOP@AVANS.NL", "PASCAL.STOOP", "AQAAAAEAACcQAAAAEBIwA6Z6n1IIwbLPkHCKZS444biAdHtvcU1PYteigB5Q+gYkjtYLBoemMlORo/YUZw==", null, false, "8778e65e-9221-44d4-b504-eb15ded4807b", false, "Pascal.Stoop" }
                 });
 
             migrationBuilder.InsertData(

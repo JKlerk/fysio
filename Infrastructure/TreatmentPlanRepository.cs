@@ -33,12 +33,26 @@ namespace Infrastructure
 
         public TreatmentPlan Find(int? id)
         {
-            return _context.TreatmentPlans.First(tp => tp.Id == id);
+            try
+            {
+                return _context.TreatmentPlans.First(tp => tp.Id == id);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public TreatmentPlan FindWherePatientFileId(int id)
         {
-            return _context.TreatmentPlans.First(tp => tp.PatientFileId == id);
+            try
+            {
+                return _context.TreatmentPlans.First(tp => tp.PatientFileId == id);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public void SaveChanges()
