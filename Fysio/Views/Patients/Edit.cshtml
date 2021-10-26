@@ -1,3 +1,4 @@
+@using Fysio.Models.Extensions
 @model PatientViewModel 
 <div class="p-0 font-inter w-full z-10">
             <div class="" autocomplete="off">
@@ -56,7 +57,7 @@
                         </div>
                     </div>
                     <hr class="mt-5" />
-                    @if (User.IsInRole("Therapist") || User.IsInRole("Student")){
+                    @if (User.IsInAnyRole("Therapist", "Student")){
                         <!-- DOSSIER STUFF -->
                         @await Html.PartialAsync("_PatientFile", Model)
                     }
