@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.DomainServices", "Core.DomainServices\Core.DomainServices.csproj", "{BD385DC7-F1CE-41A7-B7D9-81F0B4C093B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FysioAPI", "FysioAPI\FysioAPI.csproj", "{F93C5095-1369-4D38-80B7-0013D6A9D7EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.WebService", "Infrastructure.WebService\Infrastructure.WebService.csproj", "{3158AC8C-D329-49EC-AC78-0004CD0FC868}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{BD385DC7-F1CE-41A7-B7D9-81F0B4C093B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD385DC7-F1CE-41A7-B7D9-81F0B4C093B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD385DC7-F1CE-41A7-B7D9-81F0B4C093B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F93C5095-1369-4D38-80B7-0013D6A9D7EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F93C5095-1369-4D38-80B7-0013D6A9D7EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F93C5095-1369-4D38-80B7-0013D6A9D7EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F93C5095-1369-4D38-80B7-0013D6A9D7EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3158AC8C-D329-49EC-AC78-0004CD0FC868}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3158AC8C-D329-49EC-AC78-0004CD0FC868}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3158AC8C-D329-49EC-AC78-0004CD0FC868}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3158AC8C-D329-49EC-AC78-0004CD0FC868}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Core.Domain;
 using Core.DomainServices;
 using Infrastructure;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -73,13 +76,29 @@ namespace Fysio.Controllers
         
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Register(string email, string password, string confirmPassword)
+        public async Task<IActionResult> Register(string email, string password, string confirmPassword, IFormFile userImage)
         {
             var patient = await _patientRepository.FindByEmail(email);
-            
+
             if (patient == null)
             {
                 return NotFound();
+            }
+
+            if (userImage.Length < 2097152)
+            {
+                using (var ms = new MemoryStream())
+                using (var fs = userImage.OpenReadStream())
+                {
+                    await fs.CopyToAsync(ms);
+                    patient.Image.Src = $"data:{userImage.ContentType};base64,{Convert.ToBase64String(ms.ToArray())}";
+                    _patientRepository.Update(patient);
+                    _patientRepository.SaveChanges();
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("File", "The file is too large.");
             }
 
             var user = new IdentityUser
@@ -98,7 +117,7 @@ namespace Fysio.Controllers
                 var resultSignIn = await _signInManager.PasswordSignInAsync(user, password, false, false);
                 if (resultSignIn.Succeeded)
                 {
-                    return Redirect("/patient/details/" + patient.Id);
+                    return Redirect("/patients/details/" + patient.Id);
                 }   
             }
             
