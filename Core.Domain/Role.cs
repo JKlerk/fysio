@@ -1,4 +1,6 @@
-﻿namespace Core.Domain
+﻿using System.Collections.Generic;
+
+namespace Core.Domain
 {
     public class Role
     {
@@ -7,4 +9,6 @@
         public const string StudentRole = "Student";
         public const string PatientRole = "Patient";
     }
+    
+    
 }

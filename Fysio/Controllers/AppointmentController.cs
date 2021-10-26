@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Core.Domain;
 using Core.DomainServices;
 using Fysio.Models;
+using Fysio.Models.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Appointment = Core.Domain.Appointment;
@@ -30,24 +31,22 @@ namespace Fysio.Controllers
         public IActionResult Index()
         {
             // TODO: Therapist should be able to appointments
-            if (!User.IsInRole("Therapist,Student"))
+            if (!User.IsInAnyRole("Therapist", "Student"))
             {
-                var username = User.Identity.Name;
-                var patient = _patientRepository.FindByName(username);
+                var patient = _patientRepository.FindByName(User.Identity.Name);
                 if (patient == null) return NotFound();
                 return View(patient.Appointments);
             }
             
-            // var therapist = _therapistRepository.FindByEmail(User.Identity)
-            return View();
-            // return View(patient);
+            var therapist = _therapistRepository.FindByName(User.Identity.Name);
+            if (therapist == null) return NotFound();
+            return View(therapist.Appointments);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            var username = User.Identity.Name;
-            var patient = _patientRepository.FindByName(username);
+            var patient = _patientRepository.FindByName(User.Identity.Name);
             if (patient == null) return NotFound();
 
             var treatmentPlan = patient.PatientFile.TreatmentPlan;

@@ -77,6 +77,13 @@ namespace Infrastructure
             }
         }
 
+        public bool isOwner(string name, Patient wantData)
+        {
+            var patient = FindByName(name);
+            return wantData.Id == patient.Id;
+        }
+        
+
         public void SaveChanges()
         {
             _context.SaveChanges();

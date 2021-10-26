@@ -18,9 +18,11 @@ namespace Fysio.Models
         public string StudentNumber { get; set; }
 
         public string BigNumber { get; set; }
-
+        
+        public virtual List<Appointment> Appointments { get; set; }
+        
         public int RoleId { get; set; }
-
+        
         public int? PatientId { get; set; }
         public virtual Patient Patient { get; set; }
     }
