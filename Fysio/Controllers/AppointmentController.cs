@@ -27,20 +27,20 @@ namespace Fysio.Controllers
 
         // GET
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             
             var username = User.Identity.Name;
-            var patient = await _patientRepository.FindByName(username);
+            var patient = _patientRepository.FindByName(username);
             if (patient == null) return NotFound();
             return View(patient.Appointments);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             var username = User.Identity.Name;
-            var patient = await _patientRepository.FindByName(username);
+            var patient = _patientRepository.FindByName(username);
             if (patient == null) return NotFound();
 
             var treatmentPlan = patient.PatientFile.TreatmentPlan;
@@ -62,10 +62,10 @@ namespace Fysio.Controllers
         }
         
         [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
             var username = User.Identity.Name;
-            var patient = await _patientRepository.FindByName(username);
+            var patient = _patientRepository.FindByName(username);
             if (patient == null) return NotFound();
 
             var treatmentPlan = patient.PatientFile.TreatmentPlan;
@@ -89,11 +89,11 @@ namespace Fysio.Controllers
         
         
         [HttpPost]
-        public async Task<IActionResult> PostCreate(AppointmentViewModel appointmentViewModel)
+        public IActionResult PostCreate(AppointmentViewModel appointmentViewModel)
         {
             if(ModelState.IsValid){
                 var username = User.Identity.Name;
-                var patient = await _patientRepository.FindByName(username);
+                var patient = _patientRepository.FindByName(username);
                 if (patient == null) return NotFound();
 
                 appointmentViewModel.Appointment.PatientId = patient.Id;

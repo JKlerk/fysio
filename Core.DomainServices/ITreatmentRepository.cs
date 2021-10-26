@@ -10,7 +10,7 @@ namespace Core.DomainServices
         
         public void Add(Treatment treatment);
         
-        public Task<Treatment> Find(int? id);
+        public Treatment Find(int? id);
         
         public void Update(Treatment treatment);
         

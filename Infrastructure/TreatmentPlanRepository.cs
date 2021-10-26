@@ -31,12 +31,12 @@ namespace Infrastructure
             _context.TreatmentPlans.Update(treatmentPlan);
         }
 
-        public async Task<TreatmentPlan> Find(int? id)
+        public TreatmentPlan Find(int? id)
         {
             return _context.TreatmentPlans.First(tp => tp.Id == id);
         }
 
-        public async Task<TreatmentPlan> FindWherePatientFileId(int id)
+        public TreatmentPlan FindWherePatientFileId(int id)
         {
             return _context.TreatmentPlans.First(tp => tp.PatientFileId == id);
         }

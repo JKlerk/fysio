@@ -14,8 +14,8 @@ namespace Core.DomainServices
         
         void SaveChanges();
 
-        public Task<TreatmentPlan> Find(int? id);
+        public TreatmentPlan Find(int? id);
 
-        public Task<TreatmentPlan> FindWherePatientFileId(int id);
+        public TreatmentPlan FindWherePatientFileId(int id);
     }
 }

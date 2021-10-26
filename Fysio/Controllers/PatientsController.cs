@@ -49,14 +49,14 @@ namespace Fysio.Controllers
         }
 
         // GET: Patients/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
             
-            var patient = await _patientRepository.Find(id);
+            var patient = _patientRepository.Find(id);
             if (patient == null)
             {
                 return NotFound();
@@ -113,14 +113,14 @@ namespace Fysio.Controllers
         }
 
         // GET: Patients/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
             
-            var patient = await _patientRepository.Find(id);
+            var patient = _patientRepository.Find(id);
             if (patient == null)
             {
                 return NotFound();
@@ -134,24 +134,24 @@ namespace Fysio.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Profile()
+        public IActionResult Profile()
         {
             var username = User.Identity.Name;
-            var patient = await _patientRepository.FindByName(username);
+            var patient = _patientRepository.FindByName(username);
             if (patient == null) return NotFound();
             return Redirect("/patients/details/" + patient.Id);
         }
         
         
         [HttpPost]
-        public async Task<IActionResult> Edit(PatientViewModel patientViewModel, int? id)
+        public IActionResult Edit(PatientViewModel patientViewModel, int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var patient = await _patientRepository.Find(id);
+            var patient = _patientRepository.Find(id);
             if (patient == null)
             {
                 return NotFound();
@@ -185,9 +185,9 @@ namespace Fysio.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Therapist,Student")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var patient = await _patientRepository.Find(id);
+            var patient = _patientRepository.Find(id);
            
             _patientRepository.Remove(patient);
             _patientRepository.SaveChanges();

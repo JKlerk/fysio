@@ -31,14 +31,14 @@ namespace Fysio.Controllers
             return View();
         }
         
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var tp = await _treatmentPlanRepository.Find(id);
+            var tp = _treatmentPlanRepository.Find(id);
             return View(tp);
         }
 
@@ -46,7 +46,7 @@ namespace Fysio.Controllers
         [Authorize(Roles = "Therapist,Student")]
         public IActionResult Create(int id)
         {
-            if (_treatmentPlanRepository.FindWherePatientFileId(id).Status.ToString() != "Faulted") return RedirectToAction("Index");
+            if (_treatmentPlanRepository.FindWherePatientFileId(id) == null) return RedirectToAction("Index");
             
             TreatmentViewModel treatmentViewModel = new TreatmentViewModel();
             treatmentViewModel.Therapists = _therapistRepository.GetAll();
@@ -61,7 +61,7 @@ namespace Fysio.Controllers
         public IActionResult Create(TreatmentViewModel treatmentPlanViewModel)
         {
 
-            if (_treatmentPlanRepository.FindWherePatientFileId(treatmentPlanViewModel.TreatmentPlan.PatientFileId).Status.ToString() != "Faulted") return RedirectToAction("Index");
+            if (_treatmentPlanRepository.FindWherePatientFileId(treatmentPlanViewModel.TreatmentPlan.PatientFileId) == null) return RedirectToAction("Index");
             
 
             if (ModelState.IsValid)

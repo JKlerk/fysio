@@ -63,7 +63,7 @@ namespace Fysio.Controllers
                     bool isPatient = await _userManager.IsInRoleAsync(user, "Patient");
                     if (isPatient)
                     {
-                        var patient = await _patientRepository.FindByEmail(user.Email);
+                        var patient = _patientRepository.FindByEmail(user.Email);
                         return Redirect("/patients/details/" + patient.Id);
                     }
                     return RedirectToAction("Index");
@@ -80,7 +80,7 @@ namespace Fysio.Controllers
         {
             if (password != confirmPassword) return NotFound();
             
-            var patient = await _patientRepository.FindByEmail(email);
+            var patient = _patientRepository.FindByEmail(email);
             
             if (patient == null)
             {

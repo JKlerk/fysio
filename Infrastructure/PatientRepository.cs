@@ -23,7 +23,7 @@ namespace Infrastructure
             return _context.Patients.ToList();
         }
 
-        public async Task<Patient> Find(int? id)
+        public Patient Find(int? id)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace Infrastructure
             _context.Entry(oldData).CurrentValues.SetValues(patient);
         }
 
-        public async Task<Patient> FindByEmail(string email)
+        public Patient FindByEmail(string email)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace Infrastructure
             }
         }
 
-        public async Task<Patient> FindByName(string name)
+        public Patient FindByName(string name)
         {
             name = name.Replace(".", " ");
             try

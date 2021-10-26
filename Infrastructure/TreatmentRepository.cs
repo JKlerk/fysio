@@ -26,7 +26,7 @@ namespace Infrastructure
             _context.Treatments.Add(treatment);
         }
 
-        public async Task<Treatment> Find(int? id)
+        public Treatment Find(int? id)
         {
             return _context.Treatments.Find(id);
         }

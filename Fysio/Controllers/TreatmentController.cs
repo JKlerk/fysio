@@ -23,7 +23,7 @@ namespace Fysio.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Therapist,Student")]
-        public async Task<IActionResult> Create(int id)
+        public IActionResult Create(int id)
         {
 
             if (id == 0)
@@ -31,7 +31,7 @@ namespace Fysio.Controllers
                 return NotFound();
             }
             
-            var treatmentPlan = await _treatmentPlanRepository.Find(id);
+            var treatmentPlan = _treatmentPlanRepository.Find(id);
             if (treatmentPlan == null)
             {
                 return NotFound();
@@ -67,7 +67,7 @@ namespace Fysio.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Therapist,Student")]
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
 
             if (id == 0)
@@ -75,7 +75,7 @@ namespace Fysio.Controllers
                 return NotFound();
             }
             
-            var treatment = await _treatmentRepository.Find(id);
+            var treatment = _treatmentRepository.Find(id);
             if (treatment == null)
             {
                 return NotFound();
@@ -90,11 +90,11 @@ namespace Fysio.Controllers
         
         [HttpPost]
         [Authorize(Roles = "Therapist,Student")]
-        public async Task<IActionResult> PostEdit(Treatment treatment)
+        public IActionResult PostEdit(Treatment treatment)
         {
             if (ModelState.IsValid)
             {
-                var old = await _treatmentRepository.Find(treatment.Id);
+                var old = _treatmentRepository.Find(treatment.Id);
                 treatment.AddedDate = old.AddedDate;
                 _treatmentRepository.Update(treatment);
                 _treatmentRepository.SaveChanges();
@@ -109,9 +109,9 @@ namespace Fysio.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Therapist,Student")]
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
-            var treatment = await _treatmentRepository.Find(id);
+            var treatment = _treatmentRepository.Find(id);
 
             if (treatment.AddedDate.ToString("dd/MM/yyyy") != DateTime.Today.ToString("dd/MM/yyyy")) return NotFound();
             

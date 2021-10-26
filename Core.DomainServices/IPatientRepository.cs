@@ -9,7 +9,7 @@ namespace Core.DomainServices
     {
         IEnumerable<Patient> GetAll();
 
-        Task<Patient> Find(int? id);
+        Patient Find(int? id);
 
         void Remove(Patient patient);
 
@@ -17,9 +17,9 @@ namespace Core.DomainServices
 
         public void Update(Patient patient);
 
-        public Task<Patient> FindByEmail(string email);
+        public Patient FindByEmail(string email);
         
-        public Task<Patient> FindByName(string name);
+        public Patient FindByName(string name);
         
         void SaveChanges();
     }
