@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Domain;
 using Core.DomainServices;
@@ -30,7 +31,7 @@ namespace Fysio.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            // TODO: Therapist should be able to make appointments
+            // TODO: Therapist should be able to make appointments with patient
             if (!User.IsInAnyRole("Therapist", "Student"))
             {
                 var patient = _patientRepository.FindByName(User.Identity.Name);
@@ -93,7 +94,7 @@ namespace Fysio.Controllers
             return View(appointmentViewModel);
         }
         
-        // TODO: Date should be available for select therapist
+        // TODO: The selected date should be available in the therapist's schedule
         [HttpPost]
         public IActionResult PostCreate(AppointmentViewModel appointmentViewModel)
         {
@@ -103,7 +104,7 @@ namespace Fysio.Controllers
                 if (patient == null) return NotFound();
 
                 appointmentViewModel.Appointment.PatientId = patient.Id;
-
+                appointmentViewModel.Appointment.AddedDate = DateTime.Now;
                 _appointmentRepository.Add(appointmentViewModel.Appointment);
                 _appointmentRepository.SaveChanges();
                 return RedirectToAction("Index");
@@ -111,13 +112,12 @@ namespace Fysio.Controllers
             return RedirectToAction("Create");
         }
         
-        // TODO: Add so you can only delete 24hours before
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
             var appointment = _appointmentRepository.Find(id);
-           
+            if (appointment.AddedDate.ToString("dd/MM/yyyy") != DateTime.Today.ToString("dd/MM/yyyy")) RedirectToAction(nameof(Index));
             _appointmentRepository.Remove(appointment);
             _appointmentRepository.SaveChanges();
             

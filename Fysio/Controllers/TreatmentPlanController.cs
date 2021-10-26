@@ -78,7 +78,7 @@ namespace Fysio.Controllers
                 _treatmentRepository.Add(treatment);
                 _treatmentRepository.SaveChanges();
                 
-                return Redirect("treatmentplan/details/" + treatmentPlan.Id);
+                return Redirect("/treatmentplan/details/" + treatmentPlan.Id);
             }
             
             treatmentPlanViewModel.AddTherapists(_therapistRepository.GetAll());;

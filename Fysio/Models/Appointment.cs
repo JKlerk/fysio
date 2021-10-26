@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Fysio.Validators;
 
 namespace Fysio.Models
 {
@@ -16,6 +17,10 @@ namespace Fysio.Models
         public int? TreatmentId { get; set; }
         public virtual Treatment Treatment { get; set; }
         
+        public DateTime AddedDate { get; set; }
+        
+        [Required]
+        [NotPast(ErrorMessage = "Your appointment can not be in the past")]
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
     }

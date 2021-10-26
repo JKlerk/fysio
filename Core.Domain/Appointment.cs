@@ -15,6 +15,8 @@ namespace Core.Domain
         public int? TreatmentId { get; set; }
         public virtual Treatment Treatment { get; set; }
 
+        public DateTime AddedDate { get; set; }
+
         public DateTime Date { get; set; }
     }
 }
