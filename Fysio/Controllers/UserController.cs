@@ -78,8 +78,10 @@ namespace Fysio.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register(string email, string password, string confirmPassword, IFormFile userImage)
         {
+            if (password != confirmPassword) return NotFound();
+            
             var patient = await _patientRepository.FindByEmail(email);
-
+            
             if (patient == null)
             {
                 return NotFound();
