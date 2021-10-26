@@ -21,7 +21,6 @@ namespace Fysio.Models
         
         [Required]
         [DataType(DataType.Date)]
-        [NotPast(ErrorMessage = "Start date can not be in the past")]
         public DateTime StartTime { get; set; }
         
         [Required]

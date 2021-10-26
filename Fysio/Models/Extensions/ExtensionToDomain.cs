@@ -51,6 +51,7 @@ namespace Fysio.Models.Extensions
         {
             return new Core.Domain.Treatment
             {
+                Id = t.Id,
                 TreatmentPlanId = t.TreatmentPlanId,
                 Type = t.Type,
                 Description = t.Description,

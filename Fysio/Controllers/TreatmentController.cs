@@ -6,6 +6,7 @@ using Fysio.Models.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Treatment = Core.Domain.Treatment;
+using TreatmentPlan = Core.Domain.TreatmentPlan;
 
 namespace Fysio.Controllers
 {
@@ -54,6 +55,22 @@ namespace Fysio.Controllers
             {
                 Treatment treatment = treatmentViewModel.Treatment.ConvertToDomain();
                 treatment.AddedDate = DateTime.Now;
+
+                TreatmentPlan treatmentPlan = _treatmentPlanRepository.Find(treatment.TreatmentPlanId);
+                if (treatment.AddedDate < treatmentPlan.StartTime)
+                {
+                    ModelState.AddModelError("Treatment.Description", "Treatment can not be before the starttime of the period");
+                    treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
+                    return View(treatmentViewModel);
+                }
+                
+                if (treatment.AddedDate > treatmentPlan.EndTime)
+                {
+                    ModelState.AddModelError("Treatment.Description", "Treatment can not be added after the period has ended");
+                    treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
+                    return View(treatmentViewModel);
+                }
+
                 _treatmentRepository.Add(treatment);
                 _treatmentRepository.SaveChanges();
         
@@ -88,13 +105,14 @@ namespace Fysio.Controllers
         
         [HttpPost]
         [Authorize(Roles = "Therapist,Student")]
-        public IActionResult Edit(TreatmentViewModel treatmentViewModel)
+        public IActionResult Edit(TreatmentViewModel treatmentViewModel, bool isFinished)
         {
             if (ModelState.IsValid)
             {
                 Treatment treatment = treatmentViewModel.Treatment.ConvertToDomain();
                 var old = _treatmentRepository.Find(treatment.Id);
                 treatment.AddedDate = old.AddedDate;
+                if(isFinished) treatment.FinishDate = DateTime.Now;
                 _treatmentRepository.Update(treatment);
                 _treatmentRepository.SaveChanges();
         

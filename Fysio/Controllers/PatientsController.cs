@@ -169,6 +169,7 @@ namespace Fysio.Controllers
                 patientFile.PatientId = patient.Id;
                 patientFile.Age = patient.CalculateAge();
                 patientFile.Id = oldPatient.PatientFile.Id;
+                patientFile.Notes = oldPatient.PatientFile.Notes;
                 _patientFileRepository.Update(patientFile);
                 _patientFileRepository.SaveChanges();
                 

@@ -27,6 +27,6 @@ namespace Fysio.Models
         [DataType(DataType.Date)]
         public DateTime AddedDate { get; set; }
         [DataType(DataType.Date)]
-        public DateTime FinishDate { get; set; }
+        public DateTime? FinishDate { get; set; }
     }
 }

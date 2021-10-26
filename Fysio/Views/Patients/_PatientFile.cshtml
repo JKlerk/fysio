@@ -1,4 +1,5 @@
-﻿@model PatientViewModel;
+﻿@using Patient = Core.Domain.Patient
+@model PatientViewModel;
 <div class="">
     <div class="py-5">
         <div>
@@ -111,17 +112,17 @@
                     name="Patient.PatientFile.PractitionerId"
                     autocomplete="off"
                     class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                     @foreach (var therapist in Model.Therapists)
-                     {
-                         if (therapist.Name == User.Identity.Name.Replace(".", " "))
-                         {
-                             <option selected value="@therapist.Id">@therapist.Name</option>
-                         }
-                         else
-                         {
-                             <option value="@therapist.Id">@therapist.Name</option>
-                         }
-                     }
+                    @foreach (var therapist in Model.Therapists)
+                    {
+                        if (therapist.Name == User.Identity.Name.Replace(".", " "))
+                        {
+                            <option selected value="@therapist.Id">@therapist.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@therapist.Id">@therapist.Name</option>
+                        }
+                    }
                 </select>
             </div>
             <div class="col-span-1">
@@ -135,9 +136,11 @@
                 <span asp-validation-for="Patient.PatientFile.DischargeDate" class="text-danger"></span>
             </div>
         </div>
-        <div class="mt-6">
-            <label for="notes" class="block text-sm font-medium text-gray-700">Notes: </label>
-            <textarea
+        @if (@Model.Patient.PatientFile.Notes == null)
+        {
+            <div class="mt-6">
+                <label for="notes" class="block text-sm font-medium text-gray-700">Notes: </label>
+                <textarea
                     asp-for="Patient.PatientFile.Notes"
                     placeholder="A lot of text"
                     type="text"
@@ -146,7 +149,24 @@
                     autocomplete="off"
                     class="ipt mt-1 outline-none block focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
                 ></textarea>
-        </div>
+            </div>
+        }
+        else
+        {
+            <div class="mt-6">
+                <label for="notes" class="block text-sm font-medium text-gray-700">Notes: </label>
+                <textarea
+                    disabled
+                    asp-for="Patient.PatientFile.Notes"
+                    placeholder="A lot of text"
+                    type="text"
+                    name="Patient.PatientFile.Notes"
+                    id="notes"
+                    autocomplete="off"
+                    class="ipt mt-1 outline-none block focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
+                ></textarea>
+            </div>
+        }
     </div>
     <!-- END DOSSIER STUFF -->
     @* <div class="flex flex-1 justify-end mt-5 pb-6 px-6"> *@

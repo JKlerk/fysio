@@ -17,7 +17,7 @@ namespace Core.Domain
         public virtual Therapist Therapist { get; set; }
 
         public DateTime AddedDate { get; set; }
-        public DateTime FinishDate { get; set; }
+        public DateTime? FinishDate { get; set; }
     }
 
 }

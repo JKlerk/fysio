@@ -7,7 +7,7 @@ namespace Fysio.Validators
     {
         public override bool IsValid(object value)
         {
-            return ((DateTime)value > DateTime.Now);
+            return ((DateTime)value >= DateTime.Now);
         }
     }
 }
