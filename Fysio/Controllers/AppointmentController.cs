@@ -30,7 +30,7 @@ namespace Fysio.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            // TODO: Therapist should be able to appointments
+            // TODO: Therapist should be able to make appointments
             if (!User.IsInAnyRole("Therapist", "Student"))
             {
                 var patient = _patientRepository.FindByName(User.Identity.Name);
@@ -93,7 +93,7 @@ namespace Fysio.Controllers
             return View(appointmentViewModel);
         }
         
-        
+        // TODO: Date should be available for select therapist
         [HttpPost]
         public IActionResult PostCreate(AppointmentViewModel appointmentViewModel)
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Fysio.Validators;
 
 namespace Fysio.Models
 {
@@ -20,10 +21,12 @@ namespace Fysio.Models
         
         [Required]
         [DataType(DataType.Date)]
+        [NotPast(ErrorMessage = "Start date can not be in the past")]
         public DateTime StartTime { get; set; }
         
         [Required]
         [DataType(DataType.Date)]
+        [NotPast(ErrorMessage = "End date can not be in the past")]
         public DateTime EndTime { get; set; }
     }
 }

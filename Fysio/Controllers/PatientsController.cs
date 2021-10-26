@@ -81,6 +81,13 @@ namespace Fysio.Controllers
                 Core.Domain.TreatmentPlan treatmentPlan = patientViewModel.TreatmentPlan.ConvertToDomain();
                 Core.Domain.Treatment treatment = patientViewModel.Treatment.ConvertToDomain(); ;
 
+                if (User.IsInRole("Student") && patientFile.SupervisorId == null)
+                {
+                    ModelState.AddModelError("SupervisorId", "The supervisor field is required");
+                    patientViewModel.AddTherapists(_therapistRepository.GetAll());
+                    return View(patientViewModel);
+                }
+                
                 patient.PatientNumber = Guid.NewGuid().ToString();
                 _patientRepository.Add(patient);
                 _patientRepository.SaveChanges();

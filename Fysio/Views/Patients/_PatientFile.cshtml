@@ -75,24 +75,34 @@
                         ">
                     @foreach (var therapist in Model.Therapists)
                     {
-                        <option value="@therapist.Id">@therapist.Name</option>
+                        if (therapist.Name == User.Identity.Name.Replace(".", " "))
+                        {
+                            <option selected value="@therapist.Id">@therapist.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@therapist.Id">@therapist.Name</option>
+                        }
                     }
                 </select>
             </div>
-            <div class="col-span-1">
-                <label for="supervisor" class="block text-sm font-medium text-gray-700">Under supervision from:</label>
-                <select
-                    asp-for="Patient.PatientFile.SupervisorId"
-                    id="supervisor"
-                    name="Patient.PatientFile.SupervisorId"
-                    autocomplete="off"
-                    class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    @foreach (var therapist in Model.Therapists)
-                    {
-                        <option value="@therapist.Id">@therapist.Name</option>
-                    }
-                </select>
-            </div>
+            @if (User.IsInRole("Student"))
+            {
+                <div class="col-span-1">
+                    <label for="supervisor" class="block text-sm font-medium text-gray-700">Under supervision from:</label>
+                    <select
+                        asp-for="Patient.PatientFile.SupervisorId"
+                        id="supervisor"
+                        name="Patient.PatientFile.SupervisorId"
+                        autocomplete="off"
+                        class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        @foreach (var therapist in Model.Therapists)
+                        {
+                            <option value="@therapist.Id">@therapist.Name</option>
+                        }
+                    </select>
+                </div>
+            }
             <div class="col-span-1">
                 <label for="practitioner" class="block text-sm font-medium text-gray-700">Practitioner:</label>
                 <select
@@ -101,20 +111,27 @@
                     name="Patient.PatientFile.PractitionerId"
                     autocomplete="off"
                     class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    @foreach (var therapist in Model.Therapists)
-                    {
-                        <option value="@therapist.Id">@therapist.Name</option>
-                    }
+                     @foreach (var therapist in Model.Therapists)
+                     {
+                         if (therapist.Name == User.Identity.Name.Replace(".", " "))
+                         {
+                             <option selected value="@therapist.Id">@therapist.Name</option>
+                         }
+                         else
+                         {
+                             <option value="@therapist.Id">@therapist.Name</option>
+                         }
+                     }
                 </select>
             </div>
             <div class="col-span-1">
                 <label for="RegisterDate" class="block text-sm font-medium text-gray-700">Register Date</label>
-                @Html.EditorFor(m => m.Patient.PatientFile.RegisterDate, new {htmlAttributes = new {@class = "ipt text-sm"}})
+                @Html.EditorFor(m => m.Patient.PatientFile.RegisterDate, new { htmlAttributes = new { @class = "ipt text-sm" } })
                 <span asp-validation-for="Patient.PatientFile.RegisterDate" class="text-danger"></span>
             </div>
             <div class="col-span-1">
                 <label for="DischargeDate" class="block text-sm font-medium text-gray-700">Discharge Date</label>
-                @Html.EditorFor(m => m.Patient.PatientFile.DischargeDate, new {htmlAttributes = new {@class = "ipt text-sm"}})
+                @Html.EditorFor(m => m.Patient.PatientFile.DischargeDate, new { htmlAttributes = new { @class = "ipt text-sm" } })
                 <span asp-validation-for="Patient.PatientFile.DischargeDate" class="text-danger"></span>
             </div>
         </div>

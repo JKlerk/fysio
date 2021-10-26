@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Fysio.Validators;
 
 namespace Fysio.Models
 {
@@ -17,6 +18,7 @@ namespace Fysio.Models
         public string Name { get; set; }
 
         [Required]
+        [UniqueEmail]
         public string Email { get; set; }
 
         [Required]
@@ -25,7 +27,9 @@ namespace Fysio.Models
         public virtual Image Image { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Date, ErrorMessage = "Enter a valid date")]
+        [MinimumAge(16, ErrorMessage = "User is not old enough to be a patient")]
+        [NotFuture(ErrorMessage = "Birthdate can not be in the future")]
         public DateTime Birthdate { get; set; }
         
         [Required]

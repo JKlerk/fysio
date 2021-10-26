@@ -81,7 +81,7 @@ namespace Infrastructure
                 },
                 new IdentityUserRole<string>
                 {
-                    RoleId = physioRole.Id,
+                    RoleId = studentRole.Id,
                     UserId = user2.Id
                 }
             );

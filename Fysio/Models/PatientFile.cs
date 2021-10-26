@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Fysio.Validators;
 
 namespace Fysio.Models
 {
@@ -17,28 +18,26 @@ namespace Fysio.Models
 
         [Required]
         public string DiagnoseCode { get; set; }
-
-        [Required]
+        
         [ForeignKey("Id")]
         public int? InterviewerId { get; set; }
         public virtual Therapist Interviewer { get; set; }
-
-        [Required]
+        
         [ForeignKey("Id")]
         public int? SupervisorId { get; set; }
         public virtual Therapist Supervisor { get; set; }
-
-        [Required]
+        
         [ForeignKey("Id")]
         public int? PractitionerId { get; set; }
         public virtual Therapist Practitioner { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Date, ErrorMessage = "Enter a valid date")]
         public DateTime RegisterDate { get; set; }
         
         [Required]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Date, ErrorMessage = "Enter a valid date")]
+        [NotPast(ErrorMessage = "Register date can not be in the past")]
         public DateTime DischargeDate { get; set; }
 
         public string Notes { get; set; }

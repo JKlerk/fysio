@@ -5,6 +5,7 @@ namespace Fysio.Models
 {
     public class Treatment
     {
+        //TODO: Add how long treatment will take
         public int Id { get; set; }
 
         public int TreatmentPlanId { get; set; }

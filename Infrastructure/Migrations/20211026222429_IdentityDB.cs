@@ -157,9 +157,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "5c491816-e35b-48cc-8c8b-b7b1c7df224f", "2c281588-0930-4af4-8f79-4d46477d1b40", "Therapist", "THERAPIST" },
-                    { "15ed72fe-db9d-403b-beb6-8d5b8953bba6", "4070aef4-5616-4729-8ec9-5e9d89664311", "Student", "STUDENT" },
-                    { "ba196295-7c35-49ab-99c2-5c95e987c000", "76c2060c-4b78-47d9-8421-9c5a4da22afd", "Patient", "PATIENT" }
+                    { "5c491816-e35b-48cc-8c8b-b7b1c7df224f", "57929651-da99-4235-ac34-b25a24bf2ebe", "Therapist", "THERAPIST" },
+                    { "15ed72fe-db9d-403b-beb6-8d5b8953bba6", "b80daeb8-32b0-475b-8753-f3de3fa433cf", "Student", "STUDENT" },
+                    { "ba196295-7c35-49ab-99c2-5c95e987c000", "2a76b4e6-3669-45fb-a8dd-37f17cc7ca81", "Patient", "PATIENT" }
                 });
 
             migrationBuilder.InsertData(
@@ -167,8 +167,8 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "54f013a2-3d91-4257-983a-8953181cf6f9", 0, "a898ae12-76d9-4540-b4cc-69b8fb61cd00", "a.biyikli@avans.nl", true, false, null, "A.BIYIKLI@AVANS.NL", "ALI.BIYIKLI", "AQAAAAEAACcQAAAAEOdLS/TLueATKV3vnjx/QRFMHs4NfyYzJswvvyRO2RaBLSbK8g6piUpbgp0rd1F9ew==", null, false, "518acaff-15db-4be3-9e43-20819335afba", false, "Ali.Biyikli" },
-                    { "4e317568-1661-4302-be84-0ea791d6a044", 0, "71e4ba61-1a82-48b7-9403-adf46783603c", "p.stoop@avans.nl", true, false, null, "P.STOOP@AVANS.NL", "PASCAL.STOOP", "AQAAAAEAACcQAAAAEBIwA6Z6n1IIwbLPkHCKZS444biAdHtvcU1PYteigB5Q+gYkjtYLBoemMlORo/YUZw==", null, false, "8778e65e-9221-44d4-b504-eb15ded4807b", false, "Pascal.Stoop" }
+                    { "54f013a2-3d91-4257-983a-8953181cf6f9", 0, "549ad8fc-d047-4454-802c-45aafc6232cd", "a.biyikli@avans.nl", true, false, null, "A.BIYIKLI@AVANS.NL", "ALI.BIYIKLI", "AQAAAAEAACcQAAAAEJOAT4QVziouSSiJruXb614ldrwdIZvP3W7lkFchCMDJwX9+6V8u4Bh4g8J9KKPTMw==", null, false, "5d7bf663-8797-4c5b-a03c-a5cb9d21847b", false, "Ali.Biyikli" },
+                    { "4e317568-1661-4302-be84-0ea791d6a044", 0, "4dc2606d-c47c-4b6b-8a2d-cff4197b1037", "p.stoop@avans.nl", true, false, null, "P.STOOP@AVANS.NL", "PASCAL.STOOP", "AQAAAAEAACcQAAAAEOs4hL+fj7Bj2dNukeaUuIKnKBIjK5PS9wndrLrCzCb6eCKiu/nfbYU32PWjzy9Urg==", null, false, "7756f9af-4b5e-41a8-972c-6d2b775e9295", false, "Pascal.Stoop" }
                 });
 
             migrationBuilder.InsertData(
@@ -179,7 +179,7 @@ namespace Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "5c491816-e35b-48cc-8c8b-b7b1c7df224f", "4e317568-1661-4302-be84-0ea791d6a044" });
+                values: new object[] { "15ed72fe-db9d-403b-beb6-8d5b8953bba6", "4e317568-1661-4302-be84-0ea791d6a044" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

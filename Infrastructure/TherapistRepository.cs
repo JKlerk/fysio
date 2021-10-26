@@ -33,7 +33,14 @@ namespace Infrastructure
 
         public Therapist FindByEmail(string email)
         {
-            return _context.Therapists.First(q => q.Email == email);
+            try
+            {
+                return _context.Therapists.First(q => q.Email == email);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
