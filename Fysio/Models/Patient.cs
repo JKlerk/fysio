@@ -23,7 +23,9 @@ namespace Fysio.Models
 
         [Required]
         public string Gender { get; set; }
-        
+
+        public virtual Image Image { get; set; }
+
         [Required]
         [DataType(DataType.Date)]
         public DateTime Birthdate { get; set; }

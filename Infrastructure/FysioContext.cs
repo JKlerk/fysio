@@ -16,6 +16,8 @@ namespace Infrastructure
         public DbSet<Therapist> Therapists { get; set; }
         public DbSet<PatientFile> PatientFiles { get; set; }
         public DbSet<TreatmentPlan> TreatmentPlans { get; set; }
+        
+        public DbSet<Image> Images { get; set; }
         public DbSet<Treatment> Treatments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -24,6 +24,11 @@ namespace Fysio.Data
             context.Therapists.AddRange(therapistsSeeder);
             context.SaveChanges();
             
+            List<Image> imageSeeder = new ImageSeeder(context.Patients.ToList()).Images;
+            context.Images.AddRange(imageSeeder);
+            context.SaveChanges();
+            
+            
             List<PatientFile> patientFileSeeder = new PatientFileSeeder(context.Therapists.ToList(), context.Patients.ToList()).patientFiles;
             context.PatientFiles.AddRange(patientFileSeeder);
                 

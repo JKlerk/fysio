@@ -1,68 +1,68 @@
 @model PatientViewModel; 
 <div class="p-0 font-inter w-full z-10">
-            <div class="" autocomplete="off">
-                <form action="/Patients/Create" method="POST" class="w-full">
-                    @Html.AntiForgeryToken()
-                    <div class="py-5 flex">
-                        <div>
-                            <h3 class="text-lg leading-6 font-bold text-fysio-header font-source">Patient Information</h3>
-                            <p class="mt-1 max-w-2xl text-sm text-gray-500 font-roboto">Patients details and information.</p>
-                        </div>
-                    </div>
-                    <hr />
-                    @Html.ValidationSummary()
-                    <div class="grid grid-cols-6 gap-6 mt-5 font-roboto">
-                        <div class="col-span-6 sm:col-span-3">
-                            <label for="first-name" class="block text-sm font-medium text-gray-700">Full name</label>
-                            @Html.EditorFor(m => m.Patient.Name, new { htmlAttributes = new { @class = "ipt", placeholder = "John Doe" }, })
-                            <span asp-validation-for="Patient.Name" class="text-danger"></span>
-                        </div>
-
-                        <div class="col-span-6 sm:col-span-3">
-                            <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label>
-                             @Html.EditorFor(m => m.Patient.Email, new { htmlAttributes = new { @class = "ipt", placeholder = "john@doe.com" }, })
-                            <span asp-validation-for="Patient.Email" class="text-danger"></span>
-                        </div>
-
-                        <div class="col-span-6 sm:col-span-3">
-                            <label for="gender" class="block text-sm font-medium text-gray-700">Gender / Sex</label>
-                            <select
-                                asp-for="Patient.Gender"
-                                id="gender"
-                                name="Patient.Gender"
-                                autocomplete="off"
-                                class="ipt mt-1 outline-none block p-2 rounded-md px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            >
-                                <option value="Male" selected>Male</option>
-                                <option value="Female">Female</option>
-                            </select>
-                        </div>
-
-                        <div class="col-span-6 sm:col-span-3">
-                            <label for="birthdate" class="block text-sm font-medium text-gray-700">Birthdate</label>
-                            @Html.EditorFor(m => m.Patient.Birthdate, new { htmlAttributes = new { @class = "ipt" } })
-                            <span asp-validation-for="Patient.Birthdate" class="text-danger"></span>
-                        </div>
-                        <div class="col-span-6 sm:col-span-2">
-                            <label for="phone" class="block text-sm font-medium text-gray-700">Phone number </label>
-                            @Html.EditorFor(m => m.Patient.PhoneNumber, new { htmlAttributes = new { @class = "ipt", placeholder = "eg. 06 12121212" }, })
-                            <span asp-validation-for="Patient.PhoneNumber" class="text-danger"></span>
-                        </div>
-
-                        <div class="col-span-6 sm:col-span-6 lg:col-span-2">
-                            <label for="StaffNumber" class="block text-sm font-medium text-gray-700">Staff number</label>
-                            @Html.EditorFor(m => m.Patient.StaffNumber, new { htmlAttributes = new { @class = "ipt", placeholder = "eg. 2168734" }, })
-                            <span asp-validation-for="Patient.StaffNumber" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <hr class="mt-5" />
-                    <!-- DOSSIER STUFF -->
-                    @Html.Partial("_PatientFile", Model) @Html.Partial("../TreatmentPlan/_Create", Model)
-                    <div class="flex flex-1 justify-end mt-5 pb-6 px-6">
-                        <button style="background-color: #00b4d8" value="Create" type="submit" class="hover:bg-blue-600 rounded-lg text-white p-2 text-center text-sm font-bold">
-                            Add patient
-                        </button>
-                    </div>
-                </form>
+    <div class="" autocomplete="off">
+        <form action="/Patients/Create" method="POST" class="w-full">
+            @Html.AntiForgeryToken()
+            <div class="py-5 flex">
+                <div>
+                    <h3 class="text-lg leading-6 font-bold text-fysio-header font-source">Patient Information</h3>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500 font-roboto">Patients details and information.</p>
+                </div>
             </div>
-        </div>
+            <hr />
+            @Html.ValidationSummary()
+            <div class="grid grid-cols-6 gap-6 mt-5 font-roboto">
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="first-name" class="block text-sm font-medium text-gray-700">Full name</label>
+                    @Html.EditorFor(m => m.Patient.Name, new { htmlAttributes = new { @class = "ipt", placeholder = "John Doe" }, })
+                    <span asp-validation-for="Patient.Name" class="text-danger"></span>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label>
+                     @Html.EditorFor(m => m.Patient.Email, new { htmlAttributes = new { @class = "ipt", placeholder = "john@doe.com" }, })
+                    <span asp-validation-for="Patient.Email" class="text-danger"></span>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="gender" class="block text-sm font-medium text-gray-700">Gender / Sex</label>
+                    <select
+                        asp-for="Patient.Gender"
+                        id="gender"
+                        name="Patient.Gender"
+                        autocomplete="off"
+                        class="ipt mt-1 outline-none block p-2 rounded-md px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    >
+                        <option value="Male" selected>Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="birthdate" class="block text-sm font-medium text-gray-700">Birthdate</label>
+                    @Html.EditorFor(m => m.Patient.Birthdate, new { htmlAttributes = new { @class = "ipt" } })
+                    <span asp-validation-for="Patient.Birthdate" class="text-danger"></span>
+                </div>
+                <div class="col-span-6 sm:col-span-2">
+                    <label for="phone" class="block text-sm font-medium text-gray-700">Phone number </label>
+                    @Html.EditorFor(m => m.Patient.PhoneNumber, new { htmlAttributes = new { @class = "ipt", placeholder = "eg. 06 12121212" }, })
+                    <span asp-validation-for="Patient.PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                    <label for="StaffNumber" class="block text-sm font-medium text-gray-700">Staff number</label>
+                    @Html.EditorFor(m => m.Patient.StaffNumber, new { htmlAttributes = new { @class = "ipt", placeholder = "eg. 2168734" }, })
+                    <span asp-validation-for="Patient.StaffNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <hr class="mt-5" />
+            <!-- DOSSIER STUFF -->
+            @Html.Partial("_PatientFile", Model) @Html.Partial("../TreatmentPlan/_Create", Model)
+            <div class="flex flex-1 justify-end mt-5 pb-6 px-6">
+                <button style="background-color: #00b4d8" value="Create" type="submit" class="hover:bg-blue-600 rounded-lg text-white p-2 text-center text-sm font-bold">
+                    Add patient
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

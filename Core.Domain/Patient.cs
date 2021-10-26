@@ -16,6 +16,8 @@ namespace Core.Domain
 
         public string Gender { get; set; }
 
+        public virtual Image Image { get; set; }
+        
         public DateTime Birthdate { get; set; }
         
         public string PhoneNumber { get; set; }
