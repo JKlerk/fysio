@@ -94,7 +94,7 @@
                     <p class="text-sm col-span-2">Interviewed by:</p>
                     <p class="text-sm text-gray-700 col-span-4 font-semibold">@Model.PatientFile.Interviewer.Name</p>
                     <p class="text-sm col-span-2">Supervised by:</p>
-                    <p class="text-sm text-gray-700 col-span-4 font-semibold">@Model.PatientFile.Supervisor?.Name Unavailable</p>
+                    <p class="text-sm text-gray-700 col-span-4 font-semibold">@(Model.PatientFile.Supervisor?.Name ?? "Unavailable")</p>
                     <p class="text-sm col-span-2">Therapist:</p>
                     <p class="text-sm text-gray-700 col-span-4 font-semibold">@Model.PatientFile.Practitioner.Name</p>
                     <p class="text-sm col-span-2">Therapist Type:</p>
