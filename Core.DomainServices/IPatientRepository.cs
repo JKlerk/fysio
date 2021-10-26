@@ -20,6 +20,8 @@ namespace Core.DomainServices
         public Patient FindByEmail(string email);
         
         public Patient FindByName(string name);
+
+        public bool isOwner(string name, Patient wantData);
         
         void SaveChanges();
     }

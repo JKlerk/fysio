@@ -18,12 +18,14 @@ namespace Fysio.Controllers
         private readonly ITreatmentPlanRepository _treatmentPlanRepository;
         private readonly ITreatmentRepository _treatmentRepository;
         private readonly ITherapistRepository _therapistRepository;
-
-        public TreatmentPlanController (ITreatmentPlanRepository treatmentPlanRepository, ITreatmentRepository treatmentRepository, ITherapistRepository therapistRepository)
+        private readonly IPatientRepository _patientRepository;
+        
+        public TreatmentPlanController (ITreatmentPlanRepository treatmentPlanRepository, ITreatmentRepository treatmentRepository, ITherapistRepository therapistRepository, IPatientRepository patientRepository)
         {
             _treatmentPlanRepository = treatmentPlanRepository;
             _treatmentRepository = treatmentRepository;
             _therapistRepository = therapistRepository;
+            _patientRepository = patientRepository;
         }
         
         // GET
@@ -34,12 +36,14 @@ namespace Fysio.Controllers
         
         public IActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound(); 
 
             var tp = _treatmentPlanRepository.Find(id);
+            if (tp == null) return NotFound();
+            
+            if(User.IsInAnyRole("Therapist", "Student")) return View(tp);
+            if(!_patientRepository.isOwner(User.Identity.Name, tp.PatientFile.Patient)) return NotFound();
+            
             return View(tp);
         }
 

@@ -13,8 +13,6 @@ namespace Fysio.Models
         public string Password { get; set; }
         
         public string ConfirmPassword { get; set; }
-
-        [Required(ErrorMessage = "User image is required")]
         public IFormFile UserImage { get; set; }
     }
 }

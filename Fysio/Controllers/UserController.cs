@@ -102,6 +102,12 @@ namespace Fysio.Controllers
                     return View(um);
                 }
 
+                if (um.UserImage == null)
+                {
+                    ModelState.AddModelError("UserImage", "An Image is required");
+                    return View(um);
+                }
+
                 if (um.UserImage.Length < 2097152)
                 {
                     using (var ms = new MemoryStream())

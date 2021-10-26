@@ -41,16 +41,15 @@ namespace Fysio.Controllers
         // GET: Patients/Details/5
         public IActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            
+            if (id == null) return NotFound();
+
             var patient = _patientRepository.Find(id);
-            if (patient == null)
-            {
-                return NotFound();
-            }
+            if (patient == null) return NotFound();
+            
+            if(User.IsInAnyRole("Therapist", "Student")) return View(patient);
+            
+            if(!_patientRepository.isOwner(User.Identity.Name, patient)) return NotFound();
+
             return View(patient);
         }
         
@@ -108,21 +107,19 @@ namespace Fysio.Controllers
         // GET: Patients/Edit/5
         public IActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound(); 
             
             var patient = _patientRepository.Find(id);
-            if (patient == null)
-            {
-                return NotFound();
-            }
+            if (patient == null) return NotFound();
+            
             
             PatientViewModel patientViewModel = new PatientViewModel();
             patientViewModel.Patient = patient.ConvertToModel();
             patientViewModel.AddTherapists(_therapistRepository.GetAll());
 
+            if(User.IsInAnyRole("Therapist", "Student")) return View(patientViewModel);
+            if(!_patientRepository.isOwner(User.Identity.Name, patient)) return NotFound();
+            
             return View(patientViewModel);
         }
 
@@ -137,26 +134,22 @@ namespace Fysio.Controllers
         
         
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(PatientViewModel patientViewModel, int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-        
+            if (id == null) return NotFound();
+
             var oldPatient = _patientRepository.Find(id);
-            if (oldPatient == null)
-            {
-                return NotFound();
-            }
+            if (oldPatient == null) return NotFound();
             
             if (ModelState.IsValid)
             {
                 Core.Domain.Patient patient = patientViewModel.Patient.ConvertToDomain();
                 Core.Domain.PatientFile patientFile = patientViewModel.Patient.PatientFile.ConvertToDomain();
-
-                if (patientViewModel.Patient.PatientFile == null)
+                
+                if (User.IsInRole("Patient"))
                 {
+                    // if(!_patientRepository.isOwner(User.Identity.Name, patient)) return NotFound();
                     _patientRepository.Update(patient);
                     _patientRepository.SaveChanges();
                     return Redirect("/patients/details/" + patient.Id);
