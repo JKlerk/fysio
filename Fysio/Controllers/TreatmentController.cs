@@ -47,7 +47,7 @@ namespace Fysio.Controllers
         
         [HttpPost]
         [Authorize(Roles = "Therapist,Student")]
-        public async Task<IActionResult> PostCreate(TreatmentViewModel treatmentViewModel)
+        public IActionResult PostCreate(TreatmentViewModel treatmentViewModel)
         {
             if (ModelState.IsValid)
             {

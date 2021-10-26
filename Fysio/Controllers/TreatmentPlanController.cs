@@ -44,7 +44,7 @@ namespace Fysio.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Therapist,Student")]
-        public async Task<IActionResult> Create(int id)
+        public IActionResult Create(int id)
         {
             if (_treatmentPlanRepository.FindWherePatientFileId(id).Status.ToString() != "Faulted") return RedirectToAction("Index");
             
@@ -58,7 +58,7 @@ namespace Fysio.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Therapist,Student")]
-        public async Task<IActionResult> Create(TreatmentViewModel treatmentPlanViewModel)
+        public IActionResult Create(TreatmentViewModel treatmentPlanViewModel)
         {
 
             if (_treatmentPlanRepository.FindWherePatientFileId(treatmentPlanViewModel.TreatmentPlan.PatientFileId).Status.ToString() != "Faulted") return RedirectToAction("Index");

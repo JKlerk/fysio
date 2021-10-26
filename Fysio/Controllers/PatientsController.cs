@@ -40,7 +40,7 @@ namespace Fysio.Controllers
         // GET: Patients
         [HttpGet]
         [Authorize(Roles = "Therapist,Student")]
-        public async Task<ActionResult<IEnumerable<Patient>>> Index()
+        public ActionResult<IEnumerable<Patient>> Index()
         {
             var patients = from s in _patientRepository.GetAll()
                 select s;
@@ -67,7 +67,7 @@ namespace Fysio.Controllers
         // GET: Patients/Create
         [HttpGet]
         [Authorize(Roles = "Therapist,Student")]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             var patientViewModel = new PatientViewModel();
             patientViewModel.Therapists = _therapistRepository.GetAll();
@@ -81,7 +81,7 @@ namespace Fysio.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Therapist,Student")]
-        public async Task<IActionResult> Create(PatientViewModel patientViewModel)
+        public IActionResult Create(PatientViewModel patientViewModel)
         {
         
             if (ModelState.IsValid)
