@@ -2,11 +2,16 @@
 
 namespace Fysio.Models
 {
-    public class AppointmentViewModel
+    public class AppointmentViewModel : IViewModel
     {
-        public List<Core.Domain.Therapist> Therapists { get; set; }
-        public Core.Domain.Appointment Appointment { get; set; }
-        public List<Core.Domain.Treatment> Treatments { get; set; }
-        
+        public List<Therapist> Therapists { get; set; }
+        public Appointment Appointment { get; set; }
+        public List<Treatment> Treatments { get; set; }
+
+        public void SetTherapist(List<Therapist> therapists)
+        {
+            Therapists = new List<Therapist>();
+            Therapists = therapists;
+        } 
     }
 }

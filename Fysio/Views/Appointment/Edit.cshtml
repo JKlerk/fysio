@@ -1,6 +1,7 @@
 ﻿@model AppointmentViewModel
-<form method="post" action="/appointment/postcreate/" class="">
+<form method="post" action="/appointment/edit/" class="">
     @Html.AntiForgeryToken()
+    <input hidden name="Appointment.Id" value="@Model.Appointment.Id">
     <div class="py-5">
         <div>
             <h3 class="text-lg leading-6 font-bold font-source text-fysio-header">Appointment</h3>

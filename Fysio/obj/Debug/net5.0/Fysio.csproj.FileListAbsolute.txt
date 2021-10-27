@@ -673,3 +673,4 @@ C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Views\Treatment\Edit.
 C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Views\Appointment\Index.cshtml.g.cs
 C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Views\Appointment\Create.cshtml.g.cs
 C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Views\Appointment\Edit.cshtml.g.cs
+C:\Users\joeyd\projects\fysio\Fysio\obj\Debug\net5.0\Razor\Views\Appointment\CreatePatient.cshtml.g.cs
