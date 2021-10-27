@@ -32,7 +32,11 @@ namespace Infrastructure
             modelBuilder.Entity<PatientFile>().ToTable("PatientsFile");
             modelBuilder.Entity<PatientFile>().HasOne(pf => pf.Patient).WithOne(p => p.PatientFile).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<PatientFile>().HasOne(pf => pf.TreatmentPlan).WithOne(tp => tp.PatientFile).OnDelete(DeleteBehavior.Cascade);
-
+            
+            modelBuilder.Entity<PatientFile>().HasOne(pf => pf.Interviewer);
+            modelBuilder.Entity<PatientFile>().HasOne(pf => pf.Practitioner);
+            modelBuilder.Entity<PatientFile>().HasOne(pf => pf.Supervisor);
+            
             modelBuilder.Entity<TreatmentPlan>().ToTable("TreatmentPlans");
             modelBuilder.Entity<TreatmentPlan>().HasOne(tp => tp.PatientFile).WithOne(pf => pf.TreatmentPlan).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<TreatmentPlan>().HasMany(tp => tp.Treatments).WithOne(t => t.TreatmentPlan).OnDelete(DeleteBehavior.Cascade);       

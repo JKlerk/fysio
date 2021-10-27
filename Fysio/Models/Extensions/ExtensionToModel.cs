@@ -14,7 +14,6 @@
                 StudentNumber = t.StudentNumber,
                 BigNumber = t.BigNumber,
                 RoleId = t.RoleId,
-                PatientId = t.PatientId
             };
         }
         
@@ -74,6 +73,19 @@
                 Description = t.Description,
                 TherapistId = t.TherapistId,
                 FinishDate = t.FinishDate
+            };
+        }
+        
+        public static Appointment ConvertToModel(this Core.Domain.Appointment a)
+        {
+            return new Appointment
+            {
+                Id = a.Id,
+                PatientId = a.PatientId,
+                TherapistId = a.TherapistId,
+                TreatmentId = a.TreatmentId,
+                AddedDate = a.AddedDate,
+                Date = a.Date
             };
         }
     }

@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Appointment = Core.Domain.Appointment;
 using Patient = Core.Domain.Patient;
-using Treatment = Core.Domain.Treatment;
 using TreatmentPlan = Core.Domain.TreatmentPlan;
 
 namespace Fysio.Controllers
@@ -32,7 +31,7 @@ namespace Fysio.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            if (!User.IsInAnyRole("Therapist", "Student"))
+            if (User.IsInRole("Patient"))
             {
                 var patient = _patientRepository.FindByName(User.Identity.Name);
                 if (patient == null) return NotFound();
@@ -46,16 +45,17 @@ namespace Fysio.Controllers
 
         // TODO: Therapist should be able to make appointments with patient
         [HttpGet]
+        [Authorize(Roles = "Patient")]
         public IActionResult Create()
         {
+            TreatmentPlan treatmentPlan = null; 
+            
             var patient = _patientRepository.FindByName(User.Identity.Name);
             if (patient == null) return NotFound();
-
-            var treatmentPlan = patient.PatientFile.TreatmentPlan;
-            if (treatmentPlan == null)
-            {
-                treatmentPlan = new TreatmentPlan();
-            }
+            treatmentPlan = patient.PatientFile.TreatmentPlan;
+            
+            
+            if (treatmentPlan == null) treatmentPlan = new TreatmentPlan();
 
             var t = treatmentPlan.ConvertToModel();
             if (treatmentPlan.Treatments == null) t.Treatments = new List<Models.Treatment>();
@@ -68,113 +68,197 @@ namespace Fysio.Controllers
             AppointmentViewModel appointmentViewModel = new AppointmentViewModel();
             appointmentViewModel.Treatments = t.Treatments;
             appointmentViewModel.AddTherapists(_therapistRepository.GetAll());
+            
+
             return View(appointmentViewModel);
         }
         
+        // TODO: Therapist should be able to make appointments with patient
+        [HttpGet]
+        [Authorize(Roles = "Therapist,Student")]
+        public IActionResult CreatePatient(int id)
+        {
+            var patient = _patientRepository.Find(id);
+            if (patient == null) return NotFound();
+            var treatmentPlan = patient.PatientFile.TreatmentPlan;
+            
+            
+            if (treatmentPlan == null) treatmentPlan = new TreatmentPlan();
+
+            var t = treatmentPlan.ConvertToModel();
+            if (treatmentPlan.Treatments == null) t.Treatments = new List<Models.Treatment>();
+            t.Treatments = new List<Models.Treatment>();
+            foreach (var treatment in treatmentPlan.Treatments)
+            {
+                t.Treatments.Add(treatment.ConvertToModel());
+            }
+            
+            AppointmentViewModel appointmentViewModel = new AppointmentViewModel();
+            appointmentViewModel.Treatments = t.Treatments;
+            appointmentViewModel.Patient = patient.ConvertToModel();
+
+            return View("Create", appointmentViewModel);
+        }
+        
+        
+        
+        // TODO: The selected date should be available in the therapist's schedule
+        [HttpPost]
+        public IActionResult Create(AppointmentViewModel appointmentViewModel)
+        {
+            if(ModelState.IsValid)
+            {
+                Patient oldPatient;
+                
+                if(User.IsInRole("Patient")){
+                    oldPatient = _patientRepository.FindByName(User.Identity.Name);
+                    if (oldPatient == null) return NotFound();
+                }
+                else
+                {
+                    oldPatient = _patientRepository.Find(appointmentViewModel.Appointment.PatientId);
+                    if (oldPatient == null) return NotFound();
+                }
+                
+                Appointment appointment = appointmentViewModel.Appointment.ConvertToDomain();
+                appointment.PatientId = oldPatient.Id;
+                if (User.IsInAnyRole("Therapist", "Student"))
+                {
+                    var therapist = _therapistRepository.FindByName(User.Identity.Name);
+                    if (therapist == null) return NotFound();
+                    appointment.TherapistId = therapist.Id;
+                }
+                appointment.AddedDate = DateTime.Now;
+                _appointmentRepository.Add(appointment);
+                _appointmentRepository.SaveChanges();
+                return RedirectToAction("Index");
+                
+            }
+
+            if (User.IsInAnyRole("Therapist", "Student"))
+            {
+                var data = _patientRepository.Find(appointmentViewModel.Appointment.PatientId);
+                if (data == null) return NotFound();
+                var treatmentPlan2 = data.PatientFile.TreatmentPlan;
+            
+            
+                if (treatmentPlan2 == null) treatmentPlan2 = new TreatmentPlan();
+
+                var tm = treatmentPlan2.ConvertToModel();
+                if (treatmentPlan2.Treatments == null) tm.Treatments = new List<Models.Treatment>();
+                tm.Treatments = new List<Models.Treatment>();
+                foreach (var treatment in treatmentPlan2.Treatments)
+                {
+                    tm.Treatments.Add(treatment.ConvertToModel());
+                }
+                appointmentViewModel.Treatments = tm.Treatments;
+                appointmentViewModel.Patient = data.ConvertToModel();
+
+                return View("Create", appointmentViewModel);
+            };
+            
+            var patient = _patientRepository.FindByName(User.Identity.Name);
+            if (patient == null) return NotFound();
+            var treatmentPlan = patient.PatientFile.TreatmentPlan;
+            
+            if (treatmentPlan == null) treatmentPlan = new TreatmentPlan();
+
+            var t = treatmentPlan.ConvertToModel();
+            if (treatmentPlan.Treatments == null) t.Treatments = new List<Models.Treatment>();
+            t.Treatments = new List<Models.Treatment>();
+            foreach (var treatment in treatmentPlan.Treatments)
+            {
+                t.Treatments.Add(treatment.ConvertToModel());
+            }
+            
+            appointmentViewModel.Treatments = t.Treatments;
+            appointmentViewModel.AddTherapists(_therapistRepository.GetAll());
+            return View(appointmentViewModel);
+        }
+        
+        
         // TODO: Implement this stuff
-        // [HttpGet]
-        // [Authorize(Roles = "Therapist,Student")]
-        // public IActionResult CreatePatient()
-        // {
-        //     var patient = _patientRepository.FindByName(User.Identity.Name);
-        //     if (patient == null) return NotFound();
-        //
-        //     var treatmentPlan = patient.PatientFile.TreatmentPlan;
-        //
-        //     if (treatmentPlan == null)
-        //     {
-        //         treatmentPlan = new TreatmentPlan
-        //         {
-        //             Treatments = new List<Treatment>()
-        //         };
-        //     }
-        //     
-        //     AppointmentViewModel appointmentViewModel = new AppointmentViewModel
-        //     {
-        //         Treatments = treatmentPlan.Treatments,
-        //         Therapists = _therapistRepository.GetAll()
-        //     };
-        //     return View(appointmentViewModel);
-        // }
-        //
-        // [HttpGet]
-        // public IActionResult Edit(int id)
-        // {
-        //     Patient patient = null;
-        //
-        //     if (User.IsInAnyRole("Therapist", "Student"))
-        //     {
-        //         patient = _appointmentRepository.Find(id).Patient;
-        //     }
-        //     
-        //     if (!User.IsInAnyRole("Therapist", "Student"))
-        //     {
-        //         patient = _patientRepository.FindByName(User.Identity.Name);
-        //     }
-        //     
-        //     if (patient == null) return NotFound();
-        //
-        //     var treatmentPlan = patient.PatientFile.TreatmentPlan;
-        //
-        //     if (treatmentPlan == null)
-        //     {
-        //         treatmentPlan = new TreatmentPlan
-        //         {
-        //             Treatments = new List<Treatment>()
-        //         };
-        //     }
-        //
-        //     AppointmentViewModel appointmentViewModel = new AppointmentViewModel
-        //     {
-        //         Appointment =  _appointmentRepository.Find(id),
-        //         Treatments = treatmentPlan.Treatments,
-        //         Therapists = _therapistRepository.GetAll()
-        //     };
-        //     return View(appointmentViewModel);
-        // }
         
-        // // TODO: Implement edit appointment
-        // [HttpPost]
-        // public IActionResult Edit(AppointmentViewModel appointmentViewModel)
-        // {
-        //     var oldAppointment = _appointmentRepository.Find(appointmentViewModel.Appointment.Id);
-        //     if (oldAppointment == null) return NotFound();
-        //     
-        //     Appointm
-        //     
-        //     // if (appointment.AddedDate.ToString("dd/MM/yyyy") != DateTime.Today.ToString("dd/MM/yyyy")) RedirectToAction(nameof(Index));
-        //     return View(appointmentViewModel);
-        // }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var appointment = _appointmentRepository.Find(id);
+            if (appointment == null) return NotFound();
+            if (Math.Abs(appointment.Date.Subtract(DateTime.Now).TotalHours) <= 24) return NotFound();
+
+            Patient patient = _appointmentRepository.Find(id).Patient;
+            if (patient == null) return NotFound();
+
+            if (User.IsInRole("Patient"))
+            {
+                var checkPatient = _patientRepository.FindByName(User.Identity.Name);
+                if (checkPatient == null) return NotFound();
+                if (checkPatient.Id != patient.Id) return NotFound();
+            }
+
+            AppointmentViewModel appointmentViewModel = new AppointmentViewModel();
+            appointmentViewModel.Appointment = appointment.ConvertToModel();
+
+            var treatmentPlan = patient.PatientFile.TreatmentPlan;
+            if (treatmentPlan == null) treatmentPlan = new TreatmentPlan();
+
+            var tm = treatmentPlan.ConvertToModel();
+            if (treatmentPlan.Treatments == null) tm.Treatments = new List<Models.Treatment>();
+            tm.Treatments = new List<Models.Treatment>();
+            foreach (var treatment in treatmentPlan.Treatments)
+            {
+                tm.Treatments.Add(treatment.ConvertToModel());
+            }
+            
+            appointmentViewModel.Treatments = tm.Treatments;
+            appointmentViewModel.AddTherapists(_therapistRepository.GetAll());
+
+            return View(appointmentViewModel);
+        }
+        [HttpPost]
+        public IActionResult Edit(AppointmentViewModel appointmentViewModel)
+        {
+            
+            var oldAppointment = _appointmentRepository.Find(appointmentViewModel.Appointment.Id);
+            if (oldAppointment == null) return NotFound();
+            if (Math.Abs(oldAppointment.Date.Subtract(DateTime.Now).TotalHours) <= 24) return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                appointmentViewModel.Appointment.PatientId = oldAppointment.PatientId;
+                _appointmentRepository.Update(appointmentViewModel.Appointment.ConvertToDomain());
+                _appointmentRepository.SaveChanges();
+                return Redirect("/appointment");
+            }
+            
+            var treatmentPlan = oldAppointment.Patient.PatientFile.TreatmentPlan;
+            if (treatmentPlan == null) treatmentPlan = new TreatmentPlan();
+
+            var tm = treatmentPlan.ConvertToModel();
+            if (treatmentPlan.Treatments == null) tm.Treatments = new List<Models.Treatment>();
+            tm.Treatments = new List<Models.Treatment>();
+            foreach (var treatment in treatmentPlan.Treatments)
+            {
+                tm.Treatments.Add(treatment.ConvertToModel());
+            }
+            
+            appointmentViewModel.Treatments = tm.Treatments;
+            appointmentViewModel.AddTherapists(_therapistRepository.GetAll());
+            return View(appointmentViewModel);
+        }
         
-        
-        // // TODO: The selected date should be available in the therapist's schedule
-        // [HttpPost]
-        // public IActionResult PostCreate(AppointmentViewModel appointmentViewModel)
-        // {
-        //     if(ModelState.IsValid){
-        //         var username = User.Identity.Name;
-        //         var patient = _patientRepository.FindByName(username);
-        //         if (patient == null) return NotFound();
         //
-        //         appointmentViewModel.Appointment.PatientId = patient.Id;
-        //         appointmentViewModel.Appointment.AddedDate = DateTime.Now;
-        //         _appointmentRepository.Add(appointmentViewModel.Appointment);
-        //         _appointmentRepository.SaveChanges();
-        //         return RedirectToAction("Index");
-        //     }
-        //     return RedirectToAction("Create");
-        // }
-        //
-        // [HttpPost, ActionName("Delete")]
-        // [ValidateAntiForgeryToken]
-        // public IActionResult DeleteConfirmed(int id)
-        // {
-        //     var appointment = _appointmentRepository.Find(id);
-        //     if (appointment.AddedDate.ToString("dd/MM/yyyy") != DateTime.Today.ToString("dd/MM/yyyy")) RedirectToAction(nameof(Index));
-        //     _appointmentRepository.Remove(appointment);
-        //     _appointmentRepository.SaveChanges();
-        //     
-        //     return RedirectToAction(nameof(Index));
-        // }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var appointment = _appointmentRepository.Find(id);
+            if (appointment == null) return NotFound();
+            if ((Math.Abs(appointment.Date.Subtract(DateTime.Now).TotalHours) <= 24)) RedirectToAction(nameof(Index));
+            _appointmentRepository.Remove(appointment);
+            _appointmentRepository.SaveChanges();
+            
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

@@ -21,9 +21,6 @@ namespace Core.Domain
         public int RoleId { get; set; }
 
         public virtual List<Appointment> Appointments { get; set; }
-        
-        public int? PatientId { get; set; }
-        public virtual Patient Patient { get; set; }
 
         public bool isStudent()
         {

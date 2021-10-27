@@ -21,9 +21,9 @@ namespace Fysio.Models
         
         public virtual List<Appointment> Appointments { get; set; }
         
+        public virtual List<PatientFile> PatientFiles { get; set; }
+
         public int RoleId { get; set; }
         
-        public int? PatientId { get; set; }
-        public virtual Patient Patient { get; set; }
     }
 }

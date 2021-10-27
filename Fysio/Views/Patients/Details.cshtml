@@ -139,8 +139,14 @@
                         </div>
                     </a>
                 }
-                <a href="/appointment/create/" class="p-2 bg-fysio-header text-white font-bold rounded-lg hover:opacity-75 transition-opacity duration-100 text-sm">+ Create new appointment</a
-                >
+                @if (User.IsInRole("Patient"))
+                {
+                    <a href="/appointment/create/" class="p-2 bg-fysio-header text-white font-bold rounded-lg hover:opacity-75 transition-opacity duration-100 text-sm">+ Create new appointment</a>
+                }
+                else
+                {
+                    <a href="/appointment/createpatient/@Model.Id" class="p-2 bg-fysio-header text-white font-bold rounded-lg hover:opacity-75 transition-opacity duration-100 text-sm">+ Create new appointment</a>
+                }
             </div>
         </div>
         <div class="col-span-1">

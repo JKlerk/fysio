@@ -12,18 +12,33 @@
     <div class="py-5 font-roboto">
         <div class="grid grid-cols-4 gap-6">
             <div class="col-span-1">
-                <label for="practitioner" class="block text-sm font-medium text-gray-700">Therapist:</label>
-                <select
-                    asp-for="Appointment.TherapistId"
-                    id="practitioner"
-                    name="Appointment.TherapistId"
-                    autocomplete="off"
-                    class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    @foreach (var therapist in Model.Therapists)
-                    {
-                        <option value="@therapist.Id">@therapist.Name</option>
-                    }
-                </select>
+                @if (@Model.Therapists != null)
+                {
+                    <label for="practitioner" class="block text-sm font-medium text-gray-700">Therapist:</label>
+                    <select
+                        asp-for="Appointment.TherapistId"
+                        id="practitioner"
+                        name="Appointment.TherapistId"
+                        autocomplete="off"
+                        class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        @foreach (var therapist in Model.Therapists)
+                        {
+                            <option value="@therapist.Id">@therapist.Name</option>
+                        }
+                    </select>
+                }
+                else
+                {
+                    <label for="practitioner" class="block text-sm font-medium text-gray-700">Patient:</label>
+                    <select
+                        id="practitioner"
+                        name="Appointment.PatientId"
+                        autocomplete="off"
+                        class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option selected value="@Model.Patient.Id">@Model.Patient.Name</option>
+                        <span asp-validation-for="Appointment.PatientId" class="text-danger"></span>
+                    </select>
+                }
             </div>
         </div>
         <div class="grid grid-cols-4 gap-6 mt-3">
@@ -61,7 +76,7 @@
         </div>
         <div class="flex flex-1 justify-end">
             <button style="background-color: #00b4d8" value="Create" type="submit" class="hover:bg-blue-600 rounded-lg text-white p-2 text-center text-sm font-bold">
-                Add appointment
+                Edit appointment
             </button>
         </div>
     </div>

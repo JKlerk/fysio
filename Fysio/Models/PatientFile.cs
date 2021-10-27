@@ -19,15 +19,12 @@ namespace Fysio.Models
         [Required]
         public string DiagnoseCode { get; set; }
         
-        [ForeignKey("Id")]
         public int? InterviewerId { get; set; }
         public virtual Therapist Interviewer { get; set; }
         
-        [ForeignKey("Id")]
         public int? SupervisorId { get; set; }
         public virtual Therapist Supervisor { get; set; }
         
-        [ForeignKey("Id")]
         public int? PractitionerId { get; set; }
         public virtual Therapist Practitioner { get; set; }
 

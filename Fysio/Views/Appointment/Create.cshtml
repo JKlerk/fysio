@@ -1,5 +1,5 @@
 ﻿@model AppointmentViewModel
-<form method="post" action="/appointment/postcreate/" class="">
+<form method="post" action="/appointment/create/" class="">
     @Html.AntiForgeryToken()
     <div class="py-5">
         <div>
@@ -11,17 +11,35 @@
     <div class="py-5 font-roboto">
         <div class="grid grid-cols-4 gap-6">
             <div class="col-span-1">
-                <label for="practitioner" class="block text-sm font-medium text-gray-700">Therapist:</label>
-                <select
-                    id="practitioner"
-                    name="Appointment.TherapistId"
-                    autocomplete="off"
-                    class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    @foreach (var therapist in Model.Therapists)
-                    {
-                        <option value="@therapist.Id">@therapist.Name</option>
-                    }
-                </select>
+                @if (Model.Patient == null){
+                    <label for="practitioner" class="block text-sm font-medium text-gray-700">Therapist:</label>
+                    <select
+                        id="practitioner"
+                        name="Appointment.TherapistId"
+                        autocomplete="off"
+                        class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+                        {
+                        @foreach (var therapist in Model.Therapists)
+                        {
+                            <option value="@therapist.Id">@therapist.Name</option>
+                        }
+                        <span asp-validation-for="Appointment.TherapistId" class="text-danger"></span>
+                        
+                    </select>
+                }
+                else
+                {
+                    <label for="practitioner" class="block text-sm font-medium text-gray-700">Patient:</label>
+                    <select
+                        id="practitioner"
+                        name="Appointment.PatientId"
+                        autocomplete="off"
+                        class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option selected value="@Model.Patient.Id">@Model.Patient.Name</option>
+                        <span asp-validation-for="Appointment.PatientId" class="text-danger"></span>
+                    </select>
+                }
             </div>
         </div>
         <div class="grid grid-cols-4 gap-6 mt-3">
@@ -29,7 +47,7 @@
                 <label for="treatment" class="block text-sm font-medium text-gray-700">Treatment:</label>
                 <select
                     id="treatment"
-                    name="Treatment.Id"
+                    name="Appointment.TreatmentId"
                     autocomplete="off"
                     class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     @if (Model.Treatments.Count == 0)
@@ -54,7 +72,14 @@
     </div>
     <div class="flex mt-2">
         <div class="flex justify-start">
-            <a href="/appointment" class="p-2 text-fysio-header font-bold rounded-lg hover:opacity-75 border border-fysio-header transition-opacity duration-100 text-sm px-5">Back</a>
+            @if (User.IsInRole("Patient"))
+            {
+                <a href="/appointment" class="p-2 text-fysio-header font-bold rounded-lg hover:opacity-75 border border-fysio-header transition-opacity duration-100 text-sm px-5">Back</a>
+            }
+            else
+            {
+                <a href="/patients/details/@Model.Patient.Id" class="p-2 text-fysio-header font-bold rounded-lg hover:opacity-75 border border-fysio-header transition-opacity duration-100 text-sm px-5">Back</a>
+            }
         </div>
         <div class="flex flex-1 justify-end">
             <button style="background-color: #00b4d8" value="Create" type="submit" class="hover:bg-blue-600 rounded-lg text-white p-2 text-center text-sm font-bold">

@@ -60,6 +60,19 @@ namespace Fysio.Models.Extensions
                 FinishDate = t.FinishDate
             };
         }
+        
+        public static Core.Domain.Appointment ConvertToDomain(this Appointment a)
+        {
+            return new Core.Domain.Appointment
+            {
+                Id = a.Id,
+                PatientId = a.PatientId,
+                TherapistId = a.TherapistId,
+                TreatmentId = a.TreatmentId,
+                AddedDate = a.AddedDate,
+                Date = a.Date
+            };
+        }
     
         public static void AddTherapists(this IViewModel vm, List<Core.Domain.Therapist> therapists)
         {
