@@ -2,15 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Infrastructure.WebService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+
 
 namespace FysioAPI
 {
@@ -27,6 +30,9 @@ namespace FysioAPI
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddDbContext<ApiContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("ApiContext"), x => x.MigrationsAssembly("Infrastructure.WebService")));
+            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -37,6 +43,7 @@ namespace FysioAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UsePathBase("/api/");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -45,9 +52,7 @@ namespace FysioAPI
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

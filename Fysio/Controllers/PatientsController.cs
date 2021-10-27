@@ -61,7 +61,8 @@ namespace Fysio.Controllers
             var patientViewModel = new PatientViewModel();
 
             patientViewModel.AddTherapists(_therapistRepository.GetAll());
-
+            patientViewModel.Patient = new Patient();
+            patientViewModel.Patient.PatientFile = new PatientFile();
             return View(patientViewModel);
         }
         
