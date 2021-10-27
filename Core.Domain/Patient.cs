@@ -10,6 +10,8 @@ namespace Core.Domain
         public string PatientNumber { get; set; }
 
         public string StaffNumber { get; set; }
+
+        public string BigNumber { get; set; }
         public string Name { get; set; }
 
         public string Email { get; set; }

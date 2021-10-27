@@ -53,6 +53,12 @@
                     @Html.EditorFor(m => m.Patient.StaffNumber, new { htmlAttributes = new { @class = "ipt", placeholder = "eg. 2168734" }, })
                     <span asp-validation-for="Patient.StaffNumber" class="text-danger"></span>
                 </div>
+                
+                <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                    <label for="BigNumber" class="block text-sm font-medium text-gray-700">BIG number</label>
+                    @Html.EditorFor(m => m.Patient.BigNumber, new { htmlAttributes = new { @class = "ipt", placeholder = "BIG-2168734" }, })
+                    <span asp-validation-for="Patient.BigNumber" class="text-danger"></span>
+                </div>
             </div>
             <hr class="mt-5" />
             <!-- DOSSIER STUFF -->

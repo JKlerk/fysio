@@ -12,7 +12,10 @@ namespace Fysio.Models
         public string PatientNumber { get; set; }
         
         [Required]
+        [IsNumber]
         public string StaffNumber { get; set; }
+
+        public string BigNumber { get; set; }
 
         [Required]
         public string Name { get; set; }

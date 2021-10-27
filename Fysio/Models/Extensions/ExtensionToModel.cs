@@ -22,6 +22,7 @@
             return new Patient
             {
                 Id = p.Id,
+                BigNumber = p.BigNumber,
                 PatientNumber = p.PatientNumber,
                 StaffNumber = p.StaffNumber,
                 Name = p.Name,

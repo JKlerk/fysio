@@ -176,6 +176,8 @@ namespace Fysio.Controllers
                 
                 return RedirectToAction("Index");
             }
+
+            patientViewModel.Patient.PatientFile.Notes = oldPatient.PatientFile.ConvertToModel().Notes;
             patientViewModel.AddTherapists(_therapistRepository.GetAll());
             return View(patientViewModel);
         }

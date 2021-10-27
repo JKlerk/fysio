@@ -9,6 +9,7 @@ namespace Fysio.Models.Extensions
             return new Core.Domain.Patient
             {
                 PatientNumber = p.PatientNumber,
+                BigNumber = p.BigNumber,
                 StaffNumber = p.StaffNumber,
                 Name = p.Name,
                 Email = p.Email,
