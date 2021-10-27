@@ -9,11 +9,11 @@ namespace Infrastructure.WebService
         {
         }
 
-        public DbSet<Patient> Patients { get; set; }
+        public DbSet<Diagnose> Diagnose { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Patient>().ToTable("Patients");
+            modelBuilder.Entity<Diagnose>().ToTable("diagnose");
         }
     }
 }

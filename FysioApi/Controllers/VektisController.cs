@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Core.DomainServices;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -12,25 +13,18 @@ namespace FysioAPI.Controllers
     [Route("[controller]")]
     public class DiagnoseController : Controller
     {
-        private readonly IVektisRepository _vektisRepository;
+        private readonly IDiagnoseRepository _diagnoseRepository;
         
-        public DiagnoseController(IVektisRepository vektisRepository)
+        public DiagnoseController(IDiagnoseRepository dianoseRepository)
         {
-            _vektisRepository = vektisRepository;
+            _diagnoseRepository = dianoseRepository;
         }
-
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
         
         // GET
         [HttpGet]
-        public string Get()
+        public JsonResult Get()
         {
-            string jsonString = JsonSerializer.Serialize(_vektisRepository.GetAll());
-                
-            return jsonString;
+            return Json(_diagnoseRepository.GetAll());
         }
     }
 }

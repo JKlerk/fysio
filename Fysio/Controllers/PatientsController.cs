@@ -1,11 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Core.Domain;
 using Core.DomainServices;
 using Fysio.Models;
 using Fysio.Models.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
+using Patient = Fysio.Models.Patient;
+using PatientFile = Fysio.Models.PatientFile;
 
 namespace Fysio.Controllers
 {
@@ -56,13 +63,15 @@ namespace Fysio.Controllers
         // GET: Patients/Create
         [HttpGet]
         [Authorize(Roles = "Therapist,Student")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             var patientViewModel = new PatientViewModel();
 
             patientViewModel.AddTherapists(_therapistRepository.GetAll());
             patientViewModel.Patient = new Patient();
             patientViewModel.Patient.PatientFile = new PatientFile();
+            patientViewModel.Diagnoses = await _patientFileRepository.GetDiagnoses();
+
             return View(patientViewModel);
         }
         
@@ -72,7 +81,7 @@ namespace Fysio.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Therapist,Student")]
-        public IActionResult Create(PatientViewModel patientViewModel)
+        public async Task<IActionResult> Create(PatientViewModel patientViewModel)
         {
         
             if (ModelState.IsValid)
@@ -108,12 +117,13 @@ namespace Fysio.Controllers
                 return RedirectToAction("Index");
             }
             
+            patientViewModel.Diagnoses = await _patientFileRepository.GetDiagnoses();
             patientViewModel.AddTherapists(_therapistRepository.GetAll());
             return View("Create", patientViewModel);
         }
 
         // GET: Patients/Edit/5
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound(); 
             
@@ -124,6 +134,7 @@ namespace Fysio.Controllers
             PatientViewModel patientViewModel = new PatientViewModel();
             patientViewModel.Patient = patient.ConvertToModel();
             patientViewModel.AddTherapists(_therapistRepository.GetAll());
+            patientViewModel.Diagnoses = await _patientFileRepository.GetDiagnoses();
 
             if(User.IsInAnyRole("Therapist", "Student")) return View(patientViewModel);
             if(!_patientRepository.isOwner(User.Identity.Name, patient)) return NotFound();
@@ -143,7 +154,7 @@ namespace Fysio.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(PatientViewModel patientViewModel, int? id)
+        public async Task<IActionResult> Edit(PatientViewModel patientViewModel, int? id)
         {
             if (id == null) return NotFound();
 
@@ -179,6 +190,7 @@ namespace Fysio.Controllers
 
             patientViewModel.Patient.PatientFile.Notes = oldPatient.PatientFile.ConvertToModel().Notes;
             patientViewModel.AddTherapists(_therapistRepository.GetAll());
+            patientViewModel.Diagnoses = await _patientFileRepository.GetDiagnoses();
             return View(patientViewModel);
         }
         

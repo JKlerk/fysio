@@ -5,6 +5,6 @@ namespace Core.DomainServices
 {
     public interface IDiagnoseRepository
     {
-        List<Vektis> GetAll();
+        List<Diagnose> GetAll();
     }
 }

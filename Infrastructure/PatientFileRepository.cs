@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Core.Domain;
 using Core.DomainServices;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace Infrastructure
 {
@@ -43,6 +47,22 @@ namespace Infrastructure
         {
             _context.SaveChanges();
         }
-        
+
+        public async Task<List<Diagnose>> GetDiagnoses()
+        {
+            using HttpClient client = new HttpClient();
+            string apiUrl = "https://localhost:5001/diagnose";
+            client.BaseAddress = new Uri(apiUrl);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage response = await client.GetAsync(apiUrl);
+            if (response.IsSuccessStatusCode)
+            {
+                var data = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<Diagnose>>(data);
+            }
+            return null;
+        }
     }
 }

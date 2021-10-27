@@ -5,18 +5,18 @@ using Core.DomainServices;
 
 namespace Infrastructure.WebService
 {
-    public class VektisRepository : IVektisRepository
+    public class DiagnoseRepository : IDiagnoseRepository
     {
         private static ApiContext _context;
 
-        public VektisRepository(ApiContext context)
+        public DiagnoseRepository(ApiContext context)
         {
             _context = context;
         }
 
-        public List<Vektis> GetAll()
+        public List<Diagnose> GetAll()
         {
-            return _context.Vektis.ToList();
+            return _context.Diagnose.ToList();
         }
     }
 }

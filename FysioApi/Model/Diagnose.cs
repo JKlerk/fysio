@@ -1,10 +1,12 @@
-﻿namespace FysioAPI
+﻿using System;
+
+namespace FysioAPI
 {
     public class Diagnose
     {
         public int Id { get; set; }
-        public string DiagnoseCode { get; set; }
-        public string BodyLocation { get; set; }
-        public string Pathology { get; set; }
+        public Int16? DiagnoseCode { get; set; }
+        public string? BodyLocation { get; set; }
+        public string? Pathology { get; set; }
     }
 }

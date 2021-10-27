@@ -15,5 +15,7 @@ namespace Core.DomainServices
         public void Update(PatientFile patientFile);
         
         void SaveChanges();
+
+        public Task<List<Diagnose>> GetDiagnoses();
     }
 }

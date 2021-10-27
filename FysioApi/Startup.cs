@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.DomainServices;
 using Infrastructure.WebService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,6 +33,8 @@ namespace FysioAPI
 
             services.AddDbContext<ApiContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("ApiContext"), x => x.MigrationsAssembly("Infrastructure.WebService")));
+
+            services.AddScoped<IDiagnoseRepository, DiagnoseRepository>();
             
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -43,6 +46,7 @@ namespace FysioAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
             app.UsePathBase("/api/");
             if (env.IsDevelopment())
             {
