@@ -26,6 +26,7 @@ namespace Fysio.Models
         public virtual Therapist Supervisor { get; set; }
         
         public int? PractitionerId { get; set; }
+        [Required]
         public virtual Therapist Practitioner { get; set; }
 
         [Required]

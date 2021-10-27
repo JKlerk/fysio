@@ -3,53 +3,71 @@
   
     <h1 class="text-4xl font-semibold text-fysio-header mb-4">Patients</h1>
 
-    <section class="mx-auto">
-        <div class="flex flex-col">
-            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Birthdate</th>
-                                    <th scope="col" class="relative px-6 py-3">
-                                        <span class="sr-only">Edit</span>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach (var patient in @Model) {
-                                <tr class="hover:bg-gray-100 transition-colors duration-100">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <a href="/patients/details/@patient.Id" class="flex items-center">
-                                            <div class="flex-shrink-0 h-10 w-10">
-                                                <img
-                                                    class="h-10 w-10 rounded-full"
-                                                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
-                                                    alt=""
-                                                />
-                                            </div>
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">@patient.Name</div>
-                                                <div class="text-sm text-gray-500">@patient.Email</div>
-                                            </div>
-                                        </a>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <a href="/patients/details/@patient.Id">
-                                            <div class="text-sm text-gray-900">@patient.PhoneNumber</div>
-                                            <div class="text-sm text-gray-500">@patient.PatientNumber</div>
-                                        </a>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> @patient.Gender </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">@patient.Birthdate</td>
-                                    <td class="px-6 pt-6 whitespace-nowrap text-right text-sm font-medium flex absolute">
-                                        <a href="/patients/edit/@patient.Id" class="text-indigo-600 hover:text-indigo-900">
+<section class="mx-auto">
+    <div class="flex flex-col">
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Birthdate</th>
+                            <th scope="col" class="relative px-6 py-3">
+                                <span class="sr-only">Edit</span>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach (var patient in @Model) {
+                            <tr class="hover:bg-gray-100 transition-colors duration-100">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <a href="/patients/details/@patient.Id" class="flex items-center">
+                                        <div class="flex-shrink-0 h-10 w-10">
+                                            <img
+                                                class="h-10 w-10 rounded-full"
+                                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
+                                                alt=""
+                                            />
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">@patient.Name</div>
+                                            <div class="text-sm text-gray-500">@patient.Email</div>
+                                        </div>
+                                    </a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <a href="/patients/details/@patient.Id">
+                                        <div class="text-sm text-gray-900">@patient.PhoneNumber</div>
+                                        <div class="text-sm text-gray-500">@patient.PatientNumber</div>
+                                    </a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> @patient.Gender </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">@patient.Birthdate</td>
+                                <td class="px-6 pt-6 whitespace-nowrap text-right text-sm font-medium flex absolute">
+                                    <a href="/patients/edit/@patient.Id" class="text-indigo-600 hover:text-indigo-900">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            class="feather feather-edit"
+                                        >
+                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                        </svg>
+                                    </a>
+                                    <div>
+                                        <a v-on:click="curModalId = @patient.Id" class="text-red-600 hover:text-red-900 cursor-pointer">
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 width="24"
@@ -60,53 +78,35 @@
                                                 stroke-width="2"
                                                 stroke-linecap="round"
                                                 stroke-linejoin="round"
-                                                class="feather feather-edit"
+                                                class="feather feather-x"
                                             >
-                                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                                <line x1="18" y1="6" x2="6" y2="18" />
+                                                <line x1="6" y1="6" x2="18" y2="18" />
                                             </svg>
                                         </a>
-                                        <div>
-                                            <a v-on:click="curModalId = @patient.Id" class="text-red-600 hover:text-red-900 cursor-pointer">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="24"
-                                                    height="24"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    stroke-width="2"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    class="feather feather-x"
-                                                >
-                                                    <line x1="18" y1="6" x2="6" y2="18" />
-                                                    <line x1="6" y1="6" x2="18" y2="18" />
-                                                </svg>
-                                            </a>
-                                            <transition name="fade" appear leave>
-                                                <div v-if="curModalId === @patient.Id" class="bg-white p-2 right-0 absolute shadow border rounded-lg z-10">
-                                                    <h1>Are you sure you want to delete this item?</h1>
-                                                    <div class="grid grid-cols-2 grid-rows-1 gap-4 mt-2">
-                                                        <form id="form" action="/patients/delete/@patient.Id" method="POST">
-                                                            @Html.AntiForgeryToken()
-                                                            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg w-full">Yes</button>
-                                                        </form>
-                                                        <button v-on:click="curModalId = null" class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg w-full">No</button>
-                                                    </div>
+                                        <transition name="fade" appear leave>
+                                            <div v-if="curModalId === @patient.Id" class="bg-white p-2 right-0 absolute shadow border rounded-lg z-10">
+                                                <h1>Are you sure you want to delete this item?</h1>
+                                                <div class="grid grid-cols-2 grid-rows-1 gap-4 mt-2">
+                                                    <form id="form" action="/patients/delete/@patient.Id" method="POST">
+                                                        @Html.AntiForgeryToken()
+                                                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg w-full">Yes</button>
+                                                    </form>
+                                                    <button v-on:click="curModalId = null" class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg w-full">No</button>
                                                 </div>
-                                            </transition>
-                                        </div>
-                                    </td>
-                                </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                                            </div>
+                                        </transition>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="flex flex-1 justify-end mt-5">
-                <a href="/patients/create" v-on:click="visible = true" class="bg-blue-500 hover:bg-blue-500 rounded-lg text-white py-2 w-1/6 text-center font-bold"> Add patient </a>
-            </div>
         </div>
-    </section>
+        <div class="flex flex-1 justify-end mt-5">
+            <a href="/patients/create" v-on:click="visible = true" class="bg-blue-500 hover:bg-blue-500 rounded-lg text-white py-2 w-1/6 text-center font-bold"> Add patient </a>
+        </div>
+    </div>
+</section>

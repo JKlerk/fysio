@@ -1,5 +1,4 @@
-﻿@using Patient = Core.Domain.Patient
-@model PatientViewModel;
+﻿@model PatientViewModel;
 <div class="">
     <div class="py-5">
         <div>
@@ -11,8 +10,12 @@
     <div class="py-5 font-roboto">
         <div class="grid grid-cols-4 gap-6">
             <div class="col-span-1">
-                <label for="diagcode" class="block text-sm font-medium text-gray-700">Diagnose Code</label>
-                @Html.EditorFor(m => m.Patient.PatientFile.DiagnoseCode, new {htmlAttributes = new {@class = "ipt text-sm", placeholder = "DCH123213"},})
+                <label for="diagcode" class="block text-sm font-medium text-gray-700 mb-2">Diagnose Code</label>
+                <select asp-for="Patient.PatientFile.DiagnoseCode" class="dropdown ipt" name="Patient.PatientFile.DiagnoseCode">
+                    <option value="AL">Alabama</option>
+                    <option value="WY">Wyoming</option>
+                </select>
+                @* @Html.EditorFor(m => m.Patient.PatientFile.DiagnoseCode, new {htmlAttributes = new {@class = "ipt text-sm", placeholder = "DCH123213"},}) *@
                 <span asp-validation-for="Patient.PatientFile.DiagnoseCode" class="text-danger"></span>
             </div>
             <div class="col-span-1">
@@ -51,7 +54,7 @@
                     autocomplete="off"
                     class="ipt mt-1 outline-none block focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
                 ></textarea>
-             <span asp-validation-for="Patient.PatientFile.Description" class="text-danger"></span>
+            <span asp-validation-for="Patient.PatientFile.Description" class="text-danger"></span>
         </div>
         <div class="grid grid-cols-4 gap-6 mt-6">
             <div class="col-span-1">
@@ -175,3 +178,8 @@
     @*     </button> *@
     @* </div> *@
 </div>
+<script type="application/javascript">
+$(document).ready(function() {
+    $('.dropdown').select2();
+});
+</script>

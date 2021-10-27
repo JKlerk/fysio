@@ -12,9 +12,11 @@ namespace Fysio.Models
         public string PatientNumber { get; set; }
         
         [Required]
-        [IsNumber]
+        [IsNumber(ErrorMessage = "Only numbers are allowed")]
         public string StaffNumber { get; set; }
 
+        [StringLength(11, ErrorMessage = "Big number consists of 11 numbers", MinimumLength = 11)]
+        [IsNumber(ErrorMessage = "Only numbers are allowed")]
         public string BigNumber { get; set; }
 
         [Required]

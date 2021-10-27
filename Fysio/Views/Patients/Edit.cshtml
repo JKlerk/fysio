@@ -53,11 +53,13 @@
                         <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                             <label for="StaffNumber" class="block text-sm font-medium text-gray-700">Staff number</label>
                             @Html.EditorFor(m => m.Patient.StaffNumber, new { htmlAttributes = new { @class = "ipt" } })
+                            <span asp-validation-for="Patient.StaffNumber" class="text-danger"></span>
                         </div>
                         
                         <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                             <label for="Bignumber" class="block text-sm font-medium text-gray-700">BIG number</label>
                             @Html.EditorFor(m => m.Patient.BigNumber, new { htmlAttributes = new { @class = "ipt" } })
+                            <span asp-validation-for="Patient.BigNumber" class="text-danger"></span>
                         </div>
                     </div>
                     <hr class="mt-5" />
