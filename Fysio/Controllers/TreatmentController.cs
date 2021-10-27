@@ -71,6 +71,13 @@ namespace Fysio.Controllers
                     return View(treatmentViewModel);
                 }
 
+                if (treatmentPlan.Treatments.Count >= treatmentPlan.MaxTreatments)
+                {
+                    ModelState.AddModelError("Treatment.Description", "Maximum treatments has been reached");
+                    treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
+                    return View(treatmentViewModel);
+                }
+
                 _treatmentRepository.Add(treatment);
                 _treatmentRepository.SaveChanges();
         
