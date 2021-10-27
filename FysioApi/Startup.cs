@@ -40,6 +40,7 @@ namespace FysioAPI
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
+                c.EnableAnnotations();
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FysioAPI", Version = "v1" });
             });
         }
@@ -47,8 +48,6 @@ namespace FysioAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
-            app.UsePathBase("/api/");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -6,6 +6,7 @@ using Core.DomainServices;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace FysioAPI.Controllers
 {
@@ -20,6 +21,7 @@ namespace FysioAPI.Controllers
         }
         
         // GET
+        [SwaggerOperation(Summary = "Retrieves all TreatmentTypes. If provided with an Id a single TreatmentType will be returned")]
         [HttpGet]
         [Route("treatmenttype")]
         [Route("treatmenttype/{id?}")]
@@ -28,6 +30,7 @@ namespace FysioAPI.Controllers
             return id != null ? Json(_treatmentTypeRepository.Find((int)id)) : Json(_treatmentTypeRepository.GetAll());
         }
         
+        [SwaggerOperation(Summary = "Adds a new TreatmentType based on json input")]
         [HttpPost]
         [Route("treatmenttype")]
         public JsonResult Post([FromBody]TreatmentType treatmentType)
@@ -35,6 +38,7 @@ namespace FysioAPI.Controllers
             return Json(_treatmentTypeRepository.Add(treatmentType.ConvertToDomain()));
         }
         
+        [SwaggerOperation(Summary = "Adds multiple TreatmentTypes based on json array input")]
         [HttpPut]
         [Route("treatmenttype")]
         public JsonResult Put([FromBody]List<TreatmentType> treatmentTypes)
@@ -47,6 +51,7 @@ namespace FysioAPI.Controllers
             return Json(_treatmentTypeRepository.AddRange(convertedTreatmentTypes));
         }
         
+        [SwaggerOperation(Summary = "Updates a single TreatmentType based on id and json input")]
         [HttpPut]
         [Route("treatmenttype/{id?}")]
         public JsonResult Put([FromBody] TreatmentType treatmentType, int id)
@@ -56,6 +61,7 @@ namespace FysioAPI.Controllers
             return result != null ? Json(result) : Json(NotFound());
         }
         
+        [SwaggerOperation(Summary = "Deletes all TreatmentTypes")]
         [HttpDelete]
         [Route("treatmenttype")]
         public JsonResult Delete()
@@ -63,6 +69,7 @@ namespace FysioAPI.Controllers
             return Json(_treatmentTypeRepository.Delete());
         }
         
+        [SwaggerOperation(Summary = "Removes a TreatmentType based on provided id")]
         [HttpDelete]
         [Route("treatmenttype/{id?}")]
         public JsonResult Delete(int id)
