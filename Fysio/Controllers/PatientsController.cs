@@ -71,7 +71,8 @@ namespace Fysio.Controllers
             patientViewModel.Patient = new Patient();
             patientViewModel.Patient.PatientFile = new PatientFile();
             patientViewModel.Diagnoses = await _patientFileRepository.GetDiagnoses();
-
+            patientViewModel.TreatmentTypes = await _treatmentRepository.GetTreatmentTypes();
+            
             return View(patientViewModel);
         }
         
@@ -117,6 +118,7 @@ namespace Fysio.Controllers
                 return RedirectToAction("Index");
             }
             
+            patientViewModel.TreatmentTypes = await _treatmentRepository.GetTreatmentTypes();
             patientViewModel.Diagnoses = await _patientFileRepository.GetDiagnoses();
             patientViewModel.AddTherapists(_therapistRepository.GetAll());
             return View("Create", patientViewModel);

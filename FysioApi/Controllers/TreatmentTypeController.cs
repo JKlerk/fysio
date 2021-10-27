@@ -11,20 +11,20 @@ namespace FysioAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class DiagnoseController : Controller
+    public class TreatmentTypeController : Controller
     {
-        private readonly IDiagnoseRepository _diagnoseRepository;
+        private readonly ITreatmentTypeRepository _treatmentTypeRepository;
         
-        public DiagnoseController(IDiagnoseRepository dianoseRepository)
+        public TreatmentTypeController(ITreatmentTypeRepository treatmentTypeRepository)
         {
-            _diagnoseRepository = dianoseRepository;
+            _treatmentTypeRepository = treatmentTypeRepository;
         }
         
         // GET
         [HttpGet]
         public JsonResult Get()
         {
-            return Json(_diagnoseRepository.GetAll());
+            return Json(_treatmentTypeRepository.GetAll());
         }
     }
 }

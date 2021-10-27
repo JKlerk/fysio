@@ -49,20 +49,21 @@ namespace Fysio.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Therapist,Student")]
-        public IActionResult Create(int id)
+        public async Task<IActionResult> Create(int id)
         {
             TreatmentViewModel treatmentViewModel = new TreatmentViewModel();
             
             treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
             treatmentViewModel.TreatmentPlan = new Models.TreatmentPlan();
             treatmentViewModel.TreatmentPlan.PatientFileId = id;
+            treatmentViewModel.TreatmentTypes = await _treatmentRepository.GetTreatmentTypes();
             return View(treatmentViewModel);
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Therapist,Student")]
-        public IActionResult Create(TreatmentViewModel treatmentPlanViewModel)
+        public async Task<IActionResult> Create(TreatmentViewModel treatmentPlanViewModel)
         {
 
             if (ModelState.IsValid)
@@ -81,6 +82,7 @@ namespace Fysio.Controllers
                 return Redirect("/treatmentplan/details/" + treatmentPlan.Id);
             }
             
+            treatmentPlanViewModel.TreatmentTypes = await _treatmentRepository.GetTreatmentTypes();
             treatmentPlanViewModel.AddTherapists(_therapistRepository.GetAll());;
             return View("Create", treatmentPlanViewModel);
         }

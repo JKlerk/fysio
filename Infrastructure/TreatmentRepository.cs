@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Core.Domain;
 using Core.DomainServices;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace Infrastructure
 {
@@ -47,6 +50,22 @@ namespace Infrastructure
             _context.SaveChanges();
         }
         
+        public async Task<List<TreatmentType>> GetTreatmentTypes()
+        {
+            using HttpClient client = new HttpClient();
+            string apiUrl = "https://localhost:5001/treatmenttype";
+            client.BaseAddress = new Uri(apiUrl);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage response = await client.GetAsync(apiUrl);
+            if (response.IsSuccessStatusCode)
+            {
+                var data = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<TreatmentType>>(data);
+            }
+            return null;
+        }
         
     }
 }

@@ -6,7 +6,7 @@ namespace Fysio.Validators
     {
         public override bool IsValid(object value)
         {
-            return int.TryParse((string)value, out _);
+            return value is sbyte or byte or short or ushort or int or uint or long or ulong or float or double or decimal;
         }
     }
 }

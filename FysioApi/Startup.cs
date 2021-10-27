@@ -35,6 +35,7 @@ namespace FysioAPI
                 options.UseSqlServer(Configuration.GetConnectionString("ApiContext"), x => x.MigrationsAssembly("Infrastructure.WebService")));
 
             services.AddScoped<IDiagnoseRepository, DiagnoseRepository>();
+            services.AddScoped<ITreatmentTypeRepository, TreatmentTypeRepository>();
             
             services.AddControllers();
             services.AddSwaggerGen(c =>

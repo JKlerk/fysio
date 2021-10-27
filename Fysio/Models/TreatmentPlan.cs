@@ -15,6 +15,8 @@ namespace Fysio.Models
         public virtual PatientFile PatientFile { get; set; }
         
         [Required]
+        [IsNumber(ErrorMessage = "Value is not a number")]
+        [Range(1, 999, ErrorMessage = "There has to be a minimum of 1 treatment")]
         public int MaxTreatments { get; set; }
 
         public List<Treatment> Treatments;

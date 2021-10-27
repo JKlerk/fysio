@@ -17,5 +17,7 @@ namespace Core.DomainServices
         void Remove(Treatment treatment);
         
         void SaveChanges();
+
+        public Task<List<TreatmentType>> GetTreatmentTypes();
     }
 }

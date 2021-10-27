@@ -7,7 +7,7 @@ namespace Fysio.Models
     {
         public List<Therapist> Therapists;
         public List<Diagnose> Diagnoses;
-        
+        public List<TreatmentType> TreatmentTypes;
         public Patient Patient {get;set;}
         public PatientFile PatientFile {get;set;}
         public TreatmentPlan TreatmentPlan { get; set; }

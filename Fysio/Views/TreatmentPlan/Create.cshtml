@@ -24,12 +24,7 @@
             <div class="col-span-2 sm:col-span-1">
                 <label for="maxtreatment" class="block text-sm font-medium text-gray-700">Max. Treatments</label>
                 @Html.EditorFor(m => m.TreatmentPlan.MaxTreatments, new {htmlAttributes = new {@class = "ipt text-sm"}})
-                <span asp-validation-for="TreatmentPlan.EndTime" class="text-danger"></span>
-            </div>
-            <div class="col-span-6 sm:col-span-6 lg:col-span-1">
-                <label for="Type" class="block text-sm font-medium text-gray-700">Type treatment (Vektis)</label>
-                @Html.EditorFor(m => m.Treatment.Type, new {htmlAttributes = new {@class = "ipt text-sm", placeholder = "Vektis Code"},})
-                <span asp-validation-for="Treatment.Type" class="text-danger"></span>
+                <span asp-validation-for="TreatmentPlan.MaxTreatments" class="text-danger"></span>
             </div>
             <div class="col-span-1">
                 <label for="practitioner" class="block text-sm font-medium text-gray-700">Practitioner:</label>
@@ -43,6 +38,26 @@
                         <option value="@therapist.Id">@therapist.Name</option>
                     }
                 </select>
+            </div>
+            <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                <label for="Type" class="block text-sm font-medium text-gray-700 mb-2">Type treatment (Vektis)</label>
+                <select asp-for="Treatment.Type" class="dropdown ipt" name="Treatment.Type">
+                    @foreach (var treatmentType in @Model.TreatmentTypes)
+                    {
+                        @if (@Model.Treatment == null)
+                        {
+                            <option value="@treatmentType.TreatmentCode">@treatmentType.TreatmentCode: @treatmentType.Description</option>
+                        } else if (@Model.Treatment == null && treatmentType.TreatmentCode == @Model.Treatment.Type)
+                        {
+                            <option selected="" >@treatmentType.TreatmentCode">@treatmentType.TreatmentCode: @treatmentType.Description</option>
+                        }
+                        else
+                        {
+                            <option value="@treatmentType.TreatmentCode">@treatmentType.TreatmentCode: @treatmentType.Description</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Treatment.Type" class="text-danger"></span>
             </div>
         </div>
         <div class="mt-6">
@@ -65,3 +80,8 @@
         </button>
     </div>
 </form>
+<script type="application/javascript">
+$(document).ready(function() {
+    $('.dropdown').select2();
+});
+</script>
