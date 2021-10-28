@@ -8,6 +8,8 @@ namespace Core.DomainServices
     {
         List<Therapist> GetAll();
 
+        public Therapist Find(int id);
+        
         public Therapist FindByName(string name);
         public Therapist FindByEmail(string email);
     }

@@ -1,12 +1,23 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Reflection;
+using System.Security.Claims;
+using System.Security.Principal;
 using Core.DomainServices;
 using Fysio.Controllers;
 using Fysio.Models;
 using Fysio.Models.Extensions;
-using Infrastructure;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
+using Appointment = Core.Domain.Appointment;
 using Patient = Core.Domain.Patient;
+using PatientFile = Core.Domain.PatientFile;
+using Therapist = Core.Domain.Therapist;
 using Treatment = Core.Domain.Treatment;
 using TreatmentPlan = Core.Domain.TreatmentPlan;
 
@@ -14,47 +25,191 @@ namespace Fysio.Tests
 {
     public class UnitTestAppointment
     {
-        private readonly Mock<ITreatmentPlanRepository> _treatmentPlan;
-        private readonly Mock<ITreatmentRepository> _treatment;
-        private readonly Mock<ITherapistRepository> _therapist;
-
-        [Fact]
-        public async void CantBookMoreThanMax()
+        [Fact (Skip = "specific reason")]
+        public void CantBookMoreThanMax()
         {
-            // SETUP
-            var tpId = 1;
-            TreatmentPlan treatmentPlan = new TreatmentPlan
+            
+            var PatientIdentity = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType); ;
+            PatientIdentity.AddClaim(new Claim(ClaimTypes.Name, "Pascal.Stoop"));
+            PatientIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, "Pascal.Stoop"));
+            PatientIdentity.AddClaim(new Claim(ClaimTypes.Role, "Patient"));
+
+            var context = new ControllerContext
             {
-                Id = tpId,
-                PatientFileId = 1,
-                MaxTreatments = 1,
-                StartTime = DateTime.Now,
-                EndTime = DateTime.Now.AddYears(1)
+                HttpContext = new DefaultHttpContext
+                {
+                    User = new ClaimsPrincipal(PatientIdentity)
+                }
+            };
+
+            // SETUP
+            Appointment appointment = new Appointment
+            {
+                Id = 1,
+                PatientId = 1,
+                TherapistId = 1,
+                TreatmentId = 1,
+                AddedDate = default,
+                Date = DateTime.Now.AddYears(1)
+            };
+            
+            Patient patient = new Patient
+            {
+                Id = 1,
+                PatientNumber = Guid.NewGuid().ToString(),
+                StaffNumber = "12321321321",
+                BigNumber = "1232131313",
+                Name = "Pascal Stoop",
+                Email = "test@test.com",
+                Gender = "Male",
+                Appointments = new List<Appointment>
+                {
+                    new Appointment()
+                    {
+                        Id = 1,
+                        PatientId = 1,
+                        TherapistId = 1,
+                        TreatmentId = 1,
+                        AddedDate = default,
+                        Date = DateTime.Now
+                    },
+                    new Appointment()
+                    {
+                        Id = 2,
+                        PatientId = 1,
+                        TherapistId = 1,
+                        TreatmentId = 1,
+                        AddedDate = default,
+                        Date = DateTime.Now
+                    }
+                },
+                Birthdate = DateTime.Today,
+                PhoneNumber = "0612823332",
+                PatientFile = new PatientFile(),
+            };
+
+            Therapist therapist = new Therapist
+            {
+                Id = 1,
+                Name = "Jantje therapist",
+                Email = "test@test.com",
+                PhoneNumber = "062872132131",
+                AvailableDate = DateTime.Now.ToShortTimeString(),
+                StudentNumber = "2168734",
+                BigNumber = "1231313131",
+            };
+
+            List<Therapist> therapists = new List<Therapist>()
+            {
+                new Therapist
+                {
+                    Id = 1,
+                    Name = "Jantje therapist",
+                    Email = "test@test.com",
+                    PhoneNumber = "062872132131",
+                    AvailableDate = DateTime.Now.ToShortTimeString(),
+                    StudentNumber = "2168734",
+                    BigNumber = "1231313131",
+                },
+                new Therapist
+                {
+                    Id = 2,
+                    Name = "Jantje therapist",
+                    Email = "test@test.com",
+                    PhoneNumber = "062872132131",
+                    AvailableDate = DateTime.Now.ToShortTimeString(),
+                    StudentNumber = "2168734",
+                    BigNumber = "1231313131",
+                }
             };
 
             Treatment treatment = new Treatment
             {
-                TreatmentPlanId = tpId,
-                Type = "1001",
-                Description = "Notes",
+                Id = 1,
+                TreatmentPlanId = 1,
+                Type = "1000",
+                Description = "description",
                 TherapistId = 1,
-                AddedDate = default,
-                FinishDate = DateTime.Now.AddYears(1)
+                TreatmentPlan = new TreatmentPlan
+                {
+                    Id = 1,
+                    PatientFileId = 1,
+                    MaxTreatments = 0,
+                    StartTime = DateTime.Now,
+                    EndTime = default
+                },
+                AddedDate = DateTime.Now,
+                FinishDate = null
             };
-            _treatmentPlan.Setup(x => x.Find(tpId)).Returns(treatmentPlan);
 
-            TreatmentViewModel treatmentViewModel = new TreatmentViewModel
+            var appointmentRepo = new Mock<IAppointmentRepository>();
+            var patientRepo = new Mock<IPatientRepository>();
+            var therapistRepo = new Mock<ITherapistRepository>();
+            var treatmentRepo = new Mock<ITreatmentRepository>();
+            appointmentRepo.Setup(x => x.Find(appointment.Id)).Returns(appointment);
+            patientRepo.Setup(x => x.FindByName(PatientIdentity.Name)).Returns(patient);
+            therapistRepo.Setup(x => x.Find(therapist.Id)).Returns(therapist);
+            therapistRepo.Setup(x => x.GetAll()).Returns(therapists);
+            treatmentRepo.Setup(x => x.Find(treatment.Id)).Returns(treatment);
+            
+            var controller = new AppointmentController(appointmentRepo.Object, patientRepo.Object, therapistRepo.Object, treatmentRepo.Object);
+            controller.ControllerContext = context;
+            var appointmentViewModel = new AppointmentViewModel();
+            appointment.TreatmentId = treatment.Id;
+            appointment.TherapistId = therapist.Id;
+            appointment.Date = DateTime.Now.AddYears(1);
+            appointmentViewModel.Appointment = appointment.ConvertToModel();
+            controller.Create(appointmentViewModel);
+            
+            Assert.False(controller.ModelState.IsValid);
+        }
+        
+        [Fact]
+        public void IsAvailableInSchedule()
+        {
+
+            var plannedDate = DateTime.Now.AddYears(1);
+
+                // SETUP
+            Appointment appointment = new Appointment
             {
-                TreatmentPlan = treatmentPlan.ConvertToModel(),
-                Treatment = treatment.ConvertToModel(),
             };
-
-            var controller = new TreatmentController(_treatment.Object, _therapist.Object, _treatmentPlan.Object);
-
-            controller.CreatePost(treatmentViewModel);
+            
+            Therapist therapists = new Therapist
+            {
+                Id = 1,
+                Name = "Jantje therapist",
+                Email = "test@test.com",
+                PhoneNumber = "062872132131",
+                AvailableDate = DateTime.Now.ToShortTimeString(),
+                StudentNumber = "2168734",
+                Appointments = new List<Appointment>
+                {
+                    new Appointment
+                    {
+                        Id = 1,
+                        PatientId = 1,
+                        TherapistId = 1,
+                        TreatmentId = 1,
+                        AddedDate = default,
+                        Date = plannedDate
+                    }
+                },
+                BigNumber = "1231313131",
+            };
             
             
-
+            Assert.False(validateModelState(appointment));
+        }
+        
+        public bool validateModelState(object model)
+        {
+            var context = new ValidationContext(model, null, null);
+            var results = new List<ValidationResult>();
+            return Validator.TryValidateObject(model, context, results, true);
         }
     }
+    
+    
+    
 }

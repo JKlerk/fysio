@@ -45,8 +45,7 @@ namespace Fysio.Controllers
             if (therapist == null) return NotFound();
             return View(therapist.Appointments);
         }
-
-        // TODO: Therapist should be able to make appointments with patient
+        
         [HttpGet]
         [Authorize(Roles = "Patient")]
         public IActionResult Create()
@@ -93,7 +92,7 @@ namespace Fysio.Controllers
                 {
                     var id = appointmentViewModel.Appointment.TreatmentId;
                     var tp = _treatmentRepository.Find(id);
-                    List<Appointment> appointments = null;
+                    List<Appointment> appointments;
                     if (User.IsInRole("Patient"))
                     {
                         appointments = _patientRepository.FindByName(User.Identity.Name).Appointments;
@@ -173,7 +172,7 @@ namespace Fysio.Controllers
             
             var patient = _patientRepository.FindByName(User.Identity.Name);
             if (patient == null) return NotFound();
-            
+
             List<Models.Treatment> treatments2 = setTreatments(patient);
             
             appointmentViewModel.Treatments = treatments2;

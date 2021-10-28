@@ -13,10 +13,10 @@ namespace Fysio.Models
         public virtual Patient Patient { get; set; }
         
         [Required]
+        [Available]
         public int TherapistId { get; set; }
         public virtual Therapist Therapist { get; set; }
-
-        [AllowNull]
+        
         public int? TreatmentId { get; set; }
         public virtual Treatment Treatment { get; set; }
         

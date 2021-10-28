@@ -18,6 +18,18 @@ namespace Infrastructure
             return _context.Therapists.ToList();
         }
 
+        public Therapist Find(int id)
+        {
+            try
+            {
+                return _context.Therapists.First(p => p.Id == id);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public Therapist FindByName(string name)
         {
             name = name.Replace(".", " ");

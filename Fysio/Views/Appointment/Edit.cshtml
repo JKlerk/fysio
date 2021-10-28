@@ -26,6 +26,7 @@
                             <option value="@therapist.Id">@therapist.Name</option>
                         }
                     </select>
+                    <span asp-validation-for="Appointment.TherapistId" class="text-danger"></span>
                 }
                 else
                 {
