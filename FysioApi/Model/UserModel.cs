@@ -11,8 +11,5 @@ namespace Fysio.Models
         
         [Required]
         public string Password { get; set; }
-        
-        public string ConfirmPassword { get; set; }
-        public IFormFile UserImage { get; set; }
     }
 }

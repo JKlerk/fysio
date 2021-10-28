@@ -6,10 +6,12 @@ using Core.DomainServices;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authorization;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace FysioAPI.Controllers
 {
+    [Authorize]
     [ApiController]
     public class TreatmentTypeController : Controller
     {
