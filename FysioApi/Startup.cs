@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.DomainServices;
+using FysioAPI.GraphQL;
+using FysioAPI.GraphQL.Types;
+using GraphQL.Utilities;
+using HotChocolate.AspNetCore;
+using HotChocolate.AspNetCore.Playground;
 using Infrastructure.WebService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,7 +32,7 @@ namespace FysioAPI
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // This method getsd called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
@@ -36,7 +41,12 @@ namespace FysioAPI
 
             services.AddScoped<IDiagnoseRepository, DiagnoseRepository>();
             services.AddScoped<ITreatmentTypeRepository, TreatmentTypeRepository>();
-            
+            services.AddScoped<Query>();  
+            services.AddScoped<Mutation>();
+
+            services.AddGraphQLServer().AddQueryType<Query>().AddType<DiagnoseType>()
+                .AddType<GraphQL.Types.TreatmentType>().AddMutationType<Mutation>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -51,16 +61,21 @@ namespace FysioAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UsePlayground(new PlaygroundOptions
+                {
+                    QueryPath = "/api",
+                    Path = "/playground"
+                });
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FysioAPI v1"));
             }
-
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapGraphQL();
                 endpoints.MapControllers();
             });
         }
