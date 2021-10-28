@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Core.DomainServices;
 using FysioAPI.GraphQL.Types;
 using GraphQL;
@@ -16,16 +17,22 @@ namespace FysioAPI.GraphQL
             _diagnoseRepository = diagnoseRepository;
             _treatmentTypeRepository = treatmentTypeRepository;
         }
-
-        // public IQueryable<Core.Domain.Diagnose> Diagnose() => _diagnoseRepository.GetAll().AsQueryable();
         
-        [GraphQLMetadata("DiagnoseType")]
-        public Core.Domain.Diagnose GetDiagnose(int id)
+        public List<Core.Domain.Diagnose>Diagnose(int? id)
         {
-            return _diagnoseRepository.Find(id);
-            
+            if (id == null) return _diagnoseRepository.GetAll();
+            var list = new List<Core.Domain.Diagnose>();
+            list.Add(_diagnoseRepository.Find((int)id));
+            return list;
         }
 
-        public IQueryable<Core.Domain.TreatmentType> TreatmentType => _treatmentTypeRepository.GetAll().AsQueryable();  
+        public List<Core.Domain.TreatmentType>TreatmentType(int? id)
+        {
+            if (id == null) return _treatmentTypeRepository.GetAll();
+            var list = new List<Core.Domain.TreatmentType>();
+            list.Add(_treatmentTypeRepository.Find((int)id));
+            return list;
+        }
+        
     }
 }
