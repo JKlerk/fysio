@@ -47,9 +47,11 @@ namespace Fysio.Controllers
         }
         
         
+        // TODO: Add api call to retrieve treatments
         [HttpPost]
         [Authorize(Roles = "Therapist,Student")]
-        public IActionResult Create(TreatmentViewModel treatmentViewModel)
+        [Route("treatment/create")]
+        public IActionResult CreatePost(TreatmentViewModel treatmentViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -61,21 +63,21 @@ namespace Fysio.Controllers
                 {
                     ModelState.AddModelError("Treatment.Description", "Treatment can not be before the starttime of the period");
                     treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
-                    return View(treatmentViewModel);
+                    return View("Create", treatmentViewModel);
                 }
                 
                 if (treatment.AddedDate > treatmentPlan.EndTime)
                 {
                     ModelState.AddModelError("Treatment.Description", "Treatment can not be added after the period has ended");
                     treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
-                    return View(treatmentViewModel);
+                    return View("Create", treatmentViewModel);
                 }
 
                 if (treatmentPlan.Treatments.Count >= treatmentPlan.MaxTreatments)
                 {
                     ModelState.AddModelError("Treatment.Description", "Maximum treatments has been reached");
                     treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
-                    return View(treatmentViewModel);
+                    return View("Create", treatmentViewModel);
                 }
 
                 _treatmentRepository.Add(treatment);
@@ -84,7 +86,7 @@ namespace Fysio.Controllers
                 return Redirect("/treatmentplan/details/" + treatment.TreatmentPlanId);
             }
             treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
-            return View(treatmentViewModel);
+            return View("Create", treatmentViewModel);
         }
         
         [HttpGet]

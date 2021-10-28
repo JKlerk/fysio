@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using Fysio.Validators;
 
 namespace Fysio.Models
@@ -11,9 +12,11 @@ namespace Fysio.Models
         public int PatientId { get; set; }
         public virtual Patient Patient { get; set; }
         
+        [Required]
         public int TherapistId { get; set; }
         public virtual Therapist Therapist { get; set; }
 
+        [AllowNull]
         public int? TreatmentId { get; set; }
         public virtual Treatment Treatment { get; set; }
         

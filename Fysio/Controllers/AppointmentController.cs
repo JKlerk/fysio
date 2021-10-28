@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Appointment = Core.Domain.Appointment;
 using Patient = Core.Domain.Patient;
+using Treatment = Core.Domain.Treatment;
 using TreatmentPlan = Core.Domain.TreatmentPlan;
 
 namespace Fysio.Controllers
@@ -19,12 +20,14 @@ namespace Fysio.Controllers
         private readonly IAppointmentRepository _appointmentRepository;
         private readonly IPatientRepository _patientRepository;
         private readonly ITherapistRepository _therapistRepository;
+        private readonly ITreatmentRepository _treatmentRepository;
         
-        public AppointmentController(IAppointmentRepository appointmentRepository, IPatientRepository patientRepository, ITherapistRepository therapistRepository)
+        public AppointmentController(IAppointmentRepository appointmentRepository, IPatientRepository patientRepository, ITherapistRepository therapistRepository, ITreatmentRepository treatmentRepository)
         {
             _appointmentRepository = appointmentRepository;
             _patientRepository = patientRepository;
             _therapistRepository = therapistRepository;
+            _treatmentRepository = treatmentRepository;
         }
 
         // GET
@@ -48,53 +51,30 @@ namespace Fysio.Controllers
         [Authorize(Roles = "Patient")]
         public IActionResult Create()
         {
-            TreatmentPlan treatmentPlan = null; 
-            
             var patient = _patientRepository.FindByName(User.Identity.Name);
             if (patient == null) return NotFound();
-            treatmentPlan = patient.PatientFile.TreatmentPlan;
-            
-            
-            if (treatmentPlan == null) treatmentPlan = new TreatmentPlan();
 
-            var t = treatmentPlan.ConvertToModel();
-            if (treatmentPlan.Treatments == null) t.Treatments = new List<Models.Treatment>();
-            t.Treatments = new List<Models.Treatment>();
-            foreach (var treatment in treatmentPlan.Treatments)
-            {
-                t.Treatments.Add(treatment.ConvertToModel());
-            }
+            List<Models.Treatment> treatments = setTreatments(patient);
             
             AppointmentViewModel appointmentViewModel = new AppointmentViewModel();
-            appointmentViewModel.Treatments = t.Treatments;
+            appointmentViewModel.Treatments = treatments;
             appointmentViewModel.AddTherapists(_therapistRepository.GetAll());
             
 
             return View(appointmentViewModel);
         }
         
-        // TODO: Therapist should be able to make appointments with patient
         [HttpGet]
         [Authorize(Roles = "Therapist,Student")]
         public IActionResult CreatePatient(int id)
         {
             var patient = _patientRepository.Find(id);
             if (patient == null) return NotFound();
-            var treatmentPlan = patient.PatientFile.TreatmentPlan;
             
-            
-            if (treatmentPlan == null) treatmentPlan = new TreatmentPlan();
-
-            var t = treatmentPlan.ConvertToModel();
-            if (treatmentPlan.Treatments == null) t.Treatments = new List<Models.Treatment>();
-            t.Treatments = new List<Models.Treatment>();
-            foreach (var treatment in treatmentPlan.Treatments)
-            {
-                t.Treatments.Add(treatment.ConvertToModel());
-            }
+            List<Models.Treatment> treatments = setTreatments(patient);
             
             AppointmentViewModel appointmentViewModel = new AppointmentViewModel();
-            appointmentViewModel.Treatments = t.Treatments;
+            appointmentViewModel.Treatments = treatments;
             appointmentViewModel.Patient = patient.ConvertToModel();
 
             return View("Create", appointmentViewModel);
@@ -108,6 +88,49 @@ namespace Fysio.Controllers
         {
             if(ModelState.IsValid)
             {
+
+                if (appointmentViewModel.Appointment.TreatmentId != null)
+                {
+                    var id = appointmentViewModel.Appointment.TreatmentId;
+                    var tp = _treatmentRepository.Find(id);
+                    List<Appointment> appointments = null;
+                    if (User.IsInRole("Patient"))
+                    {
+                        appointments = _patientRepository.FindByName(User.Identity.Name).Appointments;
+                    }
+                    else
+                    {
+                        appointments = _patientRepository.Find(appointmentViewModel.Appointment.PatientId).Appointments;
+                    }
+                    
+                    if (appointments.Count > tp.TreatmentPlan.MaxTreatments)
+                    {
+                        
+                        if (User.IsInAnyRole("Therapist", "Student"))
+                        {
+                            var data = _patientRepository.Find(appointmentViewModel.Appointment.PatientId);
+                            if (data == null) return NotFound();
+                
+                            List<Models.Treatment> treatments = setTreatments(data);
+
+                            ModelState.AddModelError("Appointment.TreatmentId", "Maximum treatments have been reached");
+                            appointmentViewModel.Treatments = treatments;
+                            appointmentViewModel.Patient = data.ConvertToModel();
+                            return View("Create", appointmentViewModel);
+                        };
+                        
+                        var info = _patientRepository.FindByName(User.Identity.Name);
+                        if (info == null) return NotFound();
+            
+                        List<Models.Treatment> treatments3 = setTreatments(info);
+            
+                        ModelState.AddModelError("Appointment.TreatmentId", "Maximum treatments have been reached");
+                        appointmentViewModel.Treatments = treatments3;
+                        appointmentViewModel.AddTherapists(_therapistRepository.GetAll());
+                        return View(appointmentViewModel);
+                    }
+                }
+                
                 Patient oldPatient;
                 
                 if(User.IsInRole("Patient")){
@@ -139,19 +162,10 @@ namespace Fysio.Controllers
             {
                 var data = _patientRepository.Find(appointmentViewModel.Appointment.PatientId);
                 if (data == null) return NotFound();
-                var treatmentPlan2 = data.PatientFile.TreatmentPlan;
-            
-            
-                if (treatmentPlan2 == null) treatmentPlan2 = new TreatmentPlan();
-
-                var tm = treatmentPlan2.ConvertToModel();
-                if (treatmentPlan2.Treatments == null) tm.Treatments = new List<Models.Treatment>();
-                tm.Treatments = new List<Models.Treatment>();
-                foreach (var treatment in treatmentPlan2.Treatments)
-                {
-                    tm.Treatments.Add(treatment.ConvertToModel());
-                }
-                appointmentViewModel.Treatments = tm.Treatments;
+                
+                List<Models.Treatment> treatments = setTreatments(data);
+                
+                appointmentViewModel.Treatments = treatments;
                 appointmentViewModel.Patient = data.ConvertToModel();
 
                 return View("Create", appointmentViewModel);
@@ -159,19 +173,10 @@ namespace Fysio.Controllers
             
             var patient = _patientRepository.FindByName(User.Identity.Name);
             if (patient == null) return NotFound();
-            var treatmentPlan = patient.PatientFile.TreatmentPlan;
             
-            if (treatmentPlan == null) treatmentPlan = new TreatmentPlan();
-
-            var t = treatmentPlan.ConvertToModel();
-            if (treatmentPlan.Treatments == null) t.Treatments = new List<Models.Treatment>();
-            t.Treatments = new List<Models.Treatment>();
-            foreach (var treatment in treatmentPlan.Treatments)
-            {
-                t.Treatments.Add(treatment.ConvertToModel());
-            }
+            List<Models.Treatment> treatments2 = setTreatments(patient);
             
-            appointmentViewModel.Treatments = t.Treatments;
+            appointmentViewModel.Treatments = treatments2;
             appointmentViewModel.AddTherapists(_therapistRepository.GetAll());
             return View(appointmentViewModel);
         }
@@ -200,17 +205,18 @@ namespace Fysio.Controllers
             appointmentViewModel.Appointment = appointment.ConvertToModel();
 
             var treatmentPlan = patient.PatientFile.TreatmentPlan;
+            
             if (treatmentPlan == null) treatmentPlan = new TreatmentPlan();
 
-            var tm = treatmentPlan.ConvertToModel();
-            if (treatmentPlan.Treatments == null) tm.Treatments = new List<Models.Treatment>();
-            tm.Treatments = new List<Models.Treatment>();
+            var t = treatmentPlan.ConvertToModel();
+            if (treatmentPlan.Treatments == null) treatmentPlan.Treatments = new List<Treatment>();
+            t.Treatments = new List<Models.Treatment>();
             foreach (var treatment in treatmentPlan.Treatments)
             {
-                tm.Treatments.Add(treatment.ConvertToModel());
+                t.Treatments.Add(treatment.ConvertToModel());
             }
             
-            appointmentViewModel.Treatments = tm.Treatments;
+            appointmentViewModel.Treatments = t.Treatments;
             appointmentViewModel.AddTherapists(_therapistRepository.GetAll());
 
             return View(appointmentViewModel);
@@ -259,6 +265,24 @@ namespace Fysio.Controllers
             _appointmentRepository.SaveChanges();
             
             return RedirectToAction(nameof(Index));
+        }
+
+
+        List<Models.Treatment> setTreatments(Patient patient)
+        {
+            var treatmentPlan = patient.PatientFile.TreatmentPlan;
+            
+            if (treatmentPlan == null) treatmentPlan = new TreatmentPlan();
+
+            var t = treatmentPlan.ConvertToModel();
+            if (treatmentPlan.Treatments == null) treatmentPlan.Treatments = new List<Treatment>();
+            t.Treatments = new List<Models.Treatment>();
+            foreach (var treatment in treatmentPlan.Treatments)
+            {
+                t.Treatments.Add(treatment.ConvertToModel());
+            }
+
+            return t.Treatments;
         }
     }
 }

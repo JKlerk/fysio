@@ -96,7 +96,7 @@ namespace Fysio.Controllers
                 {
                     ModelState.AddModelError("SupervisorId", "The supervisor field is required");
                     patientViewModel.AddTherapists(_therapistRepository.GetAll());
-                    return View(patientViewModel);
+                    return View("Create", patientViewModel);
                 }
                 
                 patient.PatientNumber = Guid.NewGuid().ToString();

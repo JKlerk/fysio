@@ -50,18 +50,14 @@
                     name="Appointment.TreatmentId"
                     autocomplete="off"
                     class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    @if (Model.Treatments.Count == 0)
+                    <option value="@null">Seperate appointment</option>
+                    @foreach (var treatment in Model.Treatments)
                     {
-                        <option selected disabled>No treatments available</option>
+                        <option value="@treatment.Id">@treatment.Type</option>
                     }
-                    else
-                    {
-                        @foreach (var treatment in Model.Treatments)
-                        {
-                            <option value="@treatment.Id">@treatment.Type</option>
-                        }
                     }
                 </select>
+                <span asp-validation-for="Appointment.TreatmentId" class="text-danger"></span>
             </div>
             <div class="col-span-2 sm:col-span-1">
                 <label for="StartTime" class="block text-sm font-medium text-gray-700">Appointment date</label>
