@@ -142,6 +142,8 @@ namespace FysioAPI
             app.UseRouting();
             app.UseAuthorization();
             app.UseAuthentication();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FysioAPI v1"));
 
             using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
