@@ -79,9 +79,6 @@ namespace Fysio.Controllers
             return View("Create", appointmentViewModel);
         }
         
-        
-        
-        // TODO: The selected date should be available in the therapist's schedule
         [HttpPost]
         public IActionResult Create(AppointmentViewModel appointmentViewModel)
         {
@@ -182,7 +179,6 @@ namespace Fysio.Controllers
         
         
         // TODO: Implement this stuff
-        
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -259,7 +255,7 @@ namespace Fysio.Controllers
         {
             var appointment = _appointmentRepository.Find(id);
             if (appointment == null) return NotFound();
-            if ((Math.Abs(appointment.Date.Subtract(DateTime.Now).TotalHours) <= 24)) RedirectToAction(nameof(Index));
+            if ((Math.Abs(appointment.Date.Subtract(DateTime.Now).TotalHours) <= 24)) return NotFound();
             _appointmentRepository.Remove(appointment);
             _appointmentRepository.SaveChanges();
             

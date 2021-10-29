@@ -25,7 +25,7 @@ namespace Fysio.Tests
 {
     public class UnitTestAppointment
     {
-        [Fact (Skip = "specific reason")]
+        [Fact]
         public void CantBookMoreThanMax()
         {
             
@@ -165,7 +165,7 @@ namespace Fysio.Tests
         }
         
         [Fact]
-        public void IsAvailableInSchedule()
+        public void IsNotAvailableInSchedule()
         {
 
             var plannedDate = DateTime.Now.AddYears(1);
@@ -173,9 +173,15 @@ namespace Fysio.Tests
                 // SETUP
             Appointment appointment = new Appointment
             {
+                Id = 1,
+                PatientId = 1,
+                TherapistId = 1,
+                TreatmentId = 1,
+                AddedDate = default,
+                Date = plannedDate
             };
             
-            Therapist therapists = new Therapist
+            Therapist therapist = new Therapist
             {
                 Id = 1,
                 Name = "Jantje therapist",
@@ -197,14 +203,46 @@ namespace Fysio.Tests
                 },
                 BigNumber = "1231313131",
             };
+
+            var therapistRepo = new Mock<ITherapistRepository>();
             
+            var service = new Mock<IServiceProvider>();
+            therapistRepo.Setup(x => x.Find(therapist.Id)).Returns(therapist);
+            service.Setup(x => x.GetService(typeof(ITherapistRepository))).Returns(therapistRepo.Object);
+
+            var isGood = validateModelState(appointment.ConvertToModel(), service.Object);
+
+            Assert.False(isGood);
+        }
+
+        [Fact]
+        public void CantCancel24Hour()
+        {
+            Appointment appointment = new Appointment
+            {
+                Id = 1,
+                PatientId = 1,
+                TherapistId = 1,
+                TreatmentId = 1,
+                AddedDate = default,
+                Date = DateTime.Now.AddHours(4)
+            };
             
-            Assert.False(validateModelState(appointment));
+            var appointmentRepo = new Mock<IAppointmentRepository>();
+            var patientRepo = new Mock<IPatientRepository>();
+            var therapistRepo = new Mock<ITherapistRepository>();
+            var treatmentRepo = new Mock<ITreatmentRepository>();
+            appointmentRepo.Setup(x => x.Find(appointment.Id)).Returns(appointment);
+            var controller = new AppointmentController(appointmentRepo.Object, patientRepo.Object, therapistRepo.Object, treatmentRepo.Object);
+            var result = controller.DeleteConfirmed(appointment.Id) as RedirectToActionResult;
+            Assert.True(result == null);
+
         }
         
-        public bool validateModelState(object model)
+        
+        public bool validateModelState(object model, IServiceProvider service)
         {
-            var context = new ValidationContext(model, null, null);
+            var context = new ValidationContext(model, service, null);
             var results = new List<ValidationResult>();
             return Validator.TryValidateObject(model, context, results, true);
         }
