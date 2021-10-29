@@ -14,7 +14,6 @@
                 ScheduleEnd = t.ScheduleEnd,
                 StudentNumber = t.StudentNumber,
                 BigNumber = t.BigNumber,
-                RoleId = t.RoleId,
             };
         }
         

@@ -21,8 +21,6 @@ namespace Core.Domain
 
         public string BigNumber { get; set; }
 
-        public int RoleId { get; set; }
-
         public virtual List<Appointment> Appointments { get; set; }
 
         public bool isStudent()

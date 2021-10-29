@@ -28,7 +28,5 @@ namespace Fysio.Models
         
         public virtual List<PatientFile> PatientFiles { get; set; }
 
-        public int RoleId { get; set; }
-        
     }
 }
