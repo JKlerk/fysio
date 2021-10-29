@@ -178,6 +178,19 @@
                 ></textarea>
             </div>
         }
+        <div class="mt-6">
+            <label for="notes" class="block text-sm font-medium text-gray-700">Private notes: </label>
+            <textarea
+                disabled
+                asp-for="Patient.PatientFile.PrivateNotes"
+                placeholder="A lot of text"
+                type="text"
+                name="Patient.PatientFile.Notes"
+                id="notes"
+                autocomplete="off"
+                class="ipt mt-1 outline-none block focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
+            ></textarea>
+        </div>
     </div>
     <!-- END DOSSIER STUFF -->
     @* <div class="flex flex-1 justify-end mt-5 pb-6 px-6"> *@

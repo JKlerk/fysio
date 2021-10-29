@@ -31,6 +31,7 @@ namespace Fysio.Models.Extensions
                 PractitionerId = pf.PractitionerId,
                 RegisterDate = pf.RegisterDate,
                 DischargeDate = pf.DischargeDate,
+                PrivateNotes = pf.PrivateNotes,
                 Notes = pf.Notes,
                 TherapistType = pf.TherapistType,
                 PatientId = pf.PatientId,

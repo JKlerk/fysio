@@ -102,10 +102,21 @@
                 </div>
             </div>
             <div class="col-span-1">
-                <h1 class="font-source text-xl font-bold text-fysio-header mb-2">Notes</h1>
-                <p class="text-sm">
-                    @Model.PatientFile.Notes
-                </p>
+                <div>
+                    <h1 class="font-source text-xl font-bold text-fysio-header mb-2">Notes</h1>
+                    <p class="text-sm">
+                        @Model.PatientFile.Notes
+                    </p>
+                </div>
+                @if (User.IsInAnyRole("Therapist", "Student"))
+                {
+                    <div class="mt-4">
+                        <h1 class="font-source text-xl font-bold text-fysio-header mb-2">Private notes</h1>
+                        <p class="text-sm">
+                            @Model.PatientFile.Notes
+                        </p>
+                    </div>
+                }
             </div>
             <div class="col-span-2">
                 <h1 class="font-source text-xl font-bold text-fysio-header mb-2">Appointments (@Model.Appointments.Count)</h1>

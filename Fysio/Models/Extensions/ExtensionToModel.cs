@@ -48,6 +48,7 @@
                 RegisterDate = pf.RegisterDate,
                 DischargeDate = pf.DischargeDate,
                 Notes = pf.Notes,
+                PrivateNotes = pf.PrivateNotes,
                 TherapistType = pf.TherapistType,
                 PatientId = pf.PatientId,
             };

@@ -38,6 +38,7 @@ namespace Fysio.Models
         [NotPast(ErrorMessage = "Register date can not be in the past")]
         public DateTime DischargeDate { get; set; }
 
+        public string PrivateNotes { get; set; }
         public string Notes { get; set; }
 
         [Required]

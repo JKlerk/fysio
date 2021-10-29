@@ -116,7 +116,7 @@ namespace Infrastructure.Migrations.Fysio
                             Email = "kate@test.com",
                             Gender = "Female",
                             Name = "Kate Velasquez",
-                            PatientNumber = "075922a4-9642-445a-84d0-99a21a6b6ca9",
+                            PatientNumber = "9a5f21e8-a102-43ce-9a61-354d3298f5cc",
                             PhoneNumber = "0612121212",
                             StaffNumber = "2168734"
                         },
@@ -127,7 +127,7 @@ namespace Infrastructure.Migrations.Fysio
                             Email = "emily@test.com",
                             Gender = "Female",
                             Name = "Emily Fariello",
-                            PatientNumber = "99e6e0ec-c68f-4905-97b0-32b3aff13ecb",
+                            PatientNumber = "0451dd1b-2a9f-4fcc-9207-d2960291d974",
                             PhoneNumber = "0612121212",
                             StaffNumber = "2168734"
                         });
@@ -163,6 +163,9 @@ namespace Infrastructure.Migrations.Fysio
 
                     b.Property<int?>("PractitionerId")
                         .HasColumnType("int");
+
+                    b.Property<string>("PrivateNotes")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("RegisterDate")
                         .HasColumnType("datetime2");
@@ -244,8 +247,8 @@ namespace Infrastructure.Migrations.Fysio
                             Email = "p.stoop@avans.nl",
                             Name = "Pascal Stoop",
                             PhoneNumber = "0612121212",
-                            ScheduleEnd = new DateTime(2022, 10, 29, 19, 57, 56, 424, DateTimeKind.Local).AddTicks(1129),
-                            ScheduleStart = new DateTime(2021, 10, 29, 19, 57, 56, 422, DateTimeKind.Local).AddTicks(8083),
+                            ScheduleEnd = new DateTime(2022, 10, 29, 22, 18, 57, 734, DateTimeKind.Local).AddTicks(9506),
+                            ScheduleStart = new DateTime(2021, 10, 29, 22, 18, 57, 733, DateTimeKind.Local).AddTicks(5331),
                             StudentNumber = "null"
                         },
                         new
@@ -255,8 +258,8 @@ namespace Infrastructure.Migrations.Fysio
                             Email = "a.biyikli@avans.nl",
                             Name = "Ali Biyikli",
                             PhoneNumber = "0612121212",
-                            ScheduleEnd = new DateTime(2022, 10, 29, 19, 57, 56, 424, DateTimeKind.Local).AddTicks(1483),
-                            ScheduleStart = new DateTime(2021, 10, 29, 19, 57, 56, 424, DateTimeKind.Local).AddTicks(1472),
+                            ScheduleEnd = new DateTime(2022, 10, 29, 22, 18, 57, 734, DateTimeKind.Local).AddTicks(9863),
+                            ScheduleStart = new DateTime(2021, 10, 29, 22, 18, 57, 734, DateTimeKind.Local).AddTicks(9853),
                             StudentNumber = "null"
                         });
                 });

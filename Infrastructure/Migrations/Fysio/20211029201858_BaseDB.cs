@@ -80,6 +80,7 @@ namespace Infrastructure.Migrations.Fysio
                     PractitionerId = table.Column<int>(type: "int", nullable: true),
                     RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DischargeDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PrivateNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TherapistType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PatientId = table.Column<int>(type: "int", nullable: false)
@@ -205,8 +206,8 @@ namespace Infrastructure.Migrations.Fysio
                 columns: new[] { "Id", "BigNumber", "Birthdate", "Email", "Gender", "Name", "PatientNumber", "PhoneNumber", "StaffNumber" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2002, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "kate@test.com", "Female", "Kate Velasquez", "075922a4-9642-445a-84d0-99a21a6b6ca9", "0612121212", "2168734" },
-                    { 2, null, new DateTime(2002, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "emily@test.com", "Female", "Emily Fariello", "99e6e0ec-c68f-4905-97b0-32b3aff13ecb", "0612121212", "2168734" }
+                    { 1, null, new DateTime(2002, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "kate@test.com", "Female", "Kate Velasquez", "9a5f21e8-a102-43ce-9a61-354d3298f5cc", "0612121212", "2168734" },
+                    { 2, null, new DateTime(2002, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "emily@test.com", "Female", "Emily Fariello", "0451dd1b-2a9f-4fcc-9207-d2960291d974", "0612121212", "2168734" }
                 });
 
             migrationBuilder.InsertData(
@@ -214,14 +215,14 @@ namespace Infrastructure.Migrations.Fysio
                 columns: new[] { "Id", "BigNumber", "Email", "Name", "PhoneNumber", "ScheduleEnd", "ScheduleStart", "StudentNumber" },
                 values: new object[,]
                 {
-                    { 1, "12345678901", "p.stoop@avans.nl", "Pascal Stoop", "0612121212", new DateTime(2022, 10, 29, 19, 57, 56, 424, DateTimeKind.Local).AddTicks(1129), new DateTime(2021, 10, 29, 19, 57, 56, 422, DateTimeKind.Local).AddTicks(8083), "null" },
-                    { 2, "12345678901", "a.biyikli@avans.nl", "Ali Biyikli", "0612121212", new DateTime(2022, 10, 29, 19, 57, 56, 424, DateTimeKind.Local).AddTicks(1483), new DateTime(2021, 10, 29, 19, 57, 56, 424, DateTimeKind.Local).AddTicks(1472), "null" }
+                    { 1, "12345678901", "p.stoop@avans.nl", "Pascal Stoop", "0612121212", new DateTime(2022, 10, 29, 22, 18, 57, 734, DateTimeKind.Local).AddTicks(9506), new DateTime(2021, 10, 29, 22, 18, 57, 733, DateTimeKind.Local).AddTicks(5331), "null" },
+                    { 2, "12345678901", "a.biyikli@avans.nl", "Ali Biyikli", "0612121212", new DateTime(2022, 10, 29, 22, 18, 57, 734, DateTimeKind.Local).AddTicks(9863), new DateTime(2021, 10, 29, 22, 18, 57, 734, DateTimeKind.Local).AddTicks(9853), "null" }
                 });
 
             migrationBuilder.InsertData(
                 table: "PatientsFile",
-                columns: new[] { "Id", "Age", "Description", "DiagnoseCode", "DischargeDate", "InterviewerId", "Notes", "PatientId", "PractitionerId", "RegisterDate", "SupervisorId", "TherapistType" },
-                values: new object[] { 1, 18, "Big description", "BCH-1000", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui molestiae unde voluptates aperiam quas quaerat minus perferendis tenetur fuga provident, nemo abexplicabo vitae at numquam quo. Dolorum, enim saepe.", 1, 1, new DateTime(2002, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Student" });
+                columns: new[] { "Id", "Age", "Description", "DiagnoseCode", "DischargeDate", "InterviewerId", "Notes", "PatientId", "PractitionerId", "PrivateNotes", "RegisterDate", "SupervisorId", "TherapistType" },
+                values: new object[] { 1, 18, "Big description", "BCH-1000", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui molestiae unde voluptates aperiam quas quaerat minus perferendis tenetur fuga provident, nemo abexplicabo vitae at numquam quo. Dolorum, enim saepe.", 1, 1, null, new DateTime(2002, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Student" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_PatientId",
