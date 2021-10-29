@@ -4,7 +4,7 @@
     @Html.AntiForgeryToken()
     <div class="py-5">
         <div>
-            <h3 class="text-lg leading-6 font-bold font-source text-fysio-header">Treatment Plan</h3>
+            <h3 class="text-lg leading-6 font-bold font-source text-fysio-header">Treatment</h3>
             <p class="mt-1 max-w-2xl text-sm text-gray-500 font-roboto">Treatment details and information.</p>
         </div>
     </div>
@@ -13,7 +13,22 @@
         <div class="grid grid-cols-4 gap-6">
             <div class="col-span-6 sm:col-span-6 lg:col-span-1">
                 <label for="Type" class="block text-sm font-medium text-gray-700">Type treatment (Vektis)</label>
-                @Html.EditorFor(m => m.Treatment.Type, new {htmlAttributes = new {@class = "ipt text-sm", placeholder = "Vektis Code"},})
+                <select asp-for="Treatment.Type" class="dropdown ipt" name="Treatment.Type">
+                    @foreach (var treatmentType in @Model.TreatmentTypes)
+                    {
+                        @if (@Model.Treatment == null)
+                        {
+                            <option value="@treatmentType.Id">@treatmentType.TreatmentCode: @treatmentType.Description</option>
+                        } else if (@Model.Treatment == null && treatmentType.TreatmentCode == @Model.Treatment.Type)
+                        {
+                            <option value="@treatmentType.Id" selected="" >@treatmentType.TreatmentCode @treatmentType.TreatmentCode: @treatmentType.Description</option>
+                        }
+                        else
+                        {
+                            <option value="@treatmentType.Id">@treatmentType.TreatmentCode: @treatmentType.Description</option>
+                        }
+                    }
+                </select>
                 <span asp-validation-for="Treatment.Type" class="text-danger"></span>
             </div>
             <div class="col-span-1">
@@ -41,7 +56,10 @@
                 autocomplete="off"
                 class="ipt mt-1 outline-none block focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm">
             </textarea>
-            <span asp-validation-for="Treatment.Description" class="text-danger"></span>
+            <div>
+                <span asp-validation-for="Treatment.Description" class="text-danger"></span>
+            </div>
+            <span asp-validation-for="Treatment.AddedDate" class="text-danger"></span>
         </div>
     </div>
     <div class="flex mt-2">
@@ -50,7 +68,7 @@
         </div>
         <div class="flex flex-1 justify-end">
             <button style="background-color: #00b4d8" value="Create" type="submit" class="hover:bg-blue-600 rounded-lg text-white p-2 text-center text-sm font-bold">
-                Add treatmentplan
+                Add Treatment
             </button>
         </div>
     </div>

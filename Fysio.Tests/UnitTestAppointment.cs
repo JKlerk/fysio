@@ -25,7 +25,7 @@ namespace Fysio.Tests
 {
     public class UnitTestAppointment
     {
-        [Fact]
+        [Fact(DisplayName = "BR_1")]
         public void CantBookMoreThanMax()
         {
             
@@ -164,7 +164,7 @@ namespace Fysio.Tests
             Assert.False(controller.ModelState.IsValid);
         }
         
-        [Fact]
+        [Fact(DisplayName = "BR_2")]
         public void IsNotAvailableInSchedule()
         {
 
@@ -215,7 +215,7 @@ namespace Fysio.Tests
             Assert.False(isGood);
         }
 
-        [Fact]
+        [Fact(DisplayName = "BR_6")]
         public void CantCancel24Hour()
         {
             Appointment appointment = new Appointment

@@ -19,5 +19,7 @@ namespace Core.DomainServices
         void SaveChanges();
 
         public Task<List<TreatmentType>> GetTreatmentTypes();
+
+        public Task<TreatmentType> GetTreatmentType(int id);
     }
 }

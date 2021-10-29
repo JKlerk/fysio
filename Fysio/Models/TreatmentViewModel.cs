@@ -9,6 +9,7 @@ namespace Fysio.Models
         public List<Therapist> Therapists { get; set; }
         public TreatmentPlan TreatmentPlan { get; set; }
         public Treatment Treatment { get; set; }
+        
         public List<TreatmentType> TreatmentTypes;
 
         public void SetTherapist(List<Therapist> therapists)

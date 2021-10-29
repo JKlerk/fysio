@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Core.Domain;
+using Fysio.Validators;
 
 namespace Fysio.Models
 {
@@ -14,8 +16,10 @@ namespace Fysio.Models
         [Required]
         public string Type { get; set; }
 
-        [Required]
+        [NoteRequired]
         public string Description { get; set; }
+
+        public TreatmentType TreatmentType { get; set; }
         
         [Required]
         public int TherapistId { get; set; }
@@ -24,8 +28,10 @@ namespace Fysio.Models
         public virtual Appointment Appointment { get; set; }
         
         [Required]
+        [NotPastExpired]
         [DataType(DataType.Date)]
         public DateTime AddedDate { get; set; }
+        
         [DataType(DataType.Date)]
         public DateTime? FinishDate { get; set; }
     }

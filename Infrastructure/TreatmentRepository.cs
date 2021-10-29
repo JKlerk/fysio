@@ -59,7 +59,7 @@ namespace Infrastructure
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJwLnN0b29wQGF2YW5zLm5sIiwianRpIjoiMGI1Y2YyM2QtOWIxMS00NjIyLWFhODktYTg3NTMzZGM4ZTg0IiwiZW1haWwiOiJwLnN0b29wQGF2YW5zLm5sIiwibmJmIjoxNjM1NDY0Njk5LCJleHAiOjE2NjcwMDA2OTksImlhdCI6MTYzNTQ2NDY5OX0.HUMq17V4_3Zn9D4Sm9p-C4zC2xI5rPGPIc-9R4838pI");
-            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             HttpResponseMessage response = await client.GetAsync(apiUrl);
             if (response.IsSuccessStatusCode)
@@ -69,6 +69,27 @@ namespace Infrastructure
             }
             return null;
         }
-        
+
+        public async Task<TreatmentType> GetTreatmentType(int id)
+        {
+            using HttpClient client = new HttpClient();
+            string apiUrl = "https://localhost:5001/treatmenttype/" + id;
+            client.BaseAddress = new Uri(apiUrl);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer",
+                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJwLnN0b29wQGF2YW5zLm5sIiwianRpIjoiMGI1Y2YyM2QtOWIxMS00NjIyLWFhODktYTg3NTMzZGM4ZTg0IiwiZW1haWwiOiJwLnN0b29wQGF2YW5zLm5sIiwibmJmIjoxNjM1NDY0Njk5LCJleHAiOjE2NjcwMDA2OTksImlhdCI6MTYzNTQ2NDY5OX0.HUMq17V4_3Zn9D4Sm9p-C4zC2xI5rPGPIc-9R4838pI");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage response = await client.GetAsync(apiUrl);
+            if (response.IsSuccessStatusCode)
+            {
+                var data = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<TreatmentType>(data);
+            }
+
+            return null;
+        }
+
     }
 }

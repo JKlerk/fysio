@@ -25,7 +25,7 @@ namespace Fysio.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Therapist,Student")]
-        public IActionResult Create(int id)
+        public async Task<IActionResult> Create(int id)
         {
         
             if (id == 0)
@@ -38,20 +38,20 @@ namespace Fysio.Controllers
             {
                 return NotFound();
             }
+            
         
             TreatmentViewModel treatmentViewModel = new TreatmentViewModel();
+            treatmentViewModel.TreatmentTypes = await _treatmentRepository.GetTreatmentTypes();
             treatmentViewModel.Treatment = new Models.Treatment{ TreatmentPlanId = id };
             treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
             
             return View(treatmentViewModel);
         }
         
-        
-        // TODO: Add api call to retrieve treatments
         [HttpPost]
         [Authorize(Roles = "Therapist,Student")]
         [Route("treatment/create")]
-        public IActionResult CreatePost(TreatmentViewModel treatmentViewModel)
+        public async Task<IActionResult> CreatePost(TreatmentViewModel treatmentViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -59,32 +59,23 @@ namespace Fysio.Controllers
                 treatment.AddedDate = DateTime.Now;
 
                 TreatmentPlan treatmentPlan = _treatmentPlanRepository.Find(treatment.TreatmentPlanId);
-                if (treatment.AddedDate < treatmentPlan.StartTime)
-                {
-                    ModelState.AddModelError("Treatment.Description", "Treatment can not be before the starttime of the period");
-                    treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
-                    return View("Create", treatmentViewModel);
-                }
-                
-                if (treatment.AddedDate > treatmentPlan.EndTime)
-                {
-                    ModelState.AddModelError("Treatment.Description", "Treatment can not be added after the period has ended");
-                    treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
-                    return View("Create", treatmentViewModel);
-                }
 
                 if (treatmentPlan.Treatments.Count >= treatmentPlan.MaxTreatments)
                 {
+                    treatmentViewModel.TreatmentTypes = await _treatmentRepository.GetTreatmentTypes();
                     ModelState.AddModelError("Treatment.Description", "Maximum treatments has been reached");
                     treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
                     return View("Create", treatmentViewModel);
                 }
 
+                var newType = await _treatmentRepository.GetTreatmentType(Int32.Parse(treatment.Type));
+                treatment.Type = newType.TreatmentCode;
                 _treatmentRepository.Add(treatment);
                 _treatmentRepository.SaveChanges();
         
                 return Redirect("/treatmentplan/details/" + treatment.TreatmentPlanId);
             }
+            treatmentViewModel.TreatmentTypes = await _treatmentRepository.GetTreatmentTypes();
             treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
             return View("Create", treatmentViewModel);
         }

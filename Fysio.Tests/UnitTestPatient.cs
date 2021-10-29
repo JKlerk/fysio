@@ -25,7 +25,7 @@ namespace Fysio.Tests
 {
     public class UnitTestPatient
     {
-        [Fact]
+        [Fact(DisplayName = "BR_5")]
         public void PatientIsNotOlderThan16()
         {
             Patient patient = new Patient
