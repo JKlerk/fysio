@@ -22,7 +22,7 @@ namespace Infrastructure.WebService
             modelBuilder.Entity<Diagnose>().ToTable("diagnose").HasKey(k => k.Id);
 
             var records = new List<Diagnose>();
-            using (var reader = new StreamReader("../Infrastructure.WebService/Files/Vektis_diagnose.csv"))
+            using (var reader = new StreamReader("Files/Vektis_diagnose.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 csv.Read();
@@ -46,7 +46,7 @@ namespace Infrastructure.WebService
             modelBuilder.Entity<TreatmentType>().ToTable("treatmenttype");
             
             var records2 = new List<TreatmentType>();
-            using (var reader = new StreamReader("../Infrastructure.WebService/Files/Vektis_treatment.csv"))
+            using (var reader = new StreamReader("Files/Vektis_treatment.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 csv.Read();
