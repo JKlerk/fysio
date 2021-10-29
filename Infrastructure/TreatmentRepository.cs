@@ -54,7 +54,7 @@ namespace Infrastructure
         public async Task<List<TreatmentType>> GetTreatmentTypes()
         {
             using HttpClient client = new HttpClient();
-            string apiUrl = "https://localhost:5001/treatmenttype";
+            string apiUrl = "https://jklerk-fysio-rest.azurewebsites.net/treatmenttype";
             client.BaseAddress = new Uri(apiUrl);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Authorization =
@@ -73,7 +73,7 @@ namespace Infrastructure
         public async Task<TreatmentType> GetTreatmentType(int id)
         {
             using HttpClient client = new HttpClient();
-            string apiUrl = "https://localhost:5001/treatmenttype/" + id;
+            string apiUrl = "https://jklerk-fysio-rest.azurewebsites.net/treatmenttype/" + id;
             client.BaseAddress = new Uri(apiUrl);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Authorization =

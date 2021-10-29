@@ -52,7 +52,7 @@ namespace Infrastructure
         public async Task<List<Diagnose>> GetDiagnoses()
         {
             using HttpClient client = new HttpClient();
-            string apiUrl = "https://localhost:5001/diagnose";
+            string apiUrl = "https://jklerk-fysio-rest.azurewebsites.net/diagnose";
             client.BaseAddress = new Uri(apiUrl);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Authorization =
