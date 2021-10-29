@@ -142,7 +142,7 @@ namespace FysioAPI
             app.UseRouting();
             app.UseAuthorization();
             app.UseAuthentication();
-            
+
             using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 scope.ServiceProvider.GetRequiredService<ApiContext>().Database.Migrate();

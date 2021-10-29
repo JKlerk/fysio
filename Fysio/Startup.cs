@@ -88,6 +88,13 @@ namespace Fysio
             app.UseAuthentication();
             app.UseAuthorization();
 
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                scope.ServiceProvider.GetRequiredService<FysioContext>().Database.Migrate();
+                scope.ServiceProvider.GetRequiredService<IdentityContext>().Database.Migrate();
+            }
+            
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

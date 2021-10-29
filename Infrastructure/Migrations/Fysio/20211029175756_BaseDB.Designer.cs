@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations.Fysio
 {
     [DbContext(typeof(FysioContext))]
-    [Migration("20211029141820_BaseDB")]
+    [Migration("20211029175756_BaseDB")]
     partial class BaseDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -118,7 +118,7 @@ namespace Infrastructure.Migrations.Fysio
                             Email = "kate@test.com",
                             Gender = "Female",
                             Name = "Kate Velasquez",
-                            PatientNumber = "e3685632-b906-4c65-b2b9-567a7611e160",
+                            PatientNumber = "075922a4-9642-445a-84d0-99a21a6b6ca9",
                             PhoneNumber = "0612121212",
                             StaffNumber = "2168734"
                         },
@@ -129,7 +129,7 @@ namespace Infrastructure.Migrations.Fysio
                             Email = "emily@test.com",
                             Gender = "Female",
                             Name = "Emily Fariello",
-                            PatientNumber = "d729e739-d47e-486b-bc4d-31bd885b7cfa",
+                            PatientNumber = "99e6e0ec-c68f-4905-97b0-32b3aff13ecb",
                             PhoneNumber = "0612121212",
                             StaffNumber = "2168734"
                         });
@@ -203,21 +203,6 @@ namespace Infrastructure.Migrations.Fysio
                             RegisterDate = new DateTime(2002, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             SupervisorId = 1,
                             TherapistType = "Student"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Age = 18,
-                            Description = "Big description",
-                            DiagnoseCode = "BCH-1000",
-                            DischargeDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            InterviewerId = 1,
-                            Notes = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui molestiae unde voluptates aperiam quas quaerat minus perferendis tenetur fuga provident, nemo abexplicabo vitae at numquam quo. Dolorum, enim saepe.",
-                            PatientId = 2,
-                            PractitionerId = 1,
-                            RegisterDate = new DateTime(2002, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SupervisorId = 1,
-                            TherapistType = "Student"
                         });
                 });
 
@@ -240,9 +225,6 @@ namespace Infrastructure.Migrations.Fysio
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("ScheduleEnd")
                         .HasColumnType("datetime2");
 
@@ -264,9 +246,8 @@ namespace Infrastructure.Migrations.Fysio
                             Email = "p.stoop@avans.nl",
                             Name = "Pascal Stoop",
                             PhoneNumber = "0612121212",
-                            RoleId = 0,
-                            ScheduleEnd = new DateTime(2022, 10, 29, 16, 18, 20, 268, DateTimeKind.Local).AddTicks(8420),
-                            ScheduleStart = new DateTime(2021, 10, 29, 16, 18, 20, 267, DateTimeKind.Local).AddTicks(4891),
+                            ScheduleEnd = new DateTime(2022, 10, 29, 19, 57, 56, 424, DateTimeKind.Local).AddTicks(1129),
+                            ScheduleStart = new DateTime(2021, 10, 29, 19, 57, 56, 422, DateTimeKind.Local).AddTicks(8083),
                             StudentNumber = "null"
                         },
                         new
@@ -276,9 +257,8 @@ namespace Infrastructure.Migrations.Fysio
                             Email = "a.biyikli@avans.nl",
                             Name = "Ali Biyikli",
                             PhoneNumber = "0612121212",
-                            RoleId = 0,
-                            ScheduleEnd = new DateTime(2022, 10, 29, 16, 18, 20, 268, DateTimeKind.Local).AddTicks(8787),
-                            ScheduleStart = new DateTime(2021, 10, 29, 16, 18, 20, 268, DateTimeKind.Local).AddTicks(8777),
+                            ScheduleEnd = new DateTime(2022, 10, 29, 19, 57, 56, 424, DateTimeKind.Local).AddTicks(1483),
+                            ScheduleStart = new DateTime(2021, 10, 29, 19, 57, 56, 424, DateTimeKind.Local).AddTicks(1472),
                             StudentNumber = "null"
                         });
                 });
