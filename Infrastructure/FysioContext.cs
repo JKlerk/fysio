@@ -24,12 +24,21 @@ namespace Infrastructure
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            List<Patient> patientsSeeder = new PatientSeeder().patients; 
+            List<Therapist> therapistsSeeder = new TherapistSeeder().therapists;
+            List<PatientFile> patientFileSeeder = new PatientFileSeeder(therapistsSeeder.ToList(), patientsSeeder.ToList()).patientFiles;
+            
+            
             modelBuilder.Entity<Patient>().ToTable("Patients");
             modelBuilder.Entity<Patient>().HasOne(p => p.PatientFile).WithOne(pf => pf.Patient).OnDelete(DeleteBehavior.Cascade);
-            
-            modelBuilder.Entity<Therapist>().ToTable("Therapists");
+            modelBuilder.Entity<Patient>().HasData(patientsSeeder);
 
+            modelBuilder.Entity<Therapist>().ToTable("Therapists");
+            modelBuilder.Entity<Therapist>().HasData(therapistsSeeder);
+            
             modelBuilder.Entity<PatientFile>().ToTable("PatientsFile");
+            modelBuilder.Entity<PatientFile>().HasData(patientFileSeeder);
+            
             modelBuilder.Entity<PatientFile>().HasOne(pf => pf.Patient).WithOne(p => p.PatientFile).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<PatientFile>().HasOne(pf => pf.TreatmentPlan).WithOne(tp => tp.PatientFile).OnDelete(DeleteBehavior.Cascade);
             

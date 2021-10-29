@@ -7,10 +7,11 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "npx tailwindcss -i ./wwwroot/css/site.css -o ./wwwroot/css/output.css",
         "wbp": "webpack wwwroot/source/app.js wwwroot/dist/bundle.js",
-        "migration:run": "dotnet ef database update",
         "dev": "dotnet watch run",
         "migration:identity": "dotnet ef migrations add IdentityDB --project ../Infrastructure --context IdentityContext",
-        "migration:update": "dotnet ef database update --context IdentityContext"
+        "migration:fysio": "dotnet ef migrations add BaseDB --project ../Infrastructure --context FysioContext",
+        "migration:updateFysio": "dotnet ef database update --context FysioContext",
+        "migration:updateIndentity": "dotnet ef database update --context IdentityContext"
     },
     "keywords": [],
     "author": "",

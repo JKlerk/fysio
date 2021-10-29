@@ -14,7 +14,9 @@ namespace Infrastructure.Seeders
             List<PatientFile> data = new List<PatientFile>();
             data.Add(
                 new PatientFile {
-                    Age = 18, Description = "Big description", 
+                    Id = 1,
+                    Age = 18, 
+                    Description = "Big description", 
                     DiagnoseCode = "BCH-1000", 
                     InterviewerId = therapists[0].Id, 
                     SupervisorId = therapists[0].Id, 
@@ -28,7 +30,9 @@ namespace Infrastructure.Seeders
             
             data.Add(
                 new PatientFile {
-                    Age = 18, Description = "Big description", 
+                    Id = 2,
+                    Age = 18, 
+                    Description = "Big description", 
                     DiagnoseCode = "BCH-1000", 
                     InterviewerId = therapists[0].Id, 
                     SupervisorId = therapists[0].Id, 

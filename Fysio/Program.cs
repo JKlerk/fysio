@@ -31,7 +31,7 @@ namespace Fysio
                 try
                 {
                     var context = services.GetRequiredService<FysioContext>();
-                    DbInitializer.Initialize(context);
+                    // DbInitializer.Initialize(context);
                 }
                 catch (Exception ex)
                 {

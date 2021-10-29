@@ -14,6 +14,7 @@ namespace Infrastructure.Seeders
             List<Patient> data = new List<Patient>();
             data.Add(
                 new Patient {
+                    Id = 1,
                     Name="Kate Velasquez",
                     Email="kate@test.com", 
                     PhoneNumber= "0612121212", 
@@ -26,6 +27,7 @@ namespace Infrastructure.Seeders
             
             data.Add(
                 new Patient {
+                    Id = 2,
                     Name="Emily Fariello",
                     Email="emily@test.com", 
                     PhoneNumber= "0612121212", 

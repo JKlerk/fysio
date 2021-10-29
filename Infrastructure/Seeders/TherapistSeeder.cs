@@ -16,6 +16,7 @@ namespace Infrastructure.Seeders
             data.Add(
                 new Therapist()
                 {
+                    Id = 1,
                     Name="Pascal Stoop",
                     Email="p.stoop@avans.nl", 
                     PhoneNumber= "0612121212", 
@@ -28,6 +29,7 @@ namespace Infrastructure.Seeders
             data.Add(
                 new Therapist()
                 {
+                    Id = 2,
                     Name="Ali Biyikli",
                     Email="a.biyikli@avans.nl", 
                     PhoneNumber= "0612121212", 
