@@ -36,7 +36,8 @@ namespace Infrastructure.Migrations.Fysio
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AvailableDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ScheduleStart = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ScheduleEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StudentNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BigNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoleId = table.Column<int>(type: "int", nullable: false)
@@ -205,17 +206,17 @@ namespace Infrastructure.Migrations.Fysio
                 columns: new[] { "Id", "BigNumber", "Birthdate", "Email", "Gender", "Name", "PatientNumber", "PhoneNumber", "StaffNumber" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2002, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "kate@test.com", "Female", "Kate Velasquez", "24f2f1f7-2e67-43c6-ad96-117b4d6ea413", "0612121212", "2168734" },
-                    { 2, null, new DateTime(2002, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "emily@test.com", "Female", "Emily Fariello", "c92c9203-fbed-416d-82f6-bdbab04d3da9", "0612121212", "2168734" }
+                    { 1, null, new DateTime(2002, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "kate@test.com", "Female", "Kate Velasquez", "e3685632-b906-4c65-b2b9-567a7611e160", "0612121212", "2168734" },
+                    { 2, null, new DateTime(2002, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "emily@test.com", "Female", "Emily Fariello", "d729e739-d47e-486b-bc4d-31bd885b7cfa", "0612121212", "2168734" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Therapists",
-                columns: new[] { "Id", "AvailableDate", "BigNumber", "Email", "Name", "PhoneNumber", "RoleId", "StudentNumber" },
+                columns: new[] { "Id", "BigNumber", "Email", "Name", "PhoneNumber", "RoleId", "ScheduleEnd", "ScheduleStart", "StudentNumber" },
                 values: new object[,]
                 {
-                    { 1, "01/09/2002 00:00:00", "12345678901", "p.stoop@avans.nl", "Pascal Stoop", "0612121212", 0, "null" },
-                    { 2, "01/09/2002 00:00:00", "12345678901", "a.biyikli@avans.nl", "Ali Biyikli", "0612121212", 0, "null" }
+                    { 1, "12345678901", "p.stoop@avans.nl", "Pascal Stoop", "0612121212", 0, new DateTime(2022, 10, 29, 16, 18, 20, 268, DateTimeKind.Local).AddTicks(8420), new DateTime(2021, 10, 29, 16, 18, 20, 267, DateTimeKind.Local).AddTicks(4891), "null" },
+                    { 2, "12345678901", "a.biyikli@avans.nl", "Ali Biyikli", "0612121212", 0, new DateTime(2022, 10, 29, 16, 18, 20, 268, DateTimeKind.Local).AddTicks(8787), new DateTime(2021, 10, 29, 16, 18, 20, 268, DateTimeKind.Local).AddTicks(8777), "null" }
                 });
 
             migrationBuilder.InsertData(

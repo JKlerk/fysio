@@ -116,7 +116,7 @@ namespace Infrastructure.Migrations.Fysio
                             Email = "kate@test.com",
                             Gender = "Female",
                             Name = "Kate Velasquez",
-                            PatientNumber = "24f2f1f7-2e67-43c6-ad96-117b4d6ea413",
+                            PatientNumber = "e3685632-b906-4c65-b2b9-567a7611e160",
                             PhoneNumber = "0612121212",
                             StaffNumber = "2168734"
                         },
@@ -127,7 +127,7 @@ namespace Infrastructure.Migrations.Fysio
                             Email = "emily@test.com",
                             Gender = "Female",
                             Name = "Emily Fariello",
-                            PatientNumber = "c92c9203-fbed-416d-82f6-bdbab04d3da9",
+                            PatientNumber = "d729e739-d47e-486b-bc4d-31bd885b7cfa",
                             PhoneNumber = "0612121212",
                             StaffNumber = "2168734"
                         });
@@ -226,9 +226,6 @@ namespace Infrastructure.Migrations.Fysio
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AvailableDate")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("BigNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -244,6 +241,12 @@ namespace Infrastructure.Migrations.Fysio
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("ScheduleEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ScheduleStart")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("StudentNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -255,23 +258,25 @@ namespace Infrastructure.Migrations.Fysio
                         new
                         {
                             Id = 1,
-                            AvailableDate = "01/09/2002 00:00:00",
                             BigNumber = "12345678901",
                             Email = "p.stoop@avans.nl",
                             Name = "Pascal Stoop",
                             PhoneNumber = "0612121212",
                             RoleId = 0,
+                            ScheduleEnd = new DateTime(2022, 10, 29, 16, 18, 20, 268, DateTimeKind.Local).AddTicks(8420),
+                            ScheduleStart = new DateTime(2021, 10, 29, 16, 18, 20, 267, DateTimeKind.Local).AddTicks(4891),
                             StudentNumber = "null"
                         },
                         new
                         {
                             Id = 2,
-                            AvailableDate = "01/09/2002 00:00:00",
                             BigNumber = "12345678901",
                             Email = "a.biyikli@avans.nl",
                             Name = "Ali Biyikli",
                             PhoneNumber = "0612121212",
                             RoleId = 0,
+                            ScheduleEnd = new DateTime(2022, 10, 29, 16, 18, 20, 268, DateTimeKind.Local).AddTicks(8787),
+                            ScheduleStart = new DateTime(2021, 10, 29, 16, 18, 20, 268, DateTimeKind.Local).AddTicks(8777),
                             StudentNumber = "null"
                         });
                 });
