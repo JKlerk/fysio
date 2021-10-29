@@ -143,6 +143,12 @@ namespace FysioAPI
             app.UseAuthorization();
             app.UseAuthentication();
             
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                scope.ServiceProvider.GetRequiredService<ApiContext>().Database.Migrate();
+            }
+            
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGraphQL();
