@@ -22,7 +22,8 @@ namespace Infrastructure.Seeders
                     PhoneNumber= "0612121212", 
                     BigNumber = "12345678901", 
                     StudentNumber = "null", 
-                    AvailableDate = DateTime.Parse("2002-09-01").ToString()
+                    ScheduleStart = DateTime.Now,
+                    ScheduleEnd = DateTime.Now.AddYears(1),
                 }
             );
             
@@ -35,7 +36,8 @@ namespace Infrastructure.Seeders
                     PhoneNumber= "0612121212", 
                     BigNumber = "12345678901", 
                     StudentNumber = "null", 
-                    AvailableDate = DateTime.Parse("2002-09-01").ToString()
+                    ScheduleStart = DateTime.Now,
+                    ScheduleEnd = DateTime.Now.AddYears(1),
                 }
             );
 

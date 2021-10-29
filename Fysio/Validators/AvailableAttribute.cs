@@ -20,8 +20,19 @@ namespace Fysio.Validators
             if (property != null)
             {
                 date = (DateTime?)property.GetValue(validationContext.ObjectInstance);
+                Therapist therapist = therapistRepository.Find(therapistId);
 
-                List<Appointment> appointments = therapistRepository.Find(therapistId).Appointments;
+                if (therapist.ScheduleStart > date)
+                {
+                    return new ValidationResult("This therapist is not available at this time");
+                }
+
+                if (date > therapist.ScheduleEnd)
+                {
+                    return new ValidationResult("This therapist is not available at this time");
+                }
+                
+                List<Appointment> appointments = therapist.Appointments;
                 var result = appointments.Where(x => x.Date ==  date);
                 if(!result.Any()) return ValidationResult.Success;
             }

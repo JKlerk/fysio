@@ -49,7 +49,8 @@ namespace Fysio.Tests
                 Name = "Jantje therapist",
                 Email = "test@test.com",
                 PhoneNumber = "062872132131",
-                AvailableDate = DateTime.Now.ToShortTimeString(),
+                ScheduleStart = DateTime.Now,
+                ScheduleEnd = DateTime.Now.AddYears(1),
                 StudentNumber = "2168734",
                 BigNumber = "1231313131",
             };

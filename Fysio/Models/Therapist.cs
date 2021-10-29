@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Fysio.Models;
 
 namespace Fysio.Models
@@ -13,8 +15,11 @@ namespace Fysio.Models
 
         public string PhoneNumber { get; set; }
         
-        public string AvailableDate { get; set; }
+        [DataType(DataType.Date, ErrorMessage = "Enter a valid date")]
+        public DateTime ScheduleStart { get; set; }
         
+        [DataType(DataType.Date, ErrorMessage = "Enter a valid date")]
+        public DateTime ScheduleEnd { get; set; }
         public string StudentNumber { get; set; }
 
         public string BigNumber { get; set; }

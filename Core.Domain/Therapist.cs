@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Core.Domain
 {
@@ -12,7 +13,9 @@ namespace Core.Domain
         
         public string PhoneNumber { get; set; }
         
-        public string AvailableDate { get; set; }
+        public DateTime ScheduleStart { get; set; }
+        
+        public DateTime ScheduleEnd { get; set; }
         
         public string StudentNumber { get; set; }
 
