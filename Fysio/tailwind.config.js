@@ -6,7 +6,7 @@ module.exports = {
             colors: {
                 fysio: {
                     light: "#caf0f8",
-                    header: "#00b4d8",
+                    header: "#008099",
                 },
             },
             fontFamily: {
