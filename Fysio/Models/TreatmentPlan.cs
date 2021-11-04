@@ -15,18 +15,17 @@ namespace Fysio.Models
         public virtual PatientFile PatientFile { get; set; }
         
         [Required]
-        [IsNumber(ErrorMessage = "Value is not a number")]
         [Range(1, 999, ErrorMessage = "There has to be a minimum of 1 treatment")]
         public int MaxTreatments { get; set; }
 
         public List<Treatment> Treatments;
         
         [Required]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Date, ErrorMessage = "Invalid date")]
         public DateTime StartTime { get; set; }
         
         [Required]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Date, ErrorMessage = "Invalid date")]
         [NotPast(ErrorMessage = "End date can not be in the past")]
         public DateTime EndTime { get; set; }
     }

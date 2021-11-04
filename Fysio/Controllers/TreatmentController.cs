@@ -82,7 +82,7 @@ namespace Fysio.Controllers
         
         [HttpGet]
         [Authorize(Roles = "Therapist,Student")]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
         
             if (id == 0)
@@ -99,13 +99,13 @@ namespace Fysio.Controllers
             TreatmentViewModel treatmentViewModel = new TreatmentViewModel();
             treatmentViewModel.Treatment = treatment.ConvertToModel();
             treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
-            
+            treatmentViewModel.TreatmentTypes = await _treatmentRepository.GetTreatmentTypes();
             return View(treatmentViewModel);
         }
         
         [HttpPost]
         [Authorize(Roles = "Therapist,Student")]
-        public IActionResult Edit(TreatmentViewModel treatmentViewModel, bool isFinished)
+        public async Task<IActionResult> Edit(TreatmentViewModel treatmentViewModel, bool isFinished)
         {
             if (ModelState.IsValid)
             {
@@ -120,6 +120,7 @@ namespace Fysio.Controllers
             }
             
             treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
+            treatmentViewModel.TreatmentTypes = await _treatmentRepository.GetTreatmentTypes();
             return View(treatmentViewModel);
         }
         

@@ -46,14 +46,14 @@
                     {
                         @if (@Model.Treatment == null)
                         {
-                            <option value="@treatmentType.TreatmentCode">@treatmentType.TreatmentCode: @treatmentType.Description</option>
+                            <option value="@treatmentType.Id">@treatmentType.TreatmentCode: @treatmentType.Description</option>
                         } else if (@Model.Treatment == null && treatmentType.TreatmentCode == @Model.Treatment.Type)
                         {
                             <option selected="" >@treatmentType.TreatmentCode">@treatmentType.TreatmentCode: @treatmentType.Description</option>
                         }
                         else
                         {
-                            <option value="@treatmentType.TreatmentCode">@treatmentType.TreatmentCode: @treatmentType.Description</option>
+                            <option value="@treatmentType.Id">@treatmentType.TreatmentCode: @treatmentType.Description</option>
                         }
                     }
                 </select>

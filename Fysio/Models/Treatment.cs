@@ -28,7 +28,6 @@ namespace Fysio.Models
         public virtual Appointment Appointment { get; set; }
         
         [Required]
-        [NotPastExpired]
         [DataType(DataType.Date)]
         public DateTime AddedDate { get; set; }
         

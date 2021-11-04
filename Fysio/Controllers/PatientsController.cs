@@ -45,18 +45,38 @@ namespace Fysio.Controllers
             return View(patients);
         }
 
+        public async Task<Core.Domain.Patient> AddTreatmentType(Core.Domain.Patient patient)
+        {
+            if (patient.PatientFile == null) return patient;
+            if (patient.PatientFile.TreatmentPlan == null) return patient;
+            if (patient.PatientFile.TreatmentPlan.Treatments.Count == 0) return patient;
+            foreach (var treatment in patient.PatientFile.TreatmentPlan.Treatments)
+            {
+                var result = await _treatmentRepository.GetTreatmentType(Int32.Parse(treatment.Type)); 
+                treatment.Type = result.Description;
+            }
+
+            return patient;
+        }
+
         // GET: Patients/Details/5
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
 
             var patient = _patientRepository.Find(id);
             if (patient == null) return NotFound();
+
+            if (User.IsInAnyRole("Therapist", "Student"))
+            {
+                patient = await AddTreatmentType(patient);
+                return View(patient);
+            }
             
-            if(User.IsInAnyRole("Therapist", "Student")) return View(patient);
             
             if(!_patientRepository.isOwner(User.Identity.Name, patient)) return NotFound();
-
+            
+            patient = await AddTreatmentType(patient);
             return View(patient);
         }
         
@@ -84,7 +104,6 @@ namespace Fysio.Controllers
         [Authorize(Roles = "Therapist,Student")]
         public async Task<IActionResult> Create(PatientViewModel patientViewModel)
         {
-        
             if (ModelState.IsValid)
             {
                 Core.Domain.Patient patient = patientViewModel.Patient.ConvertToDomain();
@@ -179,18 +198,31 @@ namespace Fysio.Controllers
                 patient.Id = oldPatient.Id;
                 _patientRepository.Update(patient);
                 _patientRepository.SaveChanges();
+                if (oldPatient.PatientFile != null)
+                {
+                    patientFile.PatientId = patient.Id;
+                    patientFile.Age = patient.CalculateAge();
+                    patientFile.Id = oldPatient.PatientFile.Id;
+                    patientFile.Notes = oldPatient.PatientFile.Notes;
+                    _patientFileRepository.Update(patientFile);
+                    _patientFileRepository.SaveChanges();
+                }
+                else
+                {
+                    patientFile.PatientId = patient.Id;
+                    patientFile.Age = patient.CalculateAge();
+                    _patientFileRepository.Add(patientFile);
+                    _patientFileRepository.SaveChanges();
+                }
 
-                patientFile.PatientId = patient.Id;
-                patientFile.Age = patient.CalculateAge();
-                patientFile.Id = oldPatient.PatientFile.Id;
-                patientFile.Notes = oldPatient.PatientFile.Notes;
-                _patientFileRepository.Update(patientFile);
-                _patientFileRepository.SaveChanges();
-                
                 return RedirectToAction("Index");
             }
 
-            patientViewModel.Patient.PatientFile.Notes = oldPatient.PatientFile.ConvertToModel().Notes;
+            if (patientViewModel.Patient.PatientFile.Notes != null)
+            {
+                patientViewModel.Patient.PatientFile.Notes = oldPatient.PatientFile.ConvertToModel().Notes;
+            }
+
             patientViewModel.AddTherapists(_therapistRepository.GetAll());
             patientViewModel.Diagnoses = await _patientFileRepository.GetDiagnoses();
             return View(patientViewModel);

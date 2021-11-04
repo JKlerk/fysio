@@ -16,13 +16,14 @@ namespace Fysio.Validators
             
             DateTime date = DateTime.Now;
             
-            
-            
+ 
+
             int treatmentPlanId;
             if (TreatmentPlanId != null)
             {
                 treatmentPlanId = (int)TreatmentPlanId.GetValue(validationContext.ObjectInstance);
-
+                if(treatmentPlanId == 0) return ValidationResult.Success;
+                
                 var tp = treatmentPlan.Find(treatmentPlanId);
                 if (date < tp.StartTime)
                 {

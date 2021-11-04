@@ -34,16 +34,26 @@ namespace Fysio.Controllers
             return View();
         }
         
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound(); 
 
             var tp = _treatmentPlanRepository.Find(id);
             if (tp == null) return NotFound();
+
+            if (tp.Treatments.Count != 0)
+            {
+                foreach (var treatment in tp.Treatments)
+                {
+                    var result = await _treatmentRepository.GetTreatmentType(Int32.Parse(treatment.Type));
+                    treatment.Type = result.Description;
+                }
+            }
             
-            if(User.IsInAnyRole("Therapist", "Student")) return View(tp);
+            if (User.IsInAnyRole("Therapist", "Student")) return View(tp);
+
             if(!_patientRepository.isOwner(User.Identity.Name, tp.PatientFile.Patient)) return NotFound();
-            
+
             return View(tp);
         }
 

@@ -28,14 +28,14 @@
                             {
                                 @if (@Model.Treatment == null)
                                 {
-                                    <option value="@treatmentType.TreatmentCode">@treatmentType.TreatmentCode: @treatmentType.Description</option>
+                                    <option value="@treatmentType.Id">@treatmentType.TreatmentCode: @treatmentType.Description</option>
                                 } else if (@Model.Treatment == null && treatmentType.TreatmentCode == @Model.Treatment.Type)
                                 {
                                     <option selected="" >@treatmentType.TreatmentCode">@treatmentType.TreatmentCode: @treatmentType.Description</option>
                                 }
                                 else
                                 {
-                                    <option value="@treatmentType.TreatmentCode">@treatmentType.TreatmentCode: @treatmentType.Description</option>
+                                    <option value="@treatmentType.Id">@treatmentType.TreatmentCode: @treatmentType.Description</option>
                                 }
                             }
                         </select>
@@ -72,6 +72,7 @@
                         autocomplete="off"
                         class="ipt mt-1 outline-none block focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
                     ></textarea>
+                    <span asp-validation-for="Treatment.Description" class="text-danger"></span>
                 </div>
             </div>
         </div>

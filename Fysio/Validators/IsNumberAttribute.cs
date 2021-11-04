@@ -7,6 +7,7 @@ namespace Fysio.Validators
     {
         public override bool IsValid(object value)
         {
+            if ((string)value == null) return true;
             return Regex.IsMatch((string)value, @"^\d+$");
         }
     }

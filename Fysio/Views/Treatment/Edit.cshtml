@@ -14,7 +14,22 @@
         <div class="grid grid-cols-4 gap-6">
             <div class="col-span-6 sm:col-span-6 lg:col-span-1">
                 <label for="Type" class="block text-sm font-medium text-gray-700">Type treatment (Vektis)</label>
-                @Html.EditorFor(m => m.Treatment.Type, new {htmlAttributes = new {@class = "ipt text-sm", placeholder = "Vektis Code"},})
+                <select asp-for="Treatment.Type" class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" name="Treatment.Type">
+                    @foreach (var treatmentType in @Model.TreatmentTypes)
+                    {
+                        @if (@Model.Treatment == null)
+                        {
+                            <option value="@treatmentType.Id">@treatmentType.TreatmentCode: @treatmentType.Description</option>
+                        } else if (@Model.Treatment == null && treatmentType.TreatmentCode == @Model.Treatment.Type)
+                        {
+                            <option value="@treatmentType.Id" selected="" >@treatmentType.TreatmentCode @treatmentType.TreatmentCode: @treatmentType.Description</option>
+                        }
+                        else
+                        {
+                            <option value="@treatmentType.Id">@treatmentType.TreatmentCode: @treatmentType.Description</option>
+                        }
+                    }
+                </select>
                 <span asp-validation-for="Treatment.Type" class="text-danger"></span>
             </div>
             <div class="col-span-1">
@@ -31,7 +46,7 @@
                 </select>
             </div>
             <div class="col-span-1">
-                <label for="practitioner" class="block text-sm font-medium text-gray-700">Status</label>
+                <label for="practitioner" class="block text-sm font-medium text-gray-700">Finished?</label>
                 <select name="isFinished" class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <option value="true">Yes</option>
                     <option selected value="false">No</option>

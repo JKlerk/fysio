@@ -19,19 +19,39 @@
         
         public static Patient ConvertToModel(this Core.Domain.Patient p)
         {
-            return new Patient
+            if (p.PatientFile != null)
             {
-                Id = p.Id,
-                BigNumber = p.BigNumber,
-                PatientNumber = p.PatientNumber,
-                StaffNumber = p.StaffNumber,
-                Name = p.Name,
-                Email = p.Email,
-                Gender = p.Gender,
-                PatientFile = p.PatientFile.ConvertToModel(),
-                Birthdate = p.Birthdate,
-                PhoneNumber = p.PhoneNumber,
-            };
+                return new Patient
+                {
+                    Id = p.Id,
+                    BigNumber = p.BigNumber,
+                    PatientNumber = p.PatientNumber,
+                    StaffNumber = p.StaffNumber,
+                    Name = p.Name,
+                    Email = p.Email,
+                    Gender = p.Gender,
+                    PatientFile = p.PatientFile.ConvertToModel(),
+                    Birthdate = p.Birthdate,
+                    PhoneNumber = p.PhoneNumber,
+                };
+            }
+            else
+            {
+                return new Patient
+                {
+                    Id = p.Id,
+                    BigNumber = p.BigNumber,
+                    PatientNumber = p.PatientNumber,
+                    StaffNumber = p.StaffNumber,
+                    Name = p.Name,
+                    Email = p.Email,
+                    Gender = p.Gender,
+                    PatientFile = new PatientFile(),
+                    Birthdate = p.Birthdate,
+                    PhoneNumber = p.PhoneNumber,
+                };
+            }
+            
         }
         
         public static PatientFile ConvertToModel(this Core.Domain.PatientFile pf)

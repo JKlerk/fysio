@@ -165,7 +165,7 @@
             {
                 <div class="flex">
                     <h1 class="font-source text-xl font-bold text-fysio-header mb-2">Treatments (@Model.PatientFile.TreatmentPlan.Treatments.Count)</h1>
-                    <h1 class="font-source text-xl font-bold text-fysio-header mb-2 flex flex-1 justify-end">Period: 10/10/2020 - 20/10/2020</h1>
+                    <h1 class="font-source text-xl font-bold text-fysio-header mb-2 flex flex-1 justify-end">Period: @Model.PatientFile.TreatmentPlan.StartTime.ToString("dd/MM/yyyy") - @Model.PatientFile.TreatmentPlan.EndTime.ToString("dd/MM/yyyy")</h1>
                 </div>
                 @foreach (var treatment in @Model.PatientFile.TreatmentPlan.Treatments)
                 {

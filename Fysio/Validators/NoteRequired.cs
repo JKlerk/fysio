@@ -26,7 +26,7 @@ namespace Fysio.Validators
                 {
                     if ((string)value == null)
                     {
-                        return new ValidationResult("Description is required for this treament");
+                        return new ValidationResult("Description is required for this treatment");
                     }
                     return ValidationResult.Success;
                 }

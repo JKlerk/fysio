@@ -6,6 +6,8 @@ namespace Fysio.Models
     {
         public List<Therapist> Therapists { get; set; }
 
+        public int TherapistId { get; set; }
+        
         public Patient Patient { get; set; }
         public Appointment Appointment { get; set; }
         public List<Treatment> Treatments { get; set; }
