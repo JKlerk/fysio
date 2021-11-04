@@ -3,7 +3,7 @@
     <div class="" autocomplete="off">
         <form action="/Patients/Create" method="POST" class="w-full">
             @Html.AntiForgeryToken()
-            <div class="py-5 flex">
+            <div class="pb-5 flex">
                 <div>
                     <h3 class="text-lg leading-6 font-bold text-fysio-header font-source">Patient Information</h3>
                     <p class="mt-1 max-w-2xl text-sm text-gray-500 font-roboto">Patients details and information.</p>
@@ -63,10 +63,13 @@
             <hr class="mt-5" />
             <!-- DOSSIER STUFF -->
             @await Html.PartialAsync("_PatientFile", Model) @await Html.PartialAsync("../TreatmentPlan/_Create", Model)
-            <div class="flex flex-1 justify-end mt-5 pb-6 px-6">
-                <button value="Create" type="submit" class="bg-fysio-header hover:bg-blue-600 rounded-lg text-white p-2 text-center text-sm font-bold">
-                    Add patient
-                </button>
+            <div class="flex">
+                <a class="btn-back" href="/patients">Back</a>
+                <div class="flex flex-1 justify-end px-6">
+                    <button value="Create" type="submit" class="btn">
+                        Add patient
+                    </button>
+                </div>
             </div>
         </form>
     </div>

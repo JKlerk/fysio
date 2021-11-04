@@ -67,9 +67,6 @@ namespace Fysio.Controllers
                     treatmentViewModel.AddTherapists(_therapistRepository.GetAll());
                     return View("Create", treatmentViewModel);
                 }
-
-                var newType = await _treatmentRepository.GetTreatmentType(Int32.Parse(treatment.Type));
-                treatment.Type = newType.TreatmentCode;
                 _treatmentRepository.Add(treatment);
                 _treatmentRepository.SaveChanges();
         

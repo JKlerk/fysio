@@ -22,6 +22,14 @@
     opacity: 0;
 }
 
+.btn{
+    @apply bg-fysio-header hover:opacity-75 transition-opacity duration-100 rounded-lg text-white p-2 text-center text-sm font-bold
+}
+
+.btn-back{
+    @apply p-2 text-fysio-header font-bold rounded-lg hover:opacity-75 border border-fysio-header transition-opacity duration-100 text-sm px-5
+}
+
 .ipt {
     @apply mt-1 outline-none block w-full p-2 border shadow-sm border-gray-300 rounded-md text-sm focus:ring-fysio-header focus:border-fysio-header;
 }

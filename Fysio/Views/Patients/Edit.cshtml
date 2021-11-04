@@ -67,10 +67,13 @@
                         <!-- DOSSIER STUFF -->
                         @await Html.PartialAsync("_PatientFile", Model)
                     }
-                    <div class="flex flex-1 justify-end mt-5 pb-6 px-6">
-                        <button value="Create" type="submit" class="bg-fysio-header hover:bg-blue-600 rounded-lg text-white p-2 text-center text-sm font-bold">
-                            Save patient
-                        </button>
+                    <div>
+                        <a class="btn-back" href="/patients/details/@Model.Patient.Id">Back</a>
+                        <div class="flex flex-1 justify-end mt-5 pb-6 px-6">
+                            <button value="Create" type="submit" class="btn">
+                                Save patient
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>

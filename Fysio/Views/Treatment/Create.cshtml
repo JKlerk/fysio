@@ -2,7 +2,7 @@
 <form method="post" action="/treatment/create/" class="">
     <input type="hidden" name="Treatment.TreatmentPlanId" value="@Model.Treatment.TreatmentPlanId">
     @Html.AntiForgeryToken()
-    <div class="py-5">
+    <div class="pb-5">
         <div>
             <h3 class="text-lg leading-6 font-bold font-source text-fysio-header">Treatment</h3>
             <p class="mt-1 max-w-2xl text-sm text-gray-500 font-roboto">Treatment details and information.</p>
@@ -13,7 +13,7 @@
         <div class="grid grid-cols-4 gap-6">
             <div class="col-span-6 sm:col-span-6 lg:col-span-1">
                 <label for="Type" class="block text-sm font-medium text-gray-700">Type treatment (Vektis)</label>
-                <select asp-for="Treatment.Type" class="dropdown ipt" name="Treatment.Type">
+                <select asp-for="Treatment.Type" class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" name="Treatment.Type">
                     @foreach (var treatmentType in @Model.TreatmentTypes)
                     {
                         @if (@Model.Treatment == null)
@@ -64,10 +64,10 @@
     </div>
     <div class="flex mt-2">
         <div class="flex justify-start">
-            <a href="/treatmentplan/details/@Model.Treatment.TreatmentPlanId" class="p-2 text-fysio-header font-bold rounded-lg hover:opacity-75 border border-fysio-header transition-opacity duration-100 text-sm px-5">Back</a>
+            <a href="javascript:void(0);" onclick="history.go(-1);" class="btn-back">Back</a>
         </div>
         <div class="flex flex-1 justify-end">
-            <button value="Create" type="submit" class="bg-fysio-header hover:bg-blue-600 rounded-lg text-white p-2 text-center text-sm font-bold">
+            <button value="Create" type="submit" class="btn">
                 Add Treatment
             </button>
         </div>

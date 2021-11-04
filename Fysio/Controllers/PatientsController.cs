@@ -215,7 +215,7 @@ namespace Fysio.Controllers
                     _patientFileRepository.SaveChanges();
                 }
 
-                return RedirectToAction("Index");
+                return Redirect("/patients/details/" + patient.Id);
             }
 
             if (patientViewModel.Patient.PatientFile.Notes != null)

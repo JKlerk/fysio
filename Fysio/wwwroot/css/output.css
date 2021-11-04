@@ -32644,6 +32644,56 @@ video {
   opacity: 0;
 }
 
+.btn{
+  border-radius: 0.5rem;
+  --tw-bg-opacity: 1;
+  background-color: rgba(0, 128, 153, var(--tw-bg-opacity));
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity))
+}
+
+.btn:hover {
+  opacity: 0.75;
+}
+
+.btn {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-duration: 100ms;
+}
+
+.btn-back{
+  border-radius: 0.5rem;
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgba(0, 128, 153, var(--tw-border-opacity));
+  padding: 0.5rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgba(0, 128, 153, var(--tw-text-opacity))
+}
+
+.btn-back:hover {
+  opacity: 0.75;
+}
+
+.btn-back {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-duration: 100ms;
+}
+
 .ipt {
   margin-top: 0.25rem;
   display: block;

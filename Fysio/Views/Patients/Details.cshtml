@@ -83,7 +83,7 @@
 <div class="border-t pt-4 grid grid-cols-3 gap-8">
     @if (@Model.PatientFile != null)
     {
-        <div class="grid grid-cols-2 gap-8 col-span-2">
+        <div class="grid grid-cols-2 gap-x-8 col-span-2">
             <div class="col-span-1">
                 <h1 class="font-source text-xl font-bold text-fysio-header mb-2">Patient info</h1>
                 <div class="grid grid-cols-6 gap-y-2">
@@ -104,21 +104,29 @@
             <div class="col-span-1">
                 <div>
                     <h1 class="font-source text-xl font-bold text-fysio-header mb-2">Notes</h1>
-                    <p class="text-sm">
-                        @Model.PatientFile.Notes
-                    </p>
+                    @if (@Model.PatientFile.Notes == null)
+                    {
+                        <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse egestas ligula id magna gravida tempor. Morbi sed tempor ex, et blandit urna. Morbi sed posuere tellus. Aliquam eleifend risus metus, quis malesuada dui condimentum non. Aenean egestas in nunc at porttitor. Donec vel fringilla turpis. Curabitur sed metus vel libero accumsan elementum. Nulla ac aliquet nibh. Donec hendrerit lacus felis, aliquam fermentum sem scelerisque sed. Donec vestibulum lacus eget commodo egestas. Etiam vel molestie velit, sit amet bibendum dui. Donec fringilla turpis lectus, vel tempus tellus varius vel. Integer sapien arcu, faucibus at orci quis, placerat consequat sapien. Quisque placerat bibendum odio in sodales. In tincidunt id nibh in pharetra.</p>
+                    } else{
+                        <p class="text-sm">@Model.PatientFile.Notes</p>
+                    }
                 </div>
+            </div>
+            <div class="col-span-1">
                 @if (User.IsInAnyRole("Therapist", "Student"))
                 {
                     <div class="mt-4">
                         <h1 class="font-source text-xl font-bold text-fysio-header mb-2">Private notes</h1>
-                        <p class="text-sm">
-                            @Model.PatientFile.Notes
-                        </p>
+                         @if (@Model.PatientFile.PrivateNotes == null)
+                         {
+                             <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse egestas ligula id magna gravida tempor. Morbi sed tempor ex, et blandit urna. Morbi sed posuere tellus. Aliquam eleifend risus metus, quis malesuada dui condimentum non.</p>
+                         } else{
+                             <p class="text-sm">@Model.PatientFile.PrivateNotes</p>
+                         }
                     </div>
                 }
             </div>
-            <div class="col-span-2">
+            <div class="col-span-2 mt-8">
                 <h1 class="font-source text-xl font-bold text-fysio-header mb-2">Appointments (@Model.Appointments.Count)</h1>
                 @foreach (var appointment in @Model.Appointments)
                 {
@@ -185,16 +193,17 @@
                             </a>
                                 @if (User.IsInAnyRole("Therapist", "Student"))
                                 {
-                                    <div class="flex flex-1 justify-end my-auto">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
-                                        </svg>
-                                        @if (treatment.AddedDate.ToString("dd/MM/yyyy") == DateTime.Today.ToString("dd/MM/yyyy"))
-                                        {
+                                    @if (treatment.AddedDate.ToString("dd/MM/yyyy") == DateTime.Today.ToString("dd/MM/yyyy"))
+                                    {
+                                        <div class="flex flex-1 justify-end my-auto">
+                                            <svg v-on:click="goto('/treatment/edit/@treatment.Id')" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                                            </svg>
+                                        
                                             <div>
                                                 <svg v-on:click="curModalId = @treatment.Id" xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-red-400 ml-2 hover:scale-120 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -212,8 +221,8 @@
                                                     </div>
                                                 </transition>
                                             </div>
-                                        }
-                                    </div>
+                                        </div>
+                                    }
                                 }
                         </div>
                     </div>
