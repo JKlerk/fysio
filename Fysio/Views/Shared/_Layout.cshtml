@@ -80,7 +80,7 @@
                     </a>
                     @if (User.IsInRole("Patient"))
                     {
-                        <a href="/patients/profile" class="flex my-5 p-2 hover:bg-fysio-light select-none">
+                        <a href="/patients/profile" class="flex my-5 p-2 hover:bg-fysio-light select-none" v-bind:class="{ 'bg-fysio-light': getCurrentPage() === 'patients' }">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
