@@ -70,21 +70,22 @@
             </div>
         </div>
     </div>
-    <div class="flex mt-2">
-        <div class="flex justify-start">
-            @if (User.IsInRole("Patient"))
-            {
-                <a href="/appointment" class="p-2 text-fysio-header font-bold rounded-lg hover:opacity-75 border border-fysio-header transition-opacity duration-100 text-sm px-5">Back</a>
-            }
-            else
-            {
-                <a href="/patients/details/@Model.Patient.Id" class="p-2 text-fysio-header font-bold rounded-lg hover:opacity-75 border border-fysio-header transition-opacity duration-100 text-sm px-5">Back</a>
-            }
+      <div class="flex">
+            <a class="btn-back" href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+            <div class="flex flex-1 justify-end">
+                <div class="flex">
+                    <div v-if="isLoading" class="sk-chase mr-4 my-auto">
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                    </div>
+                    <button v-on:click="isLoading = true" value="Create" type="submit" class="btn">
+                        Add appointment
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="flex flex-1 justify-end">
-            <button value="Create" type="submit" class="btn">
-                Add appointment
-            </button>
-        </div>
-    </div>
 </form>

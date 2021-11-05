@@ -66,9 +66,19 @@
             <div class="flex">
                 <a class="btn-back" href="/patients">Back</a>
                 <div class="flex flex-1 justify-end px-6">
-                    <button value="Create" type="submit" class="btn">
-                        Add patient
-                    </button>
+                    <div class="flex">
+                        <div v-if="isLoading" class="sk-chase mr-4 my-auto">
+                          <div class="sk-chase-dot"></div>
+                          <div class="sk-chase-dot"></div>
+                          <div class="sk-chase-dot"></div>
+                          <div class="sk-chase-dot"></div>
+                          <div class="sk-chase-dot"></div>
+                          <div class="sk-chase-dot"></div>
+                        </div>
+                        <button v-on:click="isLoading = true" value="Create" type="submit" class="btn">
+                            Add patient
+                        </button>
+                    </div>
                 </div>
             </div>
         </form>

@@ -74,14 +74,24 @@
             <span asp-validation-for="Treatment.Description" class="text-danger"></span>
         </div>
     </div>
-    <div class="flex">
-        <a class="btn-back" href="javascript:void(0);" onclick="history.go(-1);">Back</a>
-        <div class="flex flex-1 justify-end px-6">
-            <button value="Create" type="submit" class="btn">
-                Add Treatmentplan
-            </button>
+      <div class="flex">
+            <a class="btn-back" href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+            <div class="flex flex-1 justify-end">
+                <div class="flex">
+                    <div v-if="isLoading" class="sk-chase mr-4 my-auto">
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                    </div>
+                    <button v-on:click="isLoading = true" value="Create" type="submit" class="btn">
+                        Add treatmentplan
+                    </button>
+                </div>
+            </div>
         </div>
-    </div>
 </form>
 <script type="application/javascript">
 $(document).ready(function() {

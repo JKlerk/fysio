@@ -230,7 +230,17 @@
                 @if (User.IsInAnyRole("Therapist", "Student"))
                 {
                     <div class="flex justify-center mt-10">
-                        <a href="/treatment/create/@Model.PatientFile.TreatmentPlan.Id" class="p-2 bg-fysio-header text-white font-bold rounded-lg hover:opacity-75 transition-opacity duration-100 text-sm">+ Add new treatment</a>
+                        <div class="flex">
+                             <div v-if="isLoading" class="sk-chase mr-4 my-auto">
+                                 <div class="sk-chase-dot"></div>
+                                 <div class="sk-chase-dot"></div>
+                                 <div class="sk-chase-dot"></div>
+                                 <div class="sk-chase-dot"></div>
+                                 <div class="sk-chase-dot"></div>
+                                 <div class="sk-chase-dot"></div>
+                             </div>
+                            <a v-on:click="isLoading = true" href="/treatment/create/@Model.PatientFile.TreatmentPlan.Id" class="p-2 bg-fysio-header text-white font-bold rounded-lg hover:opacity-75 transition-opacity duration-100 text-sm">+ Add new treatment</a>
+                        </div>
                     </div>
                 }
             }

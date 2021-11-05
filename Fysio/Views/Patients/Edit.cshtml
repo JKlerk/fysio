@@ -67,12 +67,22 @@
                         <!-- DOSSIER STUFF -->
                         @await Html.PartialAsync("_PatientFile", Model)
                     }
-                    <div class="flex mt-5">
-                        <a class="btn-back" href="/patients/details/@Model.Patient.Id">Back</a>
+                    <div class="flex">
+                        <a class="btn-back" href="javascript:void(0);" onclick="history.go(-1);">Back</a>
                         <div class="flex flex-1 justify-end">
-                            <button value="Create" type="submit" class="btn">
-                                Save patient
-                            </button>
+                            <div class="flex">
+                                <div v-if="isLoading" class="sk-chase mr-4 my-auto">
+                                  <div class="sk-chase-dot"></div>
+                                  <div class="sk-chase-dot"></div>
+                                  <div class="sk-chase-dot"></div>
+                                  <div class="sk-chase-dot"></div>
+                                  <div class="sk-chase-dot"></div>
+                                  <div class="sk-chase-dot"></div>
+                                </div>
+                                <button v-on:click="isLoading = true" value="Create" type="submit" class="btn">
+                                    Save patient
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </form>
