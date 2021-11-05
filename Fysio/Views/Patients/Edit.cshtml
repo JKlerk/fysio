@@ -67,8 +67,8 @@
                         <!-- DOSSIER STUFF -->
                         @await Html.PartialAsync("_PatientFile", Model)
                     }
-                    <div class="flex">
-                        <a class="btn-back" href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+                    <div class="flex mt-4">
+                        <a class="btn-back" href="/patients/details/@Model.Patient.Id">Back</a>
                         <div class="flex flex-1 justify-end">
                             <div class="flex">
                                 <div v-if="isLoading" class="sk-chase mr-4 my-auto">

@@ -175,7 +175,7 @@ namespace Fysio.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(PatientViewModel patientViewModel, int? id)
+        public async Task<IActionResult> Edit(PatientViewModel patientViewModel, int id)
         {
             if (id == null) return NotFound();
 
@@ -185,8 +185,7 @@ namespace Fysio.Controllers
             if (ModelState.IsValid)
             {
                 Core.Domain.Patient patient = patientViewModel.Patient.ConvertToDomain();
-                Core.Domain.PatientFile patientFile = patientViewModel.Patient.PatientFile.ConvertToDomain();
-                
+                patient.Id = id;
                 if (User.IsInRole("Patient"))
                 {
                     // if(!_patientRepository.isOwner(User.Identity.Name, patient)) return NotFound();
@@ -200,6 +199,7 @@ namespace Fysio.Controllers
                 _patientRepository.SaveChanges();
                 if (oldPatient.PatientFile != null)
                 {
+                    Core.Domain.PatientFile patientFile = patientViewModel.Patient.PatientFile.ConvertToDomain();
                     patientFile.PatientId = patient.Id;
                     patientFile.Age = patient.CalculateAge();
                     patientFile.Id = oldPatient.PatientFile.Id;
@@ -209,6 +209,7 @@ namespace Fysio.Controllers
                 }
                 else
                 {
+                    Core.Domain.PatientFile patientFile = patientViewModel.Patient.PatientFile.ConvertToDomain();
                     patientFile.PatientId = patient.Id;
                     patientFile.Age = patient.CalculateAge();
                     _patientFileRepository.Add(patientFile);
