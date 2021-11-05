@@ -13,14 +13,14 @@
     </head>
 
     <body class="min-h-screen flex">
-        <div class="w-2/12 p-5" style="background-color: rgb(246, 244, 245)">
+        <div id="appnav" class="w-2/12 p-5" style="background-color: rgb(246, 244, 245)">
             <div class="flex">
                 <img src="~/img/joey.png" class="h-12" alt="Sample Photo" />
                 <h1 class="text-3xl mb-10 uppercase text-fysio-header">Fysio</h1>
             </div>
             <div class="mx-auto">
                 <ul class="text-gray-600 font-source">
-                    <a href="/" class="flex my-3 rounded-lg p-2 bg-fysio-light">
+                    <a href="/" class="flex my-3 rounded-lg p-2" v-bind:class="{ 'bg-fysio-light': getCurrentPage() === '' }">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -39,7 +39,7 @@
                     </a>
                     @if (User.IsInRole("Therapist") || User.IsInRole("Student"))
                     {
-                        <a href="/patients" class="flex my-3 rounded-lg p-2 hover:bg-fysio-light select-none">
+                        <a href="/patients" class="flex my-3 rounded-lg p-2 hover:bg-fysio-light select-none" v-bind:class="{ 'bg-fysio-light': getCurrentPage() === 'patients' }">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
@@ -59,7 +59,7 @@
                             <li class="my-auto ml-3">Patients</li>
                         </a>
                     }
-                    <a href="/appointment" class="flex my-5 rounded-lg p-2 hover:bg-fysio-light select-none">
+                    <a href="/appointment" class="flex my-5 rounded-lg p-2 hover:bg-fysio-light select-none" v-bind:class="{ 'bg-fysio-light': getCurrentPage() === 'appointment' }">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -78,26 +78,27 @@
                         </svg>
                         <li class="my-auto ml-3">Appointments</li>
                     </a>
-                    
-                    <a href="/patients/profile" class="flex my-5 p-2 hover:bg-fysio-light select-none">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="feather feather-database"
-                        >
-                            <ellipse cx="12" cy="5" rx="9" ry="3" />
-                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
-                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-                        </svg>
-                        <li class="my-auto ml-3">Profile</li>
-                    </a>
+                    @if (User.IsInRole("Patient"))
+                    {
+                        <a href="/patients/profile" class="flex my-5 p-2 hover:bg-fysio-light select-none">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="feather feather-database">
+                                <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+                            </svg>
+                            <li class="my-auto ml-3">Profile</li>
+                        </a>
+                    }
                     <a href="/user/logout" class="flex my-5 p-2 hover:bg-fysio-light select-none">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -152,10 +153,26 @@ new Vue({
     methods:{
         goto(value){
             window.location.href = value;
+        },
+        getCurrentPage(){
+            return window.location.pathname.split('/')[1]
         }
     },
     created() {
         console.log("Vue running");
+    },
+});
+
+new Vue({
+    el: "#appnav",
+    
+    methods:{
+        getCurrentPage(){
+            return window.location.pathname.split('/')[1]
+        }
+    },
+    created() {
+        console.log(this.getCurrentPage());
     },
 });
 </script>
