@@ -86,7 +86,6 @@ namespace Fysio.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register(UserModel um)
         {
-            // TODO: Added check if user is already registered
             if (ModelState.IsValid)
             {
                 if (um.Password != um.ConfirmPassword)
