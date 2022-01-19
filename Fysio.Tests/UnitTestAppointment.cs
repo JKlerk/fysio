@@ -168,21 +168,23 @@ namespace Fysio.Tests
         }
         
         [Fact(DisplayName = "BR_2")]
-        public void IsNotAvailableInSchedule()
+        public async void IsNotAvailableInSchedule()
         {
 
-            var plannedDate = DateTime.Now.AddYears(1);
+            var PatientIdentity = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType); ;
+            PatientIdentity.AddClaim(new Claim(ClaimTypes.Name, "Pascal.Stoop"));
+            PatientIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, "Pascal.Stoop"));
+            PatientIdentity.AddClaim(new Claim(ClaimTypes.Role, "Patient"));
 
-                // SETUP
-            Appointment appointment = new Appointment
+            var context = new ControllerContext
             {
-                Id = 1,
-                PatientId = 1,
-                TherapistId = 1,
-                TreatmentId = 1,
-                AddedDate = default,
-                Date = plannedDate
+                HttpContext = new DefaultHttpContext
+                {
+                    User = new ClaimsPrincipal(PatientIdentity)
+                }
             };
+            
+            var plannedDate = DateTime.Now.AddYears(5);
             
             Therapist therapist = new Therapist
             {
@@ -193,30 +195,78 @@ namespace Fysio.Tests
                 ScheduleStart = DateTime.Now,
                 ScheduleEnd = DateTime.Now.AddYears(1),
                 StudentNumber = "2168734",
-                Appointments = new List<Appointment>
-                {
-                    new Appointment
-                    {
-                        Id = 1,
-                        PatientId = 1,
-                        TherapistId = 1,
-                        TreatmentId = 1,
-                        AddedDate = default,
-                        Date = plannedDate
-                    }
-                },
+                Appointments = new List<Appointment>(),
                 BigNumber = "1231313131",
+            };
+            
+            Patient patient = new Patient
+            {
+                Id = 1,
+                PatientNumber = Guid.NewGuid().ToString(),
+                StaffNumber = "12321321321",
+                BigNumber = "1232131313",
+                Name = "Pascal Stoop",
+                Email = "test@test.com",
+                Gender = "Male",
+                Appointments = new List<Appointment>(),
+                Birthdate = DateTime.Today,
+                PhoneNumber = "0612823332",
+                PatientFile = new PatientFile(),
+            };
+            Treatment treatment = new Treatment
+            {
+                Id = 1,
+                TreatmentPlanId = 1,
+                Type = "1000",
+                Description = "description",
+                TherapistId = 1,
+                TreatmentPlan = new TreatmentPlan
+                {
+                    Id = 1,
+                    PatientFileId = 1,
+                    MaxTreatments = 0,
+                    StartTime = DateTime.Now,
+                    EndTime = default
+                },
+                AddedDate = DateTime.Now,
+                FinishDate = null
+            };
+            
+            Appointment appointment = new Appointment
+            {
+                Id = 1,
+                PatientId = patient.Id,
+                TherapistId = therapist.Id,
+                TreatmentId = 1,
+                AddedDate = default,
+                Date = plannedDate
             };
 
             var therapistRepo = new Mock<ITherapistRepository>();
+            var appointmentRepo = new Mock<IAppointmentRepository>();
+            var patientRepo = new Mock<IPatientRepository>();
+            var treatmentRepo = new Mock<ITreatmentRepository>();
             
             var service = new Mock<IServiceProvider>();
             therapistRepo.Setup(x => x.Find(therapist.Id)).Returns(therapist);
+            treatmentRepo.Setup(x => x.Find(treatment.Id)).Returns(treatment);
+            patientRepo.Setup(x => x.FindByName(PatientIdentity.Name)).Returns(patient);
+            patientRepo.Setup(x => x.Find(patient.Id)).Returns(patient);
             service.Setup(x => x.GetService(typeof(ITherapistRepository))).Returns(therapistRepo.Object);
 
-            var isGood = validateModelState(appointment.ConvertToModel(), service.Object);
+            var controller = new AppointmentController(appointmentRepo.Object, patientRepo.Object, therapistRepo.Object, treatmentRepo.Object);
+            controller.ControllerContext = context;
+            
+            var appointmentViewModel = new AppointmentViewModel();
+            appointmentViewModel.Appointment = appointment.ConvertToModel();
 
+            // Validates modelstate
+            var isGood = validateModelState(appointment.ConvertToModel(), service.Object);
             Assert.False(isGood);
+            
+            var result = await controller.Create(appointmentViewModel);
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("Index", redirectToActionResult.ActionName);
         }
 
         [Fact(DisplayName = "BR_6")]
