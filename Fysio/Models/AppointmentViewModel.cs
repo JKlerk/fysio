@@ -16,6 +16,6 @@ namespace Fysio.Models
         {
             Therapists = new List<Therapist>();
             Therapists = therapists;
-        } 
+        }
     }
 }

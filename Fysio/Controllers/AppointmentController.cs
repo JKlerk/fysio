@@ -48,7 +48,7 @@ namespace Fysio.Controllers
         
         [HttpGet]
         [Authorize(Roles = "Patient")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             var patient = _patientRepository.FindByName(User.Identity.Name);
             if (patient == null) return NotFound();
@@ -59,6 +59,11 @@ namespace Fysio.Controllers
             appointmentViewModel.Treatments = treatments;
             appointmentViewModel.AddTherapists(_therapistRepository.GetAll());
             
+            foreach (var treatment in treatments)
+            {
+                var result = await _treatmentRepository.GetTreatmentType(Int32.Parse(treatment.Type)); 
+                treatment.Type = result.TreatmentCode + ": " + result.Description;
+            }
 
             return View(appointmentViewModel);
         }
@@ -69,23 +74,18 @@ namespace Fysio.Controllers
         {
             var patient = _patientRepository.Find(id);
             if (patient == null) return NotFound();
-            var therapist = _therapistRepository.FindByName(User.Identity.Name);
-            if (therapist == null) return NotFound();
-
-            
             List<Models.Treatment> treatments = setTreatments(patient);
             
             AppointmentViewModel appointmentViewModel = new AppointmentViewModel();
             appointmentViewModel.Treatments = treatments;
+            appointmentViewModel.AddTherapists(_therapistRepository.GetAll());
             appointmentViewModel.Patient = patient.ConvertToModel();
-
             foreach (var treatment in treatments)
             {
                 var result = await _treatmentRepository.GetTreatmentType(Int32.Parse(treatment.Type)); 
                 treatment.Type = result.TreatmentCode + ": " + result.Description;
             }
 
-            appointmentViewModel.TherapistId = therapist.Id;
             return View("Create", appointmentViewModel);
         }
         
@@ -94,13 +94,6 @@ namespace Fysio.Controllers
         {
             if(ModelState.IsValid)
             {
-                if (User.IsInAnyRole("Therapist", "Student"))
-                {
-                    var therapist = _therapistRepository.FindByName(User.Identity.Name);
-                    if (therapist == null) return NotFound();
-                    appointmentViewModel.TherapistId = therapist.Id;
-                }
-
                 if (appointmentViewModel.Appointment.TreatmentId != null)
                 {
                     var id = appointmentViewModel.Appointment.TreatmentId;
@@ -180,6 +173,7 @@ namespace Fysio.Controllers
                 appointmentViewModel.Treatments = treatments;
                 appointmentViewModel.Patient = data.ConvertToModel();
                 appointmentViewModel.TherapistId = appointmentViewModel.Appointment.TherapistId;
+                appointmentViewModel.AddTherapists(_therapistRepository.GetAll());
                 foreach (var treatment in treatments)
                 {
                     var result = await _treatmentRepository.GetTreatmentType(Int32.Parse(treatment.Type)); 
@@ -199,10 +193,8 @@ namespace Fysio.Controllers
             return View(appointmentViewModel);
         }
         
-        
-        // TODO: Implement this stuff
         [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             var appointment = _appointmentRepository.Find(id);
             if (appointment == null) return NotFound();
@@ -235,11 +227,17 @@ namespace Fysio.Controllers
             
             appointmentViewModel.Treatments = t.Treatments;
             appointmentViewModel.AddTherapists(_therapistRepository.GetAll());
-
+            
+            foreach (var treatment in appointmentViewModel.Treatments)
+            {
+                var result = await _treatmentRepository.GetTreatmentType(Int32.Parse(treatment.Type)); 
+                treatment.Type = result.TreatmentCode + ": " + result.Description;
+            }
+            
             return View(appointmentViewModel);
         }
         [HttpPost]
-        public IActionResult Edit(AppointmentViewModel appointmentViewModel)
+        public async Task<IActionResult> Edit(AppointmentViewModel appointmentViewModel)
         {
             
             var oldAppointment = _appointmentRepository.Find(appointmentViewModel.Appointment.Id);
@@ -264,9 +262,15 @@ namespace Fysio.Controllers
             {
                 tm.Treatments.Add(treatment.ConvertToModel());
             }
-            
             appointmentViewModel.Treatments = tm.Treatments;
             appointmentViewModel.AddTherapists(_therapistRepository.GetAll());
+            
+            foreach (var treatment in appointmentViewModel.Treatments)
+            {
+                var result = await _treatmentRepository.GetTreatmentType(Int32.Parse(treatment.Type)); 
+                treatment.Type = result.TreatmentCode + ": " + result.Description;
+            }
+            
             return View(appointmentViewModel);
         }
         

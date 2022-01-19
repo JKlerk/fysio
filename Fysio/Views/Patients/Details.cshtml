@@ -104,12 +104,7 @@
             <div class="col-span-1">
                 <div>
                     <h1 class="font-source text-xl font-bold text-fysio-header mb-2">Notes</h1>
-                    @if (@Model.PatientFile.Notes == null)
-                    {
-                        <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse egestas ligula id magna gravida tempor. Morbi sed tempor ex, et blandit urna. Morbi sed posuere tellus. Aliquam eleifend risus metus, quis malesuada dui condimentum non. Aenean egestas in nunc at porttitor. Donec vel fringilla turpis. Curabitur sed metus vel libero accumsan elementum. Nulla ac aliquet nibh. Donec hendrerit lacus felis, aliquam fermentum sem scelerisque sed. Donec vestibulum lacus eget commodo egestas. Etiam vel molestie velit, sit amet bibendum dui. Donec fringilla turpis lectus, vel tempus tellus varius vel. Integer sapien arcu, faucibus at orci quis, placerat consequat sapien. Quisque placerat bibendum odio in sodales. In tincidunt id nibh in pharetra.</p>
-                    } else{
-                        <p class="text-sm">@Model.PatientFile.Notes</p>
-                    }
+                    <p class="text-sm">@(@Model.PatientFile.Notes ?? "No notes available")</p>
                 </div>
             </div>
             <div class="col-span-1">
@@ -117,12 +112,7 @@
                 {
                     <div class="mt-4">
                         <h1 class="font-source text-xl font-bold text-fysio-header mb-2">Private notes</h1>
-                         @if (@Model.PatientFile.PrivateNotes == null)
-                         {
-                             <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse egestas ligula id magna gravida tempor. Morbi sed tempor ex, et blandit urna. Morbi sed posuere tellus. Aliquam eleifend risus metus, quis malesuada dui condimentum non.</p>
-                         } else{
-                             <p class="text-sm">@Model.PatientFile.PrivateNotes</p>
-                         }
+                        <p class="text-sm">@(@Model.PatientFile.PrivateNotes ?? "No private notes available")</p>
                     </div>
                 }
             </div>

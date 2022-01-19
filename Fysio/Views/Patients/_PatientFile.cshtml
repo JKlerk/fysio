@@ -181,11 +181,10 @@
         <div class="mt-6">
             <label for="notes" class="block text-sm font-medium text-gray-700">Private notes: </label>
             <textarea
-                disabled
                 asp-for="Patient.PatientFile.PrivateNotes"
                 placeholder="A lot of text"
                 type="text"
-                name="Patient.PatientFile.Notes"
+                name="Patient.PatientFile.PrivateNotes"
                 id="notes"
                 autocomplete="off"
                 class="ipt mt-1 outline-none block focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
@@ -193,11 +192,6 @@
         </div>
     </div>
     <!-- END DOSSIER STUFF -->
-    @* <div class="flex flex-1 justify-end mt-5 pb-6 px-6"> *@
-    @*     <button style="background-color: #00b4d8" value="Create" type="submit" class="hover:bg-blue-600 rounded-lg text-white p-2 text-center text-sm font-bold"> *@
-    @*         Add patient *@
-    @*     </button> *@
-    @* </div> *@
 </div>
 <script type="application/javascript">
 $(document).ready(function() {

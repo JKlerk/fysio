@@ -1,9 +1,9 @@
 ﻿@model AppointmentViewModel
 <form method="post" action="/appointment/create/" class="">
     @Html.AntiForgeryToken()
-    @if (Model.TherapistId != 0)
+    @if (Model.Patient != null)
     {
-        <input type="number" hidden="" name="Appointment.TherapistId" value="@Model.TherapistId" />
+        <input type="number" hidden="" name="Appointment.PatientId" value="@Model.Patient.Id" />
     }
     <div class="pb-5">
         <div>
@@ -15,8 +15,7 @@
     <div class="py-5 font-roboto">
         <div class="grid grid-cols-4 gap-6">
             <div class="col-span-1">
-                @if (Model.Patient == null){
-                    <label for="practitioner" class="block text-sm font-medium text-gray-700">Therapist:</label>
+                <label for="practitioner" class="block text-sm font-medium text-gray-700">Therapist:</label>
                     <select
                         id="practitioner"
                         name="Appointment.TherapistId"
@@ -30,19 +29,6 @@
                         }
                     </select>
                     <span asp-validation-for="Appointment.TherapistId" class="text-danger"></span>
-                }
-                else
-                {
-                    <label for="practitioner" class="block text-sm font-medium text-gray-700">Patient:</label>
-                    <select
-                        id="practitioner"
-                        name="Appointment.PatientId"
-                        autocomplete="off"
-                        class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                        <option selected value="@Model.Patient.Id">@Model.Patient.Name</option>
-                        <span asp-validation-for="Appointment.PatientId" class="text-danger"></span>
-                    </select>
-                }
                 <span asp-validation-for="Appointment.TherapistId" class="text-danger"></span>
             </div>
         </div>
@@ -54,7 +40,7 @@
                     name="Appointment.TreatmentId"
                     autocomplete="off"
                     class="ipt mt-1 outline-none block w-full py-2 px-3 bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option value="@null">Seperate appointment</option>
+                    <option value="@null">Separate appointment</option>
                     @foreach (var treatment in Model.Treatments)
                     {
                         <option value="@treatment.Id">@treatment.Type</option>
