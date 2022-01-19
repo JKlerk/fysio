@@ -177,7 +177,7 @@ namespace Fysio.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(PatientViewModel patientViewModel, int id)
         {
-            if (id == null) return NotFound();
+            if (id == 0) return NotFound();
 
             var oldPatient = _patientRepository.Find(id);
             if (oldPatient == null) return NotFound();
