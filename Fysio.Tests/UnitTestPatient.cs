@@ -39,7 +39,6 @@ namespace Fysio.Tests
                 Gender = "Male",
                 Birthdate = DateTime.Now,
                 PhoneNumber = "0612823332",
-                PatientFile = new PatientFile(),
             };
 
 
