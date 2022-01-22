@@ -137,7 +137,7 @@ namespace Fysio.Tests
                 {
                     Id = 1,
                     PatientFileId = 1,
-                    MaxTreatments = 0,
+                    MaxTreatments = 1,
                     StartTime = DateTime.Now,
                     EndTime = default
                 },
@@ -241,6 +241,32 @@ namespace Fysio.Tests
                 AddedDate = default,
                 Date = plannedDate
             };
+            
+            List<Therapist> therapists = new List<Therapist>()
+            {
+                new Therapist
+                {
+                    Id = 1,
+                    Name = "Jantje therapist",
+                    Email = "test@test.com",
+                    PhoneNumber = "062872132131",
+                    ScheduleStart = DateTime.Now,
+                    ScheduleEnd = DateTime.Now.AddYears(1),
+                    StudentNumber = "2168734",
+                    BigNumber = "1231313131",
+                },
+                new Therapist
+                {
+                    Id = 2,
+                    Name = "Jantje therapist",
+                    Email = "test@test.com",
+                    PhoneNumber = "062872132131",
+                    ScheduleStart = DateTime.Now,
+                    ScheduleEnd = DateTime.Now.AddYears(1),
+                    StudentNumber = "2168734",
+                    BigNumber = "1231313131",
+                }
+            };
 
             var therapistRepo = new Mock<ITherapistRepository>();
             var appointmentRepo = new Mock<IAppointmentRepository>();
@@ -249,6 +275,7 @@ namespace Fysio.Tests
             
             var service = new Mock<IServiceProvider>();
             therapistRepo.Setup(x => x.Find(therapist.Id)).Returns(therapist);
+            therapistRepo.Setup(x => x.GetAll()).Returns(therapists);
             treatmentRepo.Setup(x => x.Find(treatment.Id)).Returns(treatment);
             patientRepo.Setup(x => x.FindByName(PatientIdentity.Name)).Returns(patient);
             patientRepo.Setup(x => x.Find(patient.Id)).Returns(patient);
@@ -265,8 +292,7 @@ namespace Fysio.Tests
             Assert.False(isGood);
             
             var result = await controller.Create(appointmentViewModel);
-            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("Index", redirectToActionResult.ActionName);
+            Assert.IsType<ViewResult>(result);
         }
 
         [Fact(DisplayName = "BR_6")]
