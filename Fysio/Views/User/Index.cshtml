@@ -1,1 +1,5 @@
-﻿<h1>Index</h1>
+﻿@using Fysio.Models.Extensions
+@if (User.IsInAnyRole("Therapist", "Student"))
+{
+    <a class="btn" href="/user/profile">Go to availablity</a>
+}

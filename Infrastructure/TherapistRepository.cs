@@ -7,7 +7,7 @@ namespace Infrastructure
 {
     public class TherapistRepository : ITherapistRepository
     {
-        private FysioContext _context;
+        private readonly FysioContext _context;
 
         public TherapistRepository(FysioContext context)
         {
@@ -28,6 +28,17 @@ namespace Infrastructure
             {
                 return null;
             }
+        }
+
+        public void Update(Therapist therapist)
+        {
+            var oldData = _context.Therapists.First(x => x.Id == therapist.Id);
+            therapist.Email = oldData.Email;
+            therapist.PhoneNumber = oldData.PhoneNumber;
+            therapist.Name = oldData.Name;
+            therapist.StudentNumber = oldData.StudentNumber;
+            therapist.BigNumber = oldData.BigNumber;
+            _context.Entry(oldData).CurrentValues.SetValues(therapist);
         }
 
         public Therapist FindByName(string name)
@@ -53,6 +64,11 @@ namespace Infrastructure
             {
                 return null;
             }
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
         }
     }
 }

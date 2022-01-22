@@ -1,0 +1,43 @@
+﻿@model Therapist 
+<form method="post" action="/user/profile/" class="">
+    @Html.AntiForgeryToken()
+    <div class="pb-5">
+        <div>
+            <h3 class="text-lg leading-6 font-bold font-source text-fysio-header">Therapist</h3>
+            <p class="mt-1 max-w-2xl text-sm text-gray-500 font-roboto">Therapist details and schedule.</p>
+        </div>
+    </div>
+    <hr/>
+    <div class="py-5 font-roboto">
+        <div class="grid grid-cols-4 gap-6">
+            <div class="col-span-6 sm:col-span-3">
+                <label for="birthdate" class="block text-sm font-medium text-gray-700">Schedule start</label>
+                @Html.EditorFor(m => m.ScheduleStart, new { htmlAttributes = new { @class = "ipt" } })
+                <span asp-validation-for="ScheduleStart" class="text-danger"></span>
+            </div>
+            <div class="col-span-6 sm:col-span-3">
+                <label for="birthdate" class="block text-sm font-medium text-gray-700">Schedule end</label>
+                @Html.EditorFor(m => m.ScheduleEnd, new { htmlAttributes = new { @class = "ipt" } })
+                <span asp-validation-for="ScheduleEnd" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+      <div class="flex">
+            <a class="btn-back" href="/patients">to Patients</a>
+            <div class="flex flex-1 justify-end">
+                <div class="flex">
+                    <div v-if="isLoading" class="sk-chase mr-4 my-auto">
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                    </div>
+                    <button v-on:click="isLoading = true" value="Create" type="submit" class="btn">
+                        Edit availability
+                    </button>
+                </div>
+            </div>
+        </div>
+</form>

@@ -15,10 +15,10 @@ namespace Fysio.Models
 
         public string PhoneNumber { get; set; }
         
-        [DataType(DataType.Date, ErrorMessage = "Enter a valid date")]
+        [DataType(DataType.DateTime, ErrorMessage = "Enter a valid date")]
         public DateTime ScheduleStart { get; set; }
         
-        [DataType(DataType.Date, ErrorMessage = "Enter a valid date")]
+        [DataType(DataType.DateTime, ErrorMessage = "Enter a valid date")]
         public DateTime ScheduleEnd { get; set; }
         public string StudentNumber { get; set; }
 

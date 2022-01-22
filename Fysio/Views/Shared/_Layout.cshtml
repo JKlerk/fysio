@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Fysio.Models.Extensions
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -127,7 +128,14 @@
             <div class="py-6 w-full border-b">
                 <div class="flex flex-1 justify-end">
                     <a class="flex transition-colors duration-100 px-2 rounded-lg">
-                        <p class="mr-4 my-auto">@Context.User.Identity.Name</p>
+                        @if (User.IsInAnyRole("Therapist", "Student"))
+                        {
+                            <a href="/user/profile/" class="mr-4 my-auto">@Context.User.Identity.Name</a>
+                        }
+                        else
+                        {
+                            <p class="mr-4 my-auto">@Context.User.Identity.Name</p>
+                        }
                         <div class="bg-gray-100 p-1 rounded-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-fysio-header my-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>

@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using Core.Domain;
 using Core.DomainServices;
 using Fysio.Models;
+using Fysio.Models.Extensions;
 using Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Image = Core.Domain.Image;
+using Therapist = Fysio.Models.Therapist;
 
 namespace Fysio.Controllers
 {
@@ -22,14 +24,17 @@ namespace Fysio.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IPatientRepository _patientRepository;
         private readonly IImageRepository _imageRepository;
+
+        private readonly ITherapistRepository _therapistRepository;
         // private readonly UserRepository _userRepository;
         
-        public UserController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IPatientRepository patientRepository, IImageRepository imageRepository)
+        public UserController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IPatientRepository patientRepository, IImageRepository imageRepository, ITherapistRepository therapistRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _patientRepository = patientRepository;
             _imageRepository = imageRepository;
+            _therapistRepository = therapistRepository;
             // _userRepository = userRepository;
         }
 
@@ -51,6 +56,29 @@ namespace Fysio.Controllers
         public IActionResult Register()
         {
             return View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Therapist,Student")]
+        public IActionResult Profile()
+        {
+            var username = User.Identity?.Name;
+            var therapist = _therapistRepository.FindByName(username);
+            return View(therapist.ConvertToModel());
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Therapist,Student")]
+        public IActionResult Profile(Therapist t)
+        {
+            var username = User.Identity?.Name;
+            var therapist = _therapistRepository.FindByName(username);
+
+            t.Id = therapist.Id;
+            _therapistRepository.Update(t.ConvertToDomain());
+            _therapistRepository.SaveChanges();
+            
+            return View(therapist.ConvertToModel());
         }
         
         [HttpPost]

@@ -32,6 +32,21 @@ namespace Fysio.Models.Extensions
             };
         }
         
+        public static Core.Domain.Therapist ConvertToDomain(this Therapist t)
+        {
+            return new Core.Domain.Therapist
+            {
+                Id = t.Id,
+                Name = t.Name,
+                Email = t.Email,
+                PhoneNumber = t.PhoneNumber,
+                ScheduleStart = t.ScheduleStart,
+                ScheduleEnd = t.ScheduleEnd,
+                StudentNumber = t.StudentNumber,
+                BigNumber = t.BigNumber,
+            };
+        }
+        
         
         public static Core.Domain.PatientFile ConvertToDomain(this PatientFile pf)
         {
