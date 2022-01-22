@@ -108,7 +108,7 @@ namespace Fysio.Controllers
                         appointments = _patientRepository.Find(appointmentViewModel.Appointment.PatientId).Appointments;
                     }
                     
-                    if (appointments.Count > tp.TreatmentPlan.MaxTreatments)
+                    if (appointments.Count >= tp.TreatmentPlan.MaxTreatments)
                     {
                         
                         if (User.IsInAnyRole("Therapist", "Student"))
@@ -190,6 +190,13 @@ namespace Fysio.Controllers
             
             appointmentViewModel.Treatments = treatments2;
             appointmentViewModel.AddTherapists(_therapistRepository.GetAll());
+            
+            foreach (var treatment in treatments2)
+            {
+                var result = await _treatmentRepository.GetTreatmentType(Int32.Parse(treatment.Type)); 
+                treatment.Type = result.TreatmentCode + ": " + result.Description;
+            }
+            
             return View(appointmentViewModel);
         }
         
