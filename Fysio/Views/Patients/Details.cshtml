@@ -124,22 +124,14 @@
                             </div>
                         }
                     </div>
+
+                    <div class="w-full btn mt-5">
+                        <a href="/patients/note/@Model.Id" value="Create" type="submit">
+                            Add Note
+                        </a>
+                    </div>
                 }
-                <div class="w-full btn mt-5">
-                    <a href="/patients/note/@Model.Id" value="Create" type="submit">
-                        Add Note
-                    </a>
-                </div>
             </div>
-            @* <div class="col-span-1"> *@
-            @*     @if (User.IsInAnyRole("Therapist", "Student")) *@
-            @*     { *@
-            @*         <div class="mt-4"> *@
-            @*             <h1 class="font-source text-xl font-bold text-fysio-header mb-2">Private notes</h1> *@
-            @*             <p class="text-sm">@(@Model.PatientFile.PrivateNotes ?? "No private notes available")</p> *@
-            @*         </div> *@
-            @*     } *@
-            @* </div> *@
             <div class="col-span-2 mt-8">
                 <h1 class="font-source text-xl font-bold text-fysio-header mb-2">Appointments (@Model.Appointments.Count)</h1>
                 @foreach (var appointment in @Model.Appointments)
