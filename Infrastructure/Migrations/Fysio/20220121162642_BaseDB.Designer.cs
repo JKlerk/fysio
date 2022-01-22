@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations.Fysio
 {
     [DbContext(typeof(FysioContext))]
-    [Migration("20211029201858_BaseDB")]
+    [Migration("20220121162642_BaseDB")]
     partial class BaseDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,6 +75,55 @@ namespace Infrastructure.Migrations.Fysio
                     b.ToTable("Images");
                 });
 
+            modelBuilder.Entity("Core.Domain.Note", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PatientFileId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Placer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("VisibleForPatient")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PatientFileId");
+
+                    b.ToTable("Notes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedOn = new DateTime(2022, 1, 21, 17, 26, 41, 904, DateTimeKind.Local).AddTicks(2352),
+                            PatientFileId = 1,
+                            Placer = "Pascal stoop",
+                            Text = "Public Note 1",
+                            VisibleForPatient = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedOn = new DateTime(2022, 1, 21, 17, 26, 41, 904, DateTimeKind.Local).AddTicks(2970),
+                            PatientFileId = 1,
+                            Placer = "Pascal stoop",
+                            Text = "Public Note 1",
+                            VisibleForPatient = true
+                        });
+                });
+
             modelBuilder.Entity("Core.Domain.Patient", b =>
                 {
                     b.Property<int>("Id")
@@ -118,7 +167,7 @@ namespace Infrastructure.Migrations.Fysio
                             Email = "kate@test.com",
                             Gender = "Female",
                             Name = "Kate Velasquez",
-                            PatientNumber = "9a5f21e8-a102-43ce-9a61-354d3298f5cc",
+                            PatientNumber = "3ddcc65f-de78-481c-8b2e-0a71cd07aa45",
                             PhoneNumber = "0612121212",
                             StaffNumber = "2168734"
                         },
@@ -129,7 +178,7 @@ namespace Infrastructure.Migrations.Fysio
                             Email = "emily@test.com",
                             Gender = "Female",
                             Name = "Emily Fariello",
-                            PatientNumber = "0451dd1b-2a9f-4fcc-9207-d2960291d974",
+                            PatientNumber = "5728719f-d266-4d81-9a41-e5a10f58d82c",
                             PhoneNumber = "0612121212",
                             StaffNumber = "2168734"
                         });
@@ -157,17 +206,11 @@ namespace Infrastructure.Migrations.Fysio
                     b.Property<int?>("InterviewerId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
 
                     b.Property<int?>("PractitionerId")
                         .HasColumnType("int");
-
-                    b.Property<string>("PrivateNotes")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("RegisterDate")
                         .HasColumnType("datetime2");
@@ -200,7 +243,6 @@ namespace Infrastructure.Migrations.Fysio
                             DiagnoseCode = "BCH-1000",
                             DischargeDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             InterviewerId = 1,
-                            Notes = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui molestiae unde voluptates aperiam quas quaerat minus perferendis tenetur fuga provident, nemo abexplicabo vitae at numquam quo. Dolorum, enim saepe.",
                             PatientId = 1,
                             PractitionerId = 1,
                             RegisterDate = new DateTime(2002, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -249,8 +291,8 @@ namespace Infrastructure.Migrations.Fysio
                             Email = "p.stoop@avans.nl",
                             Name = "Pascal Stoop",
                             PhoneNumber = "0612121212",
-                            ScheduleEnd = new DateTime(2022, 10, 29, 22, 18, 57, 734, DateTimeKind.Local).AddTicks(9506),
-                            ScheduleStart = new DateTime(2021, 10, 29, 22, 18, 57, 733, DateTimeKind.Local).AddTicks(5331),
+                            ScheduleEnd = new DateTime(2023, 1, 21, 17, 26, 41, 903, DateTimeKind.Local).AddTicks(4445),
+                            ScheduleStart = new DateTime(2022, 1, 21, 17, 26, 41, 902, DateTimeKind.Local).AddTicks(1229),
                             StudentNumber = "null"
                         },
                         new
@@ -260,8 +302,8 @@ namespace Infrastructure.Migrations.Fysio
                             Email = "a.biyikli@avans.nl",
                             Name = "Ali Biyikli",
                             PhoneNumber = "0612121212",
-                            ScheduleEnd = new DateTime(2022, 10, 29, 22, 18, 57, 734, DateTimeKind.Local).AddTicks(9863),
-                            ScheduleStart = new DateTime(2021, 10, 29, 22, 18, 57, 734, DateTimeKind.Local).AddTicks(9853),
+                            ScheduleEnd = new DateTime(2023, 1, 21, 17, 26, 41, 903, DateTimeKind.Local).AddTicks(4802),
+                            ScheduleStart = new DateTime(2022, 1, 21, 17, 26, 41, 903, DateTimeKind.Local).AddTicks(4792),
                             StudentNumber = "null"
                         });
                 });
@@ -363,6 +405,17 @@ namespace Infrastructure.Migrations.Fysio
                     b.Navigation("Patient");
                 });
 
+            modelBuilder.Entity("Core.Domain.Note", b =>
+                {
+                    b.HasOne("Core.Domain.PatientFile", "PatientFile")
+                        .WithMany("Notes")
+                        .HasForeignKey("PatientFileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PatientFile");
+                });
+
             modelBuilder.Entity("Core.Domain.PatientFile", b =>
                 {
                     b.HasOne("Core.Domain.Therapist", "Interviewer")
@@ -433,6 +486,8 @@ namespace Infrastructure.Migrations.Fysio
 
             modelBuilder.Entity("Core.Domain.PatientFile", b =>
                 {
+                    b.Navigation("Notes");
+
                     b.Navigation("TreatmentPlan");
                 });
 

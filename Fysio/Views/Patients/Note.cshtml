@@ -1,0 +1,49 @@
+﻿@model PatientViewModel 
+<form method="post" action="/patients/note/@Model.Patient.Id" class="">
+    @Html.AntiForgeryToken()
+    <div class="pb-5">
+        <div>
+            <h3 class="text-lg leading-6 font-bold font-source text-fysio-header">Patient note</h3>
+            <p class="mt-1 max-w-2xl text-sm text-gray-500 font-roboto">Adding a note to a patient</p>
+        </div>
+    </div>
+    <hr/>
+    <div class="py-5 font-roboto">
+            <div class="grid grid-cols-6 mt-6 gap-x-6">
+                <div class="col-span-4">
+                    <label for="notes" class="block text-sm font-medium text-gray-700">Notes: </label>
+                    <textarea
+                    asp-for="@Model.PatientFile.Notes[0].Text"
+                    placeholder="A lot of text"
+                    type="text"
+                    name="PatientFile.Notes[0].Text"
+                    id="notes"
+                    autocomplete="off"
+                    class="ipt mt-1 outline-none block focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
+                ></textarea>
+                </div>
+                <div class="col-span-2 flex my-auto">
+                    <label for="VisibleForPatient" class="block text-sm font-medium text-gray-700 inline w-full">Note visible for patient?</label>
+                    @Html.EditorFor(m => m.PatientFile.Notes[0].VisibleForPatient, new { htmlAttributes = new { @class = "ipt text-sm" } })
+                </div>
+            </div>
+    </div>
+      <div class="flex">
+            <a class="btn-back" href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+            <div class="flex flex-1 justify-end">
+                <div class="flex">
+                    <div v-if="isLoading" class="sk-chase mr-4 my-auto">
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                    </div>
+                    <button v-on:click="isLoading = true" value="Create" type="submit" class="btn">
+                        Add note
+                    </button>
+                </div>
+            </div>
+        </div>
+</form>

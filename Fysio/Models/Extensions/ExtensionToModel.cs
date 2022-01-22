@@ -1,4 +1,6 @@
-﻿namespace Fysio.Models.Extensions
+﻿using System.Linq;
+
+namespace Fysio.Models.Extensions
 {
     public static class ExtensionToModel
     {
@@ -54,6 +56,18 @@
             
         }
         
+        public static Note ConvertToModal(this Core.Domain.Note n)
+        {
+            return new Note
+            {
+                PatientFileId = n.PatientFileId,
+                Text = n.Text,
+                CreatedOn = n.CreatedOn,
+                Placer = n.Placer,
+                VisibleForPatient = n.VisibleForPatient
+            };
+        }
+        
         public static PatientFile ConvertToModel(this Core.Domain.PatientFile pf)
         {
             return new PatientFile
@@ -67,8 +81,7 @@
                 PractitionerId = pf.PractitionerId,
                 RegisterDate = pf.RegisterDate,
                 DischargeDate = pf.DischargeDate,
-                Notes = pf.Notes,
-                PrivateNotes = pf.PrivateNotes,
+                Notes = pf.Notes.Select(n => n.ConvertToModal()).ToList(),
                 TherapistType = pf.TherapistType,
                 PatientId = pf.PatientId,
             };

@@ -15,11 +15,10 @@ namespace Infrastructure
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Therapist> Therapists { get; set; }
         public DbSet<PatientFile> PatientFiles { get; set; }
+        public DbSet<Note> Notes { get; set; }
         public DbSet<TreatmentPlan> TreatmentPlans { get; set; }
-        
         public DbSet<Image> Images { get; set; }
         public DbSet<Treatment> Treatments { get; set; }
-
         public DbSet<Appointment> Appointments { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -27,7 +26,7 @@ namespace Infrastructure
             List<Patient> patientsSeeder = new PatientSeeder().patients; 
             List<Therapist> therapistsSeeder = new TherapistSeeder().therapists;
             List<PatientFile> patientFileSeeder = new PatientFileSeeder(therapistsSeeder.ToList(), patientsSeeder.ToList()).patientFiles;
-            
+            List<Note> noteSeeder = new NoteSeeder(patientFileSeeder).notes;
             
             modelBuilder.Entity<Patient>().ToTable("Patients");
             modelBuilder.Entity<Patient>().HasOne(p => p.PatientFile).WithOne(pf => pf.Patient).OnDelete(DeleteBehavior.Cascade);
@@ -41,10 +40,17 @@ namespace Infrastructure
             
             modelBuilder.Entity<PatientFile>().HasOne(pf => pf.Patient).WithOne(p => p.PatientFile).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<PatientFile>().HasOne(pf => pf.TreatmentPlan).WithOne(tp => tp.PatientFile).OnDelete(DeleteBehavior.Cascade);
-            
+
             modelBuilder.Entity<PatientFile>().HasOne(pf => pf.Interviewer);
             modelBuilder.Entity<PatientFile>().HasOne(pf => pf.Practitioner);
             modelBuilder.Entity<PatientFile>().HasOne(pf => pf.Supervisor);
+            modelBuilder.Entity<PatientFile>().HasMany(n => n.Notes).WithOne(n => n.PatientFile)
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<Note>().ToTable("Notes");
+            modelBuilder.Entity<Note>().HasData(noteSeeder);
+            modelBuilder.Entity<Note>().HasOne(n => n.PatientFile).WithMany(pf => pf.Notes)
+                .OnDelete(DeleteBehavior.Cascade);
             
             modelBuilder.Entity<TreatmentPlan>().ToTable("TreatmentPlans");
             modelBuilder.Entity<TreatmentPlan>().HasOne(tp => tp.PatientFile).WithOne(pf => pf.TreatmentPlan).OnDelete(DeleteBehavior.Cascade);

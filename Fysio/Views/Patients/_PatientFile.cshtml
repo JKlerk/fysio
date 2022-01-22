@@ -1,4 +1,5 @@
-﻿@model PatientViewModel;
+﻿@using Fysio.Models.Extensions
+@model PatientViewModel;
 <div class="">
     <div class="py-5">
         <div>
@@ -149,47 +150,25 @@
         </div>
         @if (@Model.Patient.PatientFile.Notes == null)
         {
-            <div class="mt-6">
-                <label for="notes" class="block text-sm font-medium text-gray-700">Notes: </label>
-                <textarea
-                    asp-for="Patient.PatientFile.Notes"
+            <div class="grid grid-cols-6 mt-6 gap-x-6">
+                <div class="col-span-4">
+                    <label for="notes" class="block text-sm font-medium text-gray-700">Notes: </label>
+                    <textarea
+                    asp-for="Patient.PatientFile.Notes[0].Text"
                     placeholder="A lot of text"
                     type="text"
-                    name="Patient.PatientFile.Notes"
+                    name="Patient.PatientFile.Notes[0].Text"
                     id="notes"
                     autocomplete="off"
                     class="ipt mt-1 outline-none block focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
                 ></textarea>
+                </div>
+                <div class="col-span-2 flex my-auto">
+                    <label for="VisibleForPatient" class="block text-sm font-medium text-gray-700 inline w-full">Note visible for patient?</label>
+                    @Html.EditorFor(m => m.Patient.PatientFile.Notes[0].VisibleForPatient, new { htmlAttributes = new { @class = "ipt text-sm" } })
+                </div>
             </div>
         }
-        else
-        {
-            <div class="mt-6">
-                <label for="notes" class="block text-sm font-medium text-gray-700">Notes: </label>
-                <textarea
-                    disabled
-                    asp-for="Patient.PatientFile.Notes"
-                    placeholder="A lot of text"
-                    type="text"
-                    name="Patient.PatientFile.Notes"
-                    id="notes"
-                    autocomplete="off"
-                    class="ipt mt-1 outline-none block focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
-                ></textarea>
-            </div>
-        }
-        <div class="mt-6">
-            <label for="notes" class="block text-sm font-medium text-gray-700">Private notes: </label>
-            <textarea
-                asp-for="Patient.PatientFile.PrivateNotes"
-                placeholder="A lot of text"
-                type="text"
-                name="Patient.PatientFile.PrivateNotes"
-                id="notes"
-                autocomplete="off"
-                class="ipt mt-1 outline-none block focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm"
-            ></textarea>
-        </div>
     </div>
     <!-- END DOSSIER STUFF -->
 </div>

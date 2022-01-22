@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
+using Note = Core.Domain.Note;
 using Patient = Fysio.Models.Patient;
 using PatientFile = Fysio.Models.PatientFile;
 
@@ -24,14 +25,16 @@ namespace Fysio.Controllers
         private readonly IPatientFileRepository _patientFileRepository;
         private readonly ITreatmentPlanRepository _treatmentPlanRepository;
         private readonly ITreatmentRepository _treatmentRepository;
+        private readonly INoteRepository _noteRepository;
 
-        public PatientsController(IPatientRepository patientRepository, ITherapistRepository therapistRepository, IPatientFileRepository patientFileRepository, ITreatmentPlanRepository treatmentPlanRepository, ITreatmentRepository treatmentRepository)
+        public PatientsController(IPatientRepository patientRepository, ITherapistRepository therapistRepository, IPatientFileRepository patientFileRepository, ITreatmentPlanRepository treatmentPlanRepository, ITreatmentRepository treatmentRepository, INoteRepository noteRepository)
         {
             _patientRepository = patientRepository;
             _therapistRepository = therapistRepository;
             _patientFileRepository = patientFileRepository;
             _treatmentPlanRepository = treatmentPlanRepository;
             _treatmentRepository = treatmentRepository;
+            _noteRepository = noteRepository;
         }
 
         // GET: Patients
@@ -126,6 +129,14 @@ namespace Fysio.Controllers
                 patientFile.Age = patient.CalculateAge();
                 _patientFileRepository.Add(patientFile);
                 _patientFileRepository.SaveChanges();
+
+                var note = patientFile.Notes[0];
+                note.PatientFileId = patientFile.Id;
+                note.Placer = User.Identity.Name;
+                note.CreatedOn = DateTime.Now;
+                note.Id = 0;
+                _noteRepository.Add(note);
+                _noteRepository.SaveChanges();
                 
                 treatmentPlan.PatientFileId = patientFile.Id;
                 _treatmentPlanRepository.Add(treatmentPlan);
@@ -218,14 +229,49 @@ namespace Fysio.Controllers
                 return Redirect("/patients/details/" + patient.Id);
             }
 
-            if (patientViewModel.Patient.PatientFile.Notes != null)
-            {
-                patientViewModel.Patient.PatientFile.Notes = oldPatient.PatientFile.ConvertToModel().Notes;
-            }
-
             patientViewModel.AddTherapists(_therapistRepository.GetAll());
             patientViewModel.Diagnoses = await _patientFileRepository.GetDiagnoses();
             return View(patientViewModel);
+        }
+        
+        [HttpGet]
+        public IActionResult Note(int? id)
+        {
+            if (id == null) return NotFound(); 
+            
+            var patient = _patientRepository.Find(id);
+            if (patient == null) return NotFound();
+
+            PatientViewModel patientViewModel = new PatientViewModel();
+            patientViewModel.Patient = patient.ConvertToModel();
+            
+            if(User.IsInAnyRole("Therapist", "Student")) return View(patientViewModel);
+
+            return NotFound();
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Note(PatientViewModel patientViewModel, int? id)
+        {
+            if (id == null) return NotFound(); 
+            
+            var patient = _patientRepository.Find(id);
+            if (patient == null) return NotFound();
+
+            var note = new Note();
+            note.PatientFileId = patient.PatientFile.Id;
+            note.Placer = User.Identity.Name;
+            note.CreatedOn = DateTime.Now;
+            note.Id = 0;
+            note.Text = patientViewModel.PatientFile.Notes[0].Text;
+            note.VisibleForPatient = patientViewModel.PatientFile.Notes[0].VisibleForPatient;
+            _noteRepository.Add(note);
+            _noteRepository.SaveChanges();
+            
+            if(User.IsInAnyRole("Therapist", "Student")) return Redirect("/patients/details/" + patient.Id);
+
+            return NotFound();
         }
         
         [HttpPost, ActionName("Delete")]

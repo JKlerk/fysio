@@ -21,8 +21,7 @@ namespace Infrastructure.Seeders
                     InterviewerId = therapists[0].Id, 
                     SupervisorId = therapists[0].Id, 
                     PractitionerId = therapists[0].Id, 
-                    RegisterDate = DateTime.Parse("2002-09-01"), 
-                    Notes = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui molestiae unde voluptates aperiam quas quaerat minus perferendis tenetur fuga provident, nemo abexplicabo vitae at numquam quo. Dolorum, enim saepe.", 
+                    RegisterDate = DateTime.Parse("2002-09-01"),
                     TherapistType = "Student",
                     PatientId = patients[0].Id
                 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Core.Domain;
 using Fysio.Validators;
 
 namespace Fysio.Models
@@ -36,9 +37,8 @@ namespace Fysio.Models
         [DataType(DataType.Date, ErrorMessage = "Enter a valid date")]
         [NotPast(ErrorMessage = "Register date can not be in the past")]
         public DateTime DischargeDate { get; set; }
-
-        public string PrivateNotes { get; set; }
-        public string Notes { get; set; }
+        
+        public virtual List<Note> Notes { get; set; }
 
         [Required]
         public string TherapistType { get; set; }

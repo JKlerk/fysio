@@ -80,8 +80,6 @@ namespace Infrastructure.Migrations.Fysio
                     PractitionerId = table.Column<int>(type: "int", nullable: true),
                     RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DischargeDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PrivateNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TherapistType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PatientId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -112,6 +110,29 @@ namespace Infrastructure.Migrations.Fysio
                         principalTable: "Therapists",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Notes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Placer = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VisibleForPatient = table.Column<bool>(type: "bit", nullable: false),
+                    PatientFileId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Notes_PatientsFile_PatientFileId",
+                        column: x => x.PatientFileId,
+                        principalTable: "PatientsFile",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -206,8 +227,8 @@ namespace Infrastructure.Migrations.Fysio
                 columns: new[] { "Id", "BigNumber", "Birthdate", "Email", "Gender", "Name", "PatientNumber", "PhoneNumber", "StaffNumber" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2002, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "kate@test.com", "Female", "Kate Velasquez", "9a5f21e8-a102-43ce-9a61-354d3298f5cc", "0612121212", "2168734" },
-                    { 2, null, new DateTime(2002, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "emily@test.com", "Female", "Emily Fariello", "0451dd1b-2a9f-4fcc-9207-d2960291d974", "0612121212", "2168734" }
+                    { 1, null, new DateTime(2002, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "kate@test.com", "Female", "Kate Velasquez", "3ddcc65f-de78-481c-8b2e-0a71cd07aa45", "0612121212", "2168734" },
+                    { 2, null, new DateTime(2002, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "emily@test.com", "Female", "Emily Fariello", "5728719f-d266-4d81-9a41-e5a10f58d82c", "0612121212", "2168734" }
                 });
 
             migrationBuilder.InsertData(
@@ -215,14 +236,24 @@ namespace Infrastructure.Migrations.Fysio
                 columns: new[] { "Id", "BigNumber", "Email", "Name", "PhoneNumber", "ScheduleEnd", "ScheduleStart", "StudentNumber" },
                 values: new object[,]
                 {
-                    { 1, "12345678901", "p.stoop@avans.nl", "Pascal Stoop", "0612121212", new DateTime(2022, 10, 29, 22, 18, 57, 734, DateTimeKind.Local).AddTicks(9506), new DateTime(2021, 10, 29, 22, 18, 57, 733, DateTimeKind.Local).AddTicks(5331), "null" },
-                    { 2, "12345678901", "a.biyikli@avans.nl", "Ali Biyikli", "0612121212", new DateTime(2022, 10, 29, 22, 18, 57, 734, DateTimeKind.Local).AddTicks(9863), new DateTime(2021, 10, 29, 22, 18, 57, 734, DateTimeKind.Local).AddTicks(9853), "null" }
+                    { 1, "12345678901", "p.stoop@avans.nl", "Pascal Stoop", "0612121212", new DateTime(2023, 1, 21, 17, 26, 41, 903, DateTimeKind.Local).AddTicks(4445), new DateTime(2022, 1, 21, 17, 26, 41, 902, DateTimeKind.Local).AddTicks(1229), "null" },
+                    { 2, "12345678901", "a.biyikli@avans.nl", "Ali Biyikli", "0612121212", new DateTime(2023, 1, 21, 17, 26, 41, 903, DateTimeKind.Local).AddTicks(4802), new DateTime(2022, 1, 21, 17, 26, 41, 903, DateTimeKind.Local).AddTicks(4792), "null" }
                 });
 
             migrationBuilder.InsertData(
                 table: "PatientsFile",
-                columns: new[] { "Id", "Age", "Description", "DiagnoseCode", "DischargeDate", "InterviewerId", "Notes", "PatientId", "PractitionerId", "PrivateNotes", "RegisterDate", "SupervisorId", "TherapistType" },
-                values: new object[] { 1, 18, "Big description", "BCH-1000", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui molestiae unde voluptates aperiam quas quaerat minus perferendis tenetur fuga provident, nemo abexplicabo vitae at numquam quo. Dolorum, enim saepe.", 1, 1, null, new DateTime(2002, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Student" });
+                columns: new[] { "Id", "Age", "Description", "DiagnoseCode", "DischargeDate", "InterviewerId", "PatientId", "PractitionerId", "RegisterDate", "SupervisorId", "TherapistType" },
+                values: new object[] { 1, 18, "Big description", "BCH-1000", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, 1, new DateTime(2002, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Student" });
+
+            migrationBuilder.InsertData(
+                table: "Notes",
+                columns: new[] { "Id", "CreatedOn", "PatientFileId", "Placer", "Text", "VisibleForPatient" },
+                values: new object[] { 1, new DateTime(2022, 1, 21, 17, 26, 41, 904, DateTimeKind.Local).AddTicks(2352), 1, "Pascal stoop", "Public Note 1", true });
+
+            migrationBuilder.InsertData(
+                table: "Notes",
+                columns: new[] { "Id", "CreatedOn", "PatientFileId", "Placer", "Text", "VisibleForPatient" },
+                values: new object[] { 2, new DateTime(2022, 1, 21, 17, 26, 41, 904, DateTimeKind.Local).AddTicks(2970), 1, "Pascal stoop", "Public Note 1", true });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_PatientId",
@@ -244,6 +275,11 @@ namespace Infrastructure.Migrations.Fysio
                 table: "Images",
                 column: "PatientId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notes_PatientFileId",
+                table: "Notes",
+                column: "PatientFileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PatientsFile_InterviewerId",
@@ -290,6 +326,9 @@ namespace Infrastructure.Migrations.Fysio
 
             migrationBuilder.DropTable(
                 name: "Images");
+
+            migrationBuilder.DropTable(
+                name: "Notes");
 
             migrationBuilder.DropTable(
                 name: "Treatments");

@@ -1,29 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Core.Domain;
 using Core.DomainServices;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
-    public class ImageRepository : IImageRepository
+    public class NoteRepository : INoteRepository
     {
         private readonly FysioContext _context;
 
-        public ImageRepository(FysioContext context)
+        public NoteRepository(FysioContext context)
         {
             _context = context;
         }
 
-        public List<Image> GetAll()
+        public List<Note> GetAll()
         {
-            return _context.Images.ToList();
+            return _context.Notes.ToList();
         }
 
-        public void Add(Image image)
+        public void Add(Note note)
         {
-            _context.Images.Add(image);
+            _context.Notes.Add(note);
         }
 
         public void SaveChanges()

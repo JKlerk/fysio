@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Fysio.Models.Extensions
 {
@@ -18,9 +19,28 @@ namespace Fysio.Models.Extensions
                 PhoneNumber = p.PhoneNumber,
             };
         }
+
+        public static Core.Domain.Note ConvertToDomain(this Note n)
+        {
+            return new Core.Domain.Note
+            {
+                PatientFileId = n.PatientFileId,
+                Text = n.Text,
+                CreatedOn = n.CreatedOn,
+                Placer = n.Placer,
+                VisibleForPatient = n.VisibleForPatient
+            };
+        }
+        
         
         public static Core.Domain.PatientFile ConvertToDomain(this PatientFile pf)
         {
+            var notes = new List<Core.Domain.Note>();
+            if (pf.Notes != null)
+            {
+                notes = pf.Notes.Select(n => n.ConvertToDomain()).ToList();
+            }
+
             return new Core.Domain.PatientFile
             {
                 Age = pf.Age,
@@ -31,8 +51,7 @@ namespace Fysio.Models.Extensions
                 PractitionerId = pf.PractitionerId,
                 RegisterDate = pf.RegisterDate,
                 DischargeDate = pf.DischargeDate,
-                PrivateNotes = pf.PrivateNotes,
-                Notes = pf.Notes,
+                Notes = notes,
                 TherapistType = pf.TherapistType,
                 PatientId = pf.PatientId,
             };

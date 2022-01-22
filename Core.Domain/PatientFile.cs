@@ -27,9 +27,8 @@ namespace Core.Domain
 
         public DateTime DischargeDate { get; set; }
 
-        public string PrivateNotes { get; set; }
-        public string Notes { get; set; }
-
+        public virtual List<Note> Notes { get; set; }
+        
         public string TherapistType { get; set; }
         
         public int PatientId { get; set; }
