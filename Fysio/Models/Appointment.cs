@@ -24,7 +24,7 @@ namespace Fysio.Models
         
         [Required]
         [NotPast(ErrorMessage = "Your appointment can not be in the past")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime Date { get; set; }
     }
 }
