@@ -150,12 +150,6 @@ namespace Fysio.Controllers
                 
                 Appointment appointment = appointmentViewModel.Appointment.ConvertToDomain();
                 appointment.PatientId = oldPatient.Id;
-                if (User.IsInAnyRole("Therapist", "Student"))
-                {
-                    var therapist = _therapistRepository.FindByName(User.Identity.Name);
-                    if (therapist == null) return NotFound();
-                    appointment.TherapistId = therapist.Id;
-                }
                 appointment.AddedDate = DateTime.Now;
                 _appointmentRepository.Add(appointment);
                 _appointmentRepository.SaveChanges();
