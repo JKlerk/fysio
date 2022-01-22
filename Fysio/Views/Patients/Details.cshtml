@@ -112,16 +112,19 @@
                         </div>
                     }
                 </div>
-                <div class="mt-5">
-                    <h1 class="font-source text-xl font-bold text-fysio-header mb-2">Private Notes</h1>
-                    @foreach (var note in @Model.PatientFile.Notes.FindAll(x => !x.VisibleForPatient))
-                    {
-                        <div class="text-sm shadow p-4">
-                            <p class="text-sm">@note.Text</p>
-                            <p class="text-gray-500 mt-1">Placed by: @note.Placer</p>
-                        </div>
-                    }
-                </div>
+                @if (User.IsInAnyRole("Therapist", "Student"))
+                {
+                    <div class="mt-5">
+                        <h1 class="font-source text-xl font-bold text-fysio-header mb-2">Private Notes</h1>
+                        @foreach (var note in @Model.PatientFile.Notes.FindAll(x => !x.VisibleForPatient))
+                        {
+                            <div class="text-sm shadow p-4">
+                                <p class="text-sm">@note.Text</p>
+                                <p class="text-gray-500 mt-1">Placed by: @note.Placer</p>
+                            </div>
+                        }
+                    </div>
+                }
                 <div class="w-full btn mt-5">
                     <a href="/patients/note/@Model.Id" value="Create" type="submit">
                         Add Note
