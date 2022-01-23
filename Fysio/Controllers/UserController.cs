@@ -26,8 +26,7 @@ namespace Fysio.Controllers
         private readonly IImageRepository _imageRepository;
 
         private readonly ITherapistRepository _therapistRepository;
-        // private readonly UserRepository _userRepository;
-        
+
         public UserController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IPatientRepository patientRepository, IImageRepository imageRepository, ITherapistRepository therapistRepository)
         {
             _userManager = userManager;
@@ -35,7 +34,6 @@ namespace Fysio.Controllers
             _patientRepository = patientRepository;
             _imageRepository = imageRepository;
             _therapistRepository = therapistRepository;
-            // _userRepository = userRepository;
         }
 
         [HttpGet]

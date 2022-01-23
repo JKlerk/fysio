@@ -199,7 +199,6 @@ namespace Fysio.Controllers
                 patient.Id = id;
                 if (User.IsInRole("Patient"))
                 {
-                    // if(!_patientRepository.isOwner(User.Identity.Name, patient)) return NotFound();
                     _patientRepository.Update(patient);
                     _patientRepository.SaveChanges();
                     return Redirect("/patients/details/" + patient.Id);
