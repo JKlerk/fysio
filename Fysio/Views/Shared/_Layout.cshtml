@@ -79,6 +79,7 @@
                         </svg>
                         <li class="my-auto ml-3">Appointments</li>
                     </a>
+                    @await Component.InvokeAsync("Appointment")
                     @if (User.IsInRole("Patient"))
                     {
                         <a href="/patients/profile" class="flex my-5 p-2 hover:bg-fysio-light select-none" v-bind:class="{ 'bg-fysio-light': getCurrentPage() === 'patients' }">

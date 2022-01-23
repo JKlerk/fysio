@@ -1,0 +1,10 @@
+﻿@model List<Core.Domain.Appointment>
+
+
+ @foreach (var appointment in @Model)
+ {
+     <div class="border p-2">
+         <p>Appointment with: @if(@User.IsInRole("Patient")) { @appointment.Therapist.Name } else{ @appointment.Patient.Name } </p> 
+         <p>On: @appointment.Date</p>
+    </div>
+ }

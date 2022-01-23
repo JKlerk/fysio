@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FysioAPI", "FysioAPI\FysioA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.WebService", "Infrastructure.WebService\Infrastructure.WebService.csproj", "{3158AC8C-D329-49EC-AC78-0004CD0FC868}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fysio.Tests", "Fysio.Tests\Fysio.Tests.csproj", "{8E578CDD-1235-4903-A189-7A0755B08B7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fysio.Tests", "Fysio.Tests\Fysio.Tests.csproj", "{8E578CDD-1235-4903-A189-7A0755B08B7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
